@@ -3,10 +3,9 @@ starter repo for Enteprise and Mobile project case
 
 ## Project members
 
-- Name1
-- Name2
-- Name3
-- Name4
+- Jegor Rysskin
+- Jordy Verbeek
+- Dries Thoelen
 
 ## ToDo
 
