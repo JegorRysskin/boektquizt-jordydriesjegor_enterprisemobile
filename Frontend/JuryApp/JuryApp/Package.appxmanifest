@@ -8,11 +8,11 @@
   IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="435FC61E-5C6A-4A60-AA45-F3BC5189AD56"
+    Name="4EE619A1-4BE0-43B9-BAEA-6BC46205FEAD"
     Publisher="CN=Jegor-Laptop"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="435FC61E-5C6A-4A60-AA45-F3BC5189AD56" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="4EE619A1-4BE0-43B9-BAEA-6BC46205FEAD" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>JuryApp</DisplayName>
@@ -48,7 +48,6 @@
   </Applications>
 
   <Capabilities>
-    <Capability Name="internetClientServer" />
     <Capability Name="internetClient" />
   </Capabilities>
 

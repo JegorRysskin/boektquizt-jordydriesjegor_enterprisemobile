@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="JuryApp.Views.TeamsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Style="{StaticResource PageStyle}"
+    mc:Ignorable="d">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
+        <Grid
+            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <!--
+                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
+                Place your content here.
+            -->
+            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Items}"
+                      IsItemClickEnabled="False"
+                      IsSwipeEnabled="False"
+                      CanDragItems="False"
+                      SelectionMode="None"
+                      ItemClick="Teams_OnItemClick_ItemClick"
+                      HorizontalAlignment="Center">
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Padding="80" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                            <TextBlock Text="{Binding TeamId}"/>
+                            <TextBlock Text="{Binding TeamName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+        </Grid>
+    </Grid>
+</Page>

@@ -6,14 +6,14 @@ using Windows.UI.Xaml.Controls;
 
 namespace JuryApp.Views
 {
-    public sealed partial class LogInPage : Page
+    public sealed partial class QuizzenPage : Page
     {
-        private LogInViewModel ViewModel
+        private QuizzenViewModel ViewModel
         {
-            get { return ViewModelLocator.Current.LogInViewModel; }
+            get { return ViewModelLocator.Current.QuizzenViewModel; }
         }
 
-        public LogInPage()
+        public QuizzenPage()
         {
             InitializeComponent();
         }

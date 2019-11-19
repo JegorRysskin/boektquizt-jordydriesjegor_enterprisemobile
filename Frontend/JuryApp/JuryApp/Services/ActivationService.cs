@@ -4,9 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using JuryApp.Activation;
-using JuryApp.Core.Helpers;
-using JuryApp.Core.Services;
-using JuryApp.ViewModels;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -24,16 +21,11 @@ namespace JuryApp.Services
 
         private object _lastActivationArgs;
 
-        private IdentityService IdentityService => Singleton<IdentityService>.Instance;
-
-        private UserDataService UserDataService => Singleton<UserDataService>.Instance;
-
         public ActivationService(App app, Type defaultNavItem, Lazy<UIElement> shell = null)
         {
             _app = app;
             _shell = shell;
             _defaultNavItem = defaultNavItem;
-            IdentityService.LoggedIn += OnLoggedIn;
         }
 
         public async Task ActivateAsync(object activationArgs)
@@ -43,13 +35,6 @@ namespace JuryApp.Services
                 // Initialize services that you need before app activation
                 // take into account that the splash screen is shown while this code runs.
                 await InitializeAsync();
-                UserDataService.Initialize();
-                IdentityService.InitializeWithAadAndPersonalMsAccounts();
-                var silentLoginSuccess = await IdentityService.AcquireTokenSilentAsync();
-                if (!silentLoginSuccess || !IdentityService.IsAuthorized())
-                {
-                    await RedirectLoginPageAsync();
-                }
 
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
@@ -62,11 +47,7 @@ namespace JuryApp.Services
 
             // Depending on activationArgs one of ActivationHandlers or DefaultActivationHandler
             // will navigate to the first page
-            if (IdentityService.IsLoggedIn())
-            {
-                await HandleActivationAsync(activationArgs);
-            }
-
+            await HandleActivationAsync(activationArgs);
             _lastActivationArgs = activationArgs;
 
             if (IsInteractive(activationArgs))
@@ -79,26 +60,9 @@ namespace JuryApp.Services
             }
         }
 
-        private async void OnLoggedIn(object sender, EventArgs e)
-        {
-            if (_shell?.Value != null)
-            {
-                Window.Current.Content = _shell.Value;
-            }
-            else
-            {
-                var frame = new Frame();
-                Window.Current.Content = frame;
-                NavigationService.Frame = frame;
-            }
-
-            await ThemeSelectorService.SetRequestedThemeAsync();
-            await HandleActivationAsync(_lastActivationArgs);
-        }
-
         private async Task InitializeAsync()
         {
-            await ThemeSelectorService.InitializeAsync().ConfigureAwait(false);
+            await Task.CompletedTask;
         }
 
         private async Task HandleActivationAsync(object activationArgs)
@@ -123,7 +87,7 @@ namespace JuryApp.Services
 
         private async Task StartupAsync()
         {
-            await ThemeSelectorService.SetRequestedThemeAsync();
+            await Task.CompletedTask;
         }
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
@@ -134,22 +98,6 @@ namespace JuryApp.Services
         private bool IsInteractive(object args)
         {
             return args is IActivatedEventArgs;
-        }
-
-        public async Task RedirectLoginPageAsync()
-        {
-            var frame = new Frame();
-            NavigationService.Frame = frame;
-            Window.Current.Content = frame;
-            await ThemeSelectorService.SetRequestedThemeAsync();
-            NavigationService.Navigate(typeof(LogInViewModel).FullName);
-        }
-
-        public static NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-
-        public void SetShell(Lazy<UIElement> shell)
-        {
-            _shell = shell;
         }
     }
 }

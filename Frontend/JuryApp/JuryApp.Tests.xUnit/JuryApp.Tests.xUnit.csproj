@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{27B83131-72FB-44C9-81EA-AF6F9EFF85AC}</ProjectGuid>
+    <ProjectGuid>{B63D0D44-EC7B-4E36-9B15-D0FD9F1C261C}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JuryApp.Tests.xUnit</RootNamespace>
@@ -146,7 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\JuryApp\JuryApp.csproj">
-      <Project>{F018BED5-2A3F-4E60-A0A1-2609FFDBC550}</Project>
+      <Project>{31007415-24D5-4D50-B72D-176162345512}</Project>
       <Name>JuryApp</Name>
     </ProjectReference>
   </ItemGroup>

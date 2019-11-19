@@ -1,7 +1,5 @@
 ﻿using System;
 
-using JuryApp.Core.Helpers;
-using JuryApp.Core.Services;
 using JuryApp.Services;
 
 using Windows.ApplicationModel.Activation;
@@ -11,8 +9,6 @@ namespace JuryApp
 {
     public sealed partial class App : Application
     {
-        private IdentityService IdentityService => Singleton<IdentityService>.Instance;
-
         private Lazy<ActivationService> _activationService;
 
         private ActivationService ActivationService
@@ -26,7 +22,6 @@ namespace JuryApp
 
             // Deferred execution until used. Check https://msdn.microsoft.com/library/dd642331(v=vs.110).aspx for further info on Lazy<T> class.
             _activationService = new Lazy<ActivationService>(CreateActivationService);
-            IdentityService.LoggedOut += OnLoggedOut;
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -44,18 +39,12 @@ namespace JuryApp
 
         private ActivationService CreateActivationService()
         {
-            return new ActivationService(this, typeof(ViewModels.MasterDetailViewModel), new Lazy<UIElement>(CreateShell));
+            return new ActivationService(this, typeof(ViewModels.MainViewModel), new Lazy<UIElement>(CreateShell));
         }
 
         private UIElement CreateShell()
         {
             return new Views.ShellPage();
-        }
-
-        private async void OnLoggedOut(object sender, EventArgs e)
-        {
-            ActivationService.SetShell(new Lazy<UIElement>(CreateShell));
-            await ActivationService.RedirectLoginPageAsync();
         }
     }
 }

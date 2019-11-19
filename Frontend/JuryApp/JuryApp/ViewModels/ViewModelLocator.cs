@@ -18,16 +18,16 @@ namespace JuryApp.ViewModels
         {
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
             SimpleIoc.Default.Register<ShellViewModel>();
-            Register<MasterDetailViewModel, MasterDetailPage>();
-            Register<SettingsViewModel, SettingsPage>();
-            Register<LogInViewModel, LogInPage>();
+            Register<MainViewModel, MainPage>();
+            Register<QuizzenViewModel, QuizzenPage>();
+            Register<TeamsViewModel, TeamsPage>();
         }
 
-        public LogInViewModel LogInViewModel => SimpleIoc.Default.GetInstance<LogInViewModel>();
+        public TeamsViewModel TeamsViewModel => SimpleIoc.Default.GetInstance<TeamsViewModel>();
 
-        public SettingsViewModel SettingsViewModel => SimpleIoc.Default.GetInstance<SettingsViewModel>();
+        public QuizzenViewModel QuizzenViewModel => SimpleIoc.Default.GetInstance<QuizzenViewModel>();
 
-        public MasterDetailViewModel MasterDetailViewModel => SimpleIoc.Default.GetInstance<MasterDetailViewModel>();
+        public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
 
         public ShellViewModel ShellViewModel => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
