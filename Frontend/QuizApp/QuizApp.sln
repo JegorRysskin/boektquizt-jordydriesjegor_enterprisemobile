@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.Android", "QuizApp\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp.iOS", "QuizApp\QuizApp.iOS\QuizApp.iOS.csproj", "{4213C1B6-C8B1-4978-ADDE-0A121DED4BAD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizApp", "QuizApp\QuizApp\QuizApp.csproj", "{6A46CC4B-4066-4E82-A4DE-67AF89C3C672}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuizApp", "QuizApp\QuizApp\QuizApp.csproj", "{6A46CC4B-4066-4E82-A4DE-67AF89C3C672}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
