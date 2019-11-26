@@ -6,6 +6,13 @@ import java.util.List;
 @Entity
 @Table(name = "quiz")
 public class Quiz {
+    public Quiz() {
+    }
+
+    public Quiz(String name) {
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue
     private int id;

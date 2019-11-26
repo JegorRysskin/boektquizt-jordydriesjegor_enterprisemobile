@@ -1,7 +1,7 @@
 package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.model.Quiz;
-import enterpriseAndMobile.repositories.QuizRepository;
+import enterpriseAndMobile.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
