@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5af9830-6c23-40b4-8994-d9a05d65ea68" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/enterpriseAndMobile/controller/QuizControllerUnitTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/enterpriseAndMobile/controller/QuizRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/enterpriseAndMobile/controller/QuizRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/enterpriseAndMobile/model/Quiz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/enterpriseAndMobile/model/Quiz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/enterpriseAndMobile/service/QuizServiceUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/enterpriseAndMobile/service/QuizServiceUnitTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,18 +19,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/enterpriseAndMobile/controller/QuizRestController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="62" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/enterpriseAndMobile/model/Quiz.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -47,11 +32,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/enterpriseAndMobile/controller/QuizControllerUnitTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="49" column="71" selection-start-line="49" selection-start-column="71" selection-end-line="49" selection-end-column="71" />
+            <state relative-caret-position="367">
+              <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,11 +44,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="45" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/enterpriseAndMobile/service/QuizServiceUnitTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="27" selection-end-column="47" />
+            <state relative-caret-position="374">
+              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="30" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -117,6 +111,7 @@
         <option value="$PROJECT_DIR$/src/test/java/enterpriseAndMobile/service/QuizServiceUnitTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/enterpriseAndMobile/model/Quiz.java" />
         <option value="$PROJECT_DIR$/src/test/java/enterpriseAndMobile/controller/QuizControllerUnitTest.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
       </list>
     </option>
   </component>
@@ -215,6 +210,13 @@
               <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="Backend" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -267,6 +269,10 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -302,7 +308,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.QuizControllerUnitTest.getAllQuizes_FromQuizController">
+  <component name="RunManager" selected="Spring Boot.QuizApplication">
     <configuration name="QuizControllerUnitTest.getAllQuizes_FromQuizController" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="hangry" />
       <extension name="coverage">
@@ -377,7 +383,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574022676124</updated>
       <workItem from="1574022679039" duration="4035000" />
-      <workItem from="1574754198769" duration="6906000" />
+      <workItem from="1574754198769" duration="7496000" />
     </task>
     <task id="LOCAL-00001" summary="Initial backend structure">
       <created>1574756378747</created>
@@ -396,9 +402,21 @@
     <history-entry file="QuizServiceUnitTest_getAllQuizzes - 2019.11.26 at 10h 09m 09s.xml">
       <configuration name="QuizServiceUnitTest.getAllQuizzes" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="QuizControllerUnitTest_getAllQuizes_FromQuizController - 2019.11.26 at 11h 00m 29s.xml">
+      <configuration name="QuizControllerUnitTest.getAllQuizes_FromQuizController" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="QuizControllerUnitTest_getAllQuizes_FromQuizController - 2019.11.26 at 11h 01m 55s.xml">
+      <configuration name="QuizControllerUnitTest.getAllQuizes_FromQuizController" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="QuizControllerUnitTest_getAllQuizes_FromQuizController - 2019.11.26 at 11h 03m 29s.xml">
+      <configuration name="QuizControllerUnitTest.getAllQuizes_FromQuizController" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="QuizControllerUnitTest_getAllQuizes_FromQuizController - 2019.11.26 at 11h 04m 09s.xml">
+      <configuration name="QuizControllerUnitTest.getAllQuizes_FromQuizController" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10941000" />
+    <option name="totallyTimeSpent" value="11531000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -414,7 +432,7 @@
       <window_info id="Structure" order="7" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Messages" weight="0.32936078" />
       <window_info anchor="bottom" id="SonarLint" />
-      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="0" weight="0.32936078" />
       <window_info anchor="bottom" id="Docker" order="1" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Java Enterprise" order="3" />
@@ -423,7 +441,7 @@
       <window_info anchor="bottom" id="Spring" order="6" />
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="Find" order="8" />
-      <window_info anchor="bottom" id="Run" order="9" weight="0.32936078" />
+      <window_info anchor="bottom" id="Run" order="9" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Debug" order="10" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="11" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="12" weight="0.4" />
@@ -486,20 +504,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/enterpriseAndMobile/service/QuizService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#356#357#0" expanded="true" />
-            <element signature="e#375#376#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
-            <element signature="e#475#476#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/enterpriseAndMobile/model/Answer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -526,16 +530,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/enterpriseAndMobile/controller/QuizRestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="62" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/enterpriseAndMobile/repository/QuizRepositoryIntegrationTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
@@ -546,10 +540,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/enterpriseAndMobile/service/QuizServiceUnitTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/enterpriseAndMobile/controller/QuizRestController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="27" selection-end-column="47" />
+        <state relative-caret-position="408">
+          <caret line="24" column="62" selection-start-line="24" selection-start-column="62" selection-end-line="24" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/enterpriseAndMobile/service/QuizService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -568,13 +572,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/enterpriseAndMobile/controller/QuizControllerUnitTest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/enterpriseAndMobile/service/QuizServiceUnitTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="49" column="71" selection-start-line="49" selection-start-column="71" selection-end-line="49" selection-end-column="71" />
+        <state relative-caret-position="374">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="30" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/enterpriseAndMobile/controller/QuizControllerUnitTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="53" column="50" selection-start-line="53" selection-start-column="50" selection-end-line="53" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="45" selection-start-line="1" selection-start-column="45" selection-end-line="1" selection-end-column="51" />
         </state>
       </provider>
     </entry>
