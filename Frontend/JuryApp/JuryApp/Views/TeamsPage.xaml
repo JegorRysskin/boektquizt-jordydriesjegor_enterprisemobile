@@ -17,8 +17,7 @@
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
-                      SelectionMode="None"
-                      ItemClick="Teams_OnItemClick_ItemClick"
+                      SelectionMode="Single"
                       HorizontalAlignment="Center">
                 <GridView.ItemTemplate>
                     <DataTemplate>
