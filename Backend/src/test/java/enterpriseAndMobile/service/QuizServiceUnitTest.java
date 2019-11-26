@@ -1,6 +1,7 @@
 package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.model.Quiz;
+import enterpriseAndMobile.repository.QuizRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,7 +18,7 @@ import static org.mockito.BDDMockito.given;
 @ExtendWith(SpringExtension.class)
 public class QuizServiceUnitTest {
     @MockBean
-    private QuizService quizService;
+    private QuizRepository quizRepository;
 
     @Test
     public void getAllQuizzes(){
@@ -29,8 +30,8 @@ public class QuizServiceUnitTest {
         quizzes.add(quiz1);
         quizzes.add(quiz2);
 
-        given(quizService.getAllQuizzes()).willReturn(quizzes);
+        given(quizRepository.getAllQuizzes()).willReturn(quizzes);
 
-        Assertions.assertEquals(2, quizService.getAllQuizzes().size());
+        Assertions.assertEquals(2, quizRepository.getAllQuizzes().size());
     }
 }
