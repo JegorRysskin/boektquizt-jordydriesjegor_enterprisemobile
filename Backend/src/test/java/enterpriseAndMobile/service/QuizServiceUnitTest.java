@@ -5,8 +5,8 @@ import enterpriseAndMobile.repository.QuizRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -16,12 +16,17 @@ import java.util.List;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = QuizService.class)
 public class QuizServiceUnitTest {
+
     @MockBean
     private QuizRepository quizRepository;
 
+    @Autowired
+    private QuizService quizService;
+
     @Test
-    public void getAllQuizzes(){
+    public void getAllQuizzes() {
         Quiz quiz1 = new Quiz();
         Quiz quiz2 = new Quiz();
 
@@ -31,7 +36,6 @@ public class QuizServiceUnitTest {
         quizzes.add(quiz2);
 
         given(quizRepository.getAllQuizzes()).willReturn(quizzes);
-
-        Assertions.assertEquals(2, quizRepository.getAllQuizzes().size());
+        Assertions.assertEquals(2, quizService.getAllQuizzes().size());
     }
 }
