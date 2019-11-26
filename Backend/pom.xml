@@ -8,10 +8,10 @@
         <version>2.2.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>elision.hangry</groupId>
-    <artifactId>hangry</artifactId>
+    <groupId>enterpriseAndMobile</groupId>
+    <artifactId>QuizApp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hangry</name>
+    <name>QuizApp</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
@@ -52,6 +52,16 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
             <version>2.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
         </dependency>
     </dependencies>
     <build>
