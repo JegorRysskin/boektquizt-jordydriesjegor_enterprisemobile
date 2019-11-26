@@ -1,4 +1,4 @@
-package enterpriseAndMobile.repositories;
+package enterpriseAndMobile.repository;
 
 import enterpriseAndMobile.model.Quiz;
 import org.springframework.data.jpa.repository.JpaRepository;
