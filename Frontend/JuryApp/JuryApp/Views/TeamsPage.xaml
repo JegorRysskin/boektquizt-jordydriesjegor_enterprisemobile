@@ -42,7 +42,7 @@
                 CloseButtonText="Annuleren"
                 DefaultButton="Primary">
                 <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <TextBlock Text="Je staat op het punt om $TeamNaam$ te verwijderen." 
+                    <TextBlock Text="Je staat op het punt om dit team te verwijderen!" 
                                TextWrapping="Wrap" Width="288" />
                 </StackPanel>
             </ContentDialog>

@@ -36,7 +36,7 @@ namespace JuryApp.Views
                 DeleteButton.IsEnabled = true;
             
             if(Teams.SelectedIndex != -1)
-                DeleteButton.Content = $"Verwijder {Environment.NewLine}{((Team)ViewModel.Items[Teams.SelectedIndex]).TeamName}";
+                DeleteButton.Content = $"Verwijder {Environment.NewLine}{ViewModel.Items[Teams.SelectedIndex].TeamName}";
         }
     }
 }
