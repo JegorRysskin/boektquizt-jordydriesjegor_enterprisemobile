@@ -5,6 +5,7 @@ using Windows.UI.Xaml;
 using JuryApp.ViewModels;
 using Windows.UI.Xaml.Controls;
 using JuryApp.Core.Models;
+using JuryApp.Core.Services;
 
 namespace JuryApp.Views
 {
@@ -25,7 +26,7 @@ namespace JuryApp.Views
             ContentDialogResult result = await DeleteContentDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
-                ViewModel.Items.RemoveAt(Teams.SelectedIndex);
+                ViewModel.Teams.RemoveAt(Teams.SelectedIndex);
                 DeleteButton.Content = "Verwijder";
             }
         }
@@ -36,7 +37,7 @@ namespace JuryApp.Views
                 DeleteButton.IsEnabled = true;
             
             if(Teams.SelectedIndex != -1)
-                DeleteButton.Content = $"Verwijder {Environment.NewLine}{ViewModel.Items[Teams.SelectedIndex].TeamName}";
+                DeleteButton.Content = $"Verwijder {Environment.NewLine}{ViewModel.Teams[Teams.SelectedIndex].TeamName}";
         }
     }
 }
