@@ -13,7 +13,7 @@
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
-            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Quizzes}"
+            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Quizzes, Mode=OneWay}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"

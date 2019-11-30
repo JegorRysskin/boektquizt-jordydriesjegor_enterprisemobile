@@ -1,8 +1,10 @@
 ﻿using System;
-
+using System.Collections.ObjectModel;
 using JuryApp.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using JuryApp.Core.Models;
+using JuryApp.Core.Services;
 
 namespace JuryApp.Views
 {
@@ -17,6 +19,5 @@ namespace JuryApp.Views
         {
             InitializeComponent();
         }
-
     }
 }

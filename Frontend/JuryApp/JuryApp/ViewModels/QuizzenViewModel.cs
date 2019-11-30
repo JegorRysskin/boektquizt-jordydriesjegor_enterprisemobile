@@ -1,15 +1,33 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Linq;
+using System.Net.Mime;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using GalaSoft.MvvmLight;
 using JuryApp.Core.Models;
 using JuryApp.Core.Services;
+using JuryApp.Views;
 
 namespace JuryApp.ViewModels
 {
-    public class QuizzenViewModel : ViewModelBase
+    public class QuizzenViewModel : ViewModelBase, INotifyCollectionChanged
     {
-        private QuizRepository _quizRepository;
-        public ObservableCollection<Quiz> Quizzes { get; set; }
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        private readonly QuizRepository _quizRepository;
+        private ObservableCollection<Quiz> _quizzes;
+
+        public ObservableCollection<Quiz> Quizzes
+        {
+            get => _quizzes;
+            set
+            {
+                _quizzes = value;
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
 
         public QuizzenViewModel()
         {
@@ -21,5 +39,6 @@ namespace JuryApp.ViewModels
         {
             Quizzes = await _quizRepository.GetAllQuizzes();
         }
+
     }
 }
