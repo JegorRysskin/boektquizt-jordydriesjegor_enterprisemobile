@@ -1,7 +1,6 @@
 package enterpriseAndMobile.repository;
 
-import enterpriseAndMobile.model.Quiz;
-import enterpriseAndMobile.repository.QuizRepository;
+import enterpriseAndMobile.model.Team;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,24 +13,24 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-public class QuizRepositoryIntegrationTest {
+public class TeamRepositoryIntegrationTest {
 
     @Autowired
     private TestEntityManager entityManager;
 
     @Autowired
-    private QuizRepository quizRepository;
+    private TeamRepository teamRepository;
 
     @Test
-    public void getAllQuizes_FromQuizRepository(){
-        Quiz quiz1 = new Quiz();
-        Quiz quiz2 = new Quiz();
+    public void getAllTeams_FromTeamRepository(){
+        Team team1 = new Team();
+        Team team2 = new Team();
 
-        entityManager.persist(quiz1);
-        entityManager.persist(quiz2);
+        entityManager.persist(team1);
+        entityManager.persist(team2);
         entityManager.flush();
 
-        List<Quiz> found = quizRepository.getAllQuizzes();
+        List<Team> found = teamRepository.getAllTeams();
 
         Assertions.assertEquals(2, found.size());
     }

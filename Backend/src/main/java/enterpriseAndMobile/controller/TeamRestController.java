@@ -18,8 +18,11 @@ import java.util.List;
 @RequestMapping(value = "/team")
 public class TeamRestController {
 
-    @Autowired
-    private TeamService teamService;
+    private final TeamService teamService;
+
+    public TeamRestController(TeamService teamService) {
+        this.teamService = teamService;
+    }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Team>> getAllTeams() {

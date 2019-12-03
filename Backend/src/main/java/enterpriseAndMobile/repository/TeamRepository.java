@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Integer> {
-    @Transactional(readOnly = true)
     default List<Team> getAllTeams() {
         return findAll();
     }

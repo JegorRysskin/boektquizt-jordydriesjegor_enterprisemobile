@@ -6,6 +6,8 @@ import java.util.List;
 @Entity
 @Table(name = "team")
 public class Team {
+    public Team() {
+    }
 
     public Team(String name) {
         this.name = name;

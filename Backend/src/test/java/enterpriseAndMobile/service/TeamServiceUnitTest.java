@@ -1,7 +1,7 @@
 package enterpriseAndMobile.service;
 
-import enterpriseAndMobile.model.Quiz;
-import enterpriseAndMobile.repository.QuizRepository;
+import enterpriseAndMobile.model.Team;
+import enterpriseAndMobile.repository.TeamRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,26 +16,26 @@ import java.util.List;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = QuizService.class)
-public class QuizServiceUnitTest {
+@SpringBootTest(classes = TeamService.class)
+public class TeamServiceUnitTest {
 
     @MockBean
-    private QuizRepository quizRepository;
+    private TeamRepository teamRepository;
 
     @Autowired
-    private QuizService quizService;
+    private TeamService teamService;
 
     @Test
     public void getAllQuizzes() {
-        Quiz quiz1 = new Quiz();
-        Quiz quiz2 = new Quiz();
+        Team team1 = new Team();
+        Team team2 = new Team();
 
-        List<Quiz> quizzes = new ArrayList<>();
+        List<Team> teams = new ArrayList<>();
 
-        quizzes.add(quiz1);
-        quizzes.add(quiz2);
+        teams.add(team1);
+        teams.add(team2);
 
-        given(quizRepository.getAllQuizzes()).willReturn(quizzes);
-        Assertions.assertEquals(2, quizService.getAllQuizzes().size());
+        given(teamRepository.getAllTeams()).willReturn(teams);
+        Assertions.assertEquals(2, teamService.getAllTeams().size());
     }
 }

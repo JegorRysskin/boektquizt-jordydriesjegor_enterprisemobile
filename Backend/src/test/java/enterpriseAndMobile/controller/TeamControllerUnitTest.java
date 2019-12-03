@@ -1,10 +1,9 @@
 package enterpriseAndMobile.controller;
 
-import enterpriseAndMobile.model.Quiz;
-import enterpriseAndMobile.service.QuizService;
+import enterpriseAndMobile.model.Team;
+import enterpriseAndMobile.service.TeamService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,36 +22,36 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(QuizRestController.class)
-public class QuizControllerUnitTest {
+@WebMvcTest(TeamRestController.class)
+public class TeamControllerUnitTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private QuizService quizService;
+    private TeamService teamService;
 
     @Test
-    public void getAllQuizes_FromQuizController() throws Exception {
-        Quiz quiz1 = new Quiz("test1");
-        Quiz quiz2 = new Quiz("test2");
+    public void getAllTeams_FromTeamController() throws Exception {
+        Team team1 = new Team("test1");
+        Team team2 = new Team("test2");
 
-        List<Quiz> quizzes = new ArrayList<>();
+        List<Team> teams = new ArrayList<>();
 
-        mockMvc.perform(get("/quiz")
+        mockMvc.perform(get("/team")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
 
-        quizzes.add(quiz1);
-        quizzes.add(quiz2);
+        teams.add(team1);
+        teams.add(team2);
 
-        given(quizService.getAllQuizzes()).willReturn(quizzes);
+        given(teamService.getAllTeams()).willReturn(teams);
 
-        mockMvc.perform(get("/quiz")
+        mockMvc.perform(get("/team")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].name", is(quiz1.getName())));
+                .andExpect(jsonPath("$[0].name", is(team1.getName())));
     }
 }
 
