@@ -1,5 +1,6 @@
 package enterpriseAndMobile.controller;
 
+import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,11 @@ public class QuizRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<> (quizzes, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto){
+        Quiz quiz = quizService.addQuiz(quizDto);
+        return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }
 }

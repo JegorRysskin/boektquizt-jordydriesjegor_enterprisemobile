@@ -35,4 +35,13 @@ public class QuizRepositoryIntegrationTest {
 
         Assertions.assertEquals(2, found.size());
     }
+
+    @Test
+    public void addQuiz_ToQuizRepository(){
+        Quiz quiz = new Quiz();
+
+        Quiz result = quizRepository.addQuiz(quiz);
+
+        Assertions.assertEquals(1, quizRepository.getAllQuizzes().size());
+    }
 }

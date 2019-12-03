@@ -1,5 +1,6 @@
 package enterpriseAndMobile.service;
 
+import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.repository.QuizRepository;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +14,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
@@ -37,5 +39,16 @@ public class QuizServiceUnitTest {
 
         given(quizRepository.getAllQuizzes()).willReturn(quizzes);
         Assertions.assertEquals(2, quizService.getAllQuizzes().size());
+    }
+
+    @Test
+    public void addQuiz(){
+        QuizDto quizDto = new QuizDto("Test", false);
+        Quiz quiz = new Quiz();
+
+        given(quizRepository.addQuiz(any())).willReturn(quiz);
+
+        Assertions.assertEquals(quiz.getId(), quizService.addQuiz(quizDto).getId());
+
     }
 }
