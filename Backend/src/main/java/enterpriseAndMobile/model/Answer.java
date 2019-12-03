@@ -14,6 +14,9 @@ public class Answer {
     @ManyToOne
     private Question question;
 
+    @ManyToOne
+    private Team team;
+
     public int getId() {
         return id;
     }
@@ -30,7 +33,11 @@ public class Answer {
         return question;
     }
 
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
+    public void setQuestion(Question question) { this.question = question; }
+
+    public void setId(int id) { this.id = id; }
+
+    public Team getTeam() { return team; }
+
+    public void setTeam(Team team) { this.team = team; }
 }
