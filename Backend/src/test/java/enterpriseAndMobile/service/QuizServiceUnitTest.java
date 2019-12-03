@@ -13,8 +13,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
@@ -36,19 +38,23 @@ public class QuizServiceUnitTest {
 
         quizzes.add(quiz1);
         quizzes.add(quiz2);
-
         given(quizRepository.getAllQuizzes()).willReturn(quizzes);
         Assertions.assertEquals(2, quizService.getAllQuizzes().size());
     }
 
     @Test
-    public void addQuiz(){
+    public void addQuiz() {
         QuizDto quizDto = new QuizDto("Test", false);
         Quiz quiz = new Quiz();
-
         given(quizRepository.addQuiz(any())).willReturn(quiz);
-
         Assertions.assertEquals(quiz.getId(), quizService.addQuiz(quizDto).getId());
+    }
 
+    @Test
+    public void getQuizById() {
+        Quiz quiz = new Quiz();
+        given(quizRepository.getQuizById(anyInt())).willReturn(Optional.of(quiz));
+        quizService.getQuizById(0);
+        Assertions.assertEquals(quiz.getId(), quizService.getQuizById(0).get().getId());
     }
 }

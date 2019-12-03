@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class QuizService {
@@ -15,6 +16,11 @@ public class QuizService {
 
     public QuizService(@Autowired QuizRepository quizRepository) {
         this.quizRepository = quizRepository;
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Quiz> getQuizById(int id) {
+        return quizRepository.getQuizById(id);
     }
 
     @Transactional(readOnly = true)
