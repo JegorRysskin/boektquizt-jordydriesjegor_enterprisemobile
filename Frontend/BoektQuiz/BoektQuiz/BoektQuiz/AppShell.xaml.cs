@@ -10,6 +10,8 @@ namespace BoektQuiz
         public AppShell()
         {
             InitializeComponent();
+            Shell.SetBackgroundColor(this, Color.FromHex("ED028C"));
+            Shell.SetForegroundColor(this, Color.White);
             Shell.SetTabBarIsVisible(this, false);
         }
     }

@@ -5,7 +5,7 @@ using BoektQuiz.Annotations;
 
 namespace BoektQuiz.Models
 {
-    public class Vraag : INotifyPropertyChanged
+    public class Question : INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string Text { get; set; }

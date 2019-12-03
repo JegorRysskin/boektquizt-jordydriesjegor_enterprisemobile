@@ -5,18 +5,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:behavior="clr-namespace:BoektQuiz.Behavior;assembly=BoektQuiz"
              mc:Ignorable="d"
-             x:Class="BoektQuiz.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             x:Class="BoektQuiz.Views.QuestionPage"
+             Title="{Binding Title}"
+             BackgroundColor="Black">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="{Binding Item.Text}" d:Text="Item name" FontSize="Medium"/>
-        <Label Text="Antwoord:" FontSize="Medium" />
-        <Entry Text="{Binding Item.Answer}" Placeholder="Vul hier je antwoord in">
+        <Label Text="{Binding Question.Text}" d:Text="Item name" FontSize="Medium" TextColor="White"/>
+        <Label Text="Antwoord:" FontSize="Medium" TextColor="White"/>
+        <Entry Text="{Binding Question.Answer, Mode=TwoWay}" Placeholder="Vul hier je antwoord in" TextColor="White" PlaceholderColor="GhostWhite">
             <Entry.Behaviors>
                 <behavior:EntryValidationBehavior/>
             </Entry.Behaviors>
         </Entry>
-        <Button Text="Antwoord Verzenden" Command="{Binding SendAnswerCommand}" />
+        <Button Text="Antwoord Opslaan" Command="{Binding SendAnswerCommand}" BackgroundColor="Accent" TextColor="White"/>
     </StackLayout>
     
 </ContentPage>

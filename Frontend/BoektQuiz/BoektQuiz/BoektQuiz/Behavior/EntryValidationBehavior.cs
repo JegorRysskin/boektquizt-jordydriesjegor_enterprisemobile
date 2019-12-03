@@ -24,7 +24,7 @@ namespace BoektQuiz.Behavior
         {
             bool isEntryFilledIn = ((Entry) sender).Text.Length > 0;
             var bC = ((Entry) sender).BindingContext;
-            if (bC is ItemDetailViewModel vM)
+            if (bC is QuestionViewModel vM)
             {
                 vM.IsEntryFilledIn = isEntryFilledIn;
                 vM.SendAnswerCommand.ChangeCanExecute();

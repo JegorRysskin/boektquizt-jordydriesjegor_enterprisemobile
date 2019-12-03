@@ -6,9 +6,9 @@ using Xamarin.Forms;
 
 namespace BoektQuiz.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel
+    public class QuestionViewModel : BaseViewModel
     {
-        public Vraag Vraag { get; set; }
+        public Question Question { get; set; }
 
         private bool _isEntryFilledIn;
 
@@ -24,10 +24,10 @@ namespace BoektQuiz.ViewModels
         }
 
         public INavigation Navigation;
-        public ItemDetailViewModel(INavigation navigation, Vraag vraag = null)
+        public QuestionViewModel(INavigation navigation, Question question = null)
         {
-            Title = vraag?.Text;
-            Vraag = vraag;
+            Title = question?.Text;
+            Question = question;
             Navigation = navigation;
         }
 
@@ -38,12 +38,7 @@ namespace BoektQuiz.ViewModels
 
         private void OnSendAnswer()
         {
-            int next = Vraag.Id + 1;
-            if (next < 10)
-            {
-                Navigation.PopAsync();
-                Navigation.PushAsync(new ItemDetailPage(next));
-            }
+            Navigation.PopAsync();
         }
 
         public bool CanSendAnswer()

@@ -6,10 +6,10 @@ namespace BoektQuiz.Services
 {
     public interface IDataStore<T>
     {
-        Task<bool> AddItemAsync(T item);
-        Task<bool> UpdateItemAsync(T item);
-        Task<bool> DeleteItemAsync(int id);
-        Task<T> GetItemAsync(int id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<bool> AddQuestionAsync(T item);
+        Task<bool> UpdateQuestionAsync(T item);
+        Task<bool> DeleteQuestionAsync(int id);
+        Task<T> GetQuestionAsync(int id);
+        Task<IEnumerable<T>> GetQuestionsAsync(bool forceRefresh = false);
     }
 }
