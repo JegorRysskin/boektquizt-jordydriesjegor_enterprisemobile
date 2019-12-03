@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 
 namespace JuryApp.Core.Helpers
 {
+    //TODO: Unused? Delete
     public static class Singleton<T>
         where T : new()
     {
