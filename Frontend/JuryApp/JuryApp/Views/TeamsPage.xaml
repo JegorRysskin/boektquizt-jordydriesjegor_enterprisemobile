@@ -12,9 +12,10 @@
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
+
             <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" VerticalAlignment="Top" Margin="20" IsEnabled="False" Click="DeleteButton_OnClick"/>
 
-            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Items}"
+            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Teams}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"

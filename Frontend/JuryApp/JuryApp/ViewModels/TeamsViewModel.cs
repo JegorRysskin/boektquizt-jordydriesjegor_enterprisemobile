@@ -10,11 +10,11 @@ namespace JuryApp.ViewModels
 {
     public class TeamsViewModel : ViewModelBase
     {
-        public ObservableCollection<Team> Items { get; set; }
+        public ObservableCollection<Team> Teams { get; set; }
 
         public TeamsViewModel()
         {
-            Items = new ObservableCollection<Team>
+            Teams = new ObservableCollection<Team>
             {
                 new Team{TeamId = 1, TeamName = "TeamA"},
                 new Team{TeamId = 2, TeamName = "TeamB"},
