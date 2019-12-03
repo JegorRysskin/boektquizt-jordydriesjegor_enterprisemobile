@@ -32,10 +32,10 @@ namespace JuryApp.ViewModels
         public QuizzenViewModel()
         {
             _quizService = new QuizService();
-            WaitForList();
+            FetchListOfQuizzes();
         }
 
-        private async void WaitForList()
+        private async void FetchListOfQuizzes()
         {
             Quizzes = await _quizService.GetAllQuizzes();
         }

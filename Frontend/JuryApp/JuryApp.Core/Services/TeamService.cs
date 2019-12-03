@@ -5,17 +5,18 @@ using JuryApp.Core.Services.Interfaces;
 
 namespace JuryApp.Core.Services
 {
-    public class QuizService : IQuizService
+    public class TeamService : ITeamService
     {
         private HttpDataService _httpDataService;
-        public QuizService()
+        public TeamService()
         {
             _httpDataService = new HttpDataService();
         }
-        public async Task<ObservableCollection<Quiz>> GetAllQuizzes()
+
+        public async Task<ObservableCollection<Team>> GetAllTeams()
         {
-            var result = await _httpDataService.GetAsync<ObservableCollection<Quiz>>("quiz");
-            
+            var result = await _httpDataService.GetAsync<ObservableCollection<Team>>("team");
+
             return result;
         }
     }

@@ -13,14 +13,13 @@
                 Place your content here.
             -->
 
-            <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" VerticalAlignment="Top" Margin="20" IsEnabled="False" Click="DeleteButton_OnClick"/>
+            <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" VerticalAlignment="Top" Margin="20" IsEnabled="False"/>
 
-            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Teams}"
+            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
-                      SelectionChanged="Teams_OnSelectionChanged"
                       HorizontalAlignment="Center">
                 <GridView.ItemTemplate>
                     <DataTemplate>

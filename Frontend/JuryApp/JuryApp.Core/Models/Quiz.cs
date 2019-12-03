@@ -15,7 +15,7 @@ namespace JuryApp.Core.Models
         public int QuizId
         {
             get => _quizId;
-            set { Set(() => QuizId, ref _quizId, value); }
+            set => Set(() => QuizId, ref _quizId, value);
         }
 
         [JsonProperty("name")]

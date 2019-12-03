@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using JuryApp.Core.Models;
 
-namespace JuryApp.Core.Services
+namespace JuryApp.Core.Services.Interfaces
 {
     public interface IQuizService
     {
