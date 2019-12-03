@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -23,7 +24,7 @@ public class QuizRepositoryIntegrationTest {
     private QuizRepository quizRepository;
 
     @Test
-    public void getAllQuizes_FromQuizRepository(){
+    public void getAllQuizes_FromQuizRepository() {
         Quiz quiz1 = new Quiz();
         Quiz quiz2 = new Quiz();
 
@@ -37,11 +38,23 @@ public class QuizRepositoryIntegrationTest {
     }
 
     @Test
-    public void addQuiz_ToQuizRepository(){
+    public void addQuiz_ToQuizRepository() {
         Quiz quiz = new Quiz();
 
         Quiz result = quizRepository.addQuiz(quiz);
 
         Assertions.assertEquals(1, quizRepository.getAllQuizzes().size());
+    }
+
+    @Test
+    public void getQuizById_FromQuizRepository() {
+        Quiz quiz = new Quiz();
+
+        entityManager.persist(quiz);
+        entityManager.flush();
+
+        Optional<Quiz> quiz1 = quizRepository.getQuizById(quiz.getId());
+
+        Assertions.assertTrue(quiz1.isPresent());
     }
 }
