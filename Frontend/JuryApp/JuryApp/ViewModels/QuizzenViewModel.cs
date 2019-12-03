@@ -16,7 +16,7 @@ namespace JuryApp.ViewModels
     public class QuizzenViewModel : ViewModelBase, INotifyCollectionChanged
     {
         public event NotifyCollectionChangedEventHandler CollectionChanged;
-        private readonly QuizService _quizRepository;
+        private readonly QuizService _quizService;
         private ObservableCollection<Quiz> _quizzes;
 
         public ObservableCollection<Quiz> Quizzes
@@ -31,13 +31,13 @@ namespace JuryApp.ViewModels
 
         public QuizzenViewModel()
         {
-            _quizRepository = new QuizService();
+            _quizService = new QuizService();
             WaitForList();
         }
 
         private async void WaitForList()
         {
-            Quizzes = await _quizRepository.GetAllQuizzes();
+            Quizzes = await _quizService.GetAllQuizzes();
         }
 
     }
