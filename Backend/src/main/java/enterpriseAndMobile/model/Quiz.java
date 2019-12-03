@@ -13,6 +13,11 @@ public class Quiz {
         this.name = name;
     }
 
+    public Quiz(String name, boolean enabled) {
+        this.name = name;
+        this.enabled = enabled;
+    }
+
     @Id
     @GeneratedValue
     private int id;

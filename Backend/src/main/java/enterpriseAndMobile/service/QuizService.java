@@ -1,9 +1,11 @@
 package enterpriseAndMobile.service;
 
+import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,7 +17,14 @@ public class QuizService {
         this.quizRepository = quizRepository;
     }
 
-    public List<Quiz> getAllQuizzes(){
+    @Transactional(readOnly = true)
+    public List<Quiz> getAllQuizzes() {
         return quizRepository.getAllQuizzes();
+    }
+
+    @Transactional
+    public Quiz addQuiz(QuizDto quizDto) {
+        Quiz quiz = new Quiz(quizDto.getName(), quizDto.isEnabled());
+        return quizRepository.addQuiz(quiz);
     }
 }
