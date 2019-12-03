@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using JuryApp.Core.Models;
 using JuryApp.Views;
@@ -9,11 +10,11 @@ namespace JuryApp.ViewModels
 {
     public class TeamsViewModel : ViewModelBase
     {
-        public IList Items { get; set; }
+        public ObservableCollection<Team> Teams { get; set; }
 
         public TeamsViewModel()
         {
-            Items = new List<Team>
+            Teams = new ObservableCollection<Team>
             {
                 new Team{TeamId = 1, TeamName = "TeamA"},
                 new Team{TeamId = 2, TeamName = "TeamB"},

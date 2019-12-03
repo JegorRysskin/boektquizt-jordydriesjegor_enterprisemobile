@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("QuizApp.Droid.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("BoektQuiz.Droid.Resource", IsApplication=true)]
 
-namespace QuizApp.Droid
+namespace BoektQuiz.Droid
 {
 	
 	
