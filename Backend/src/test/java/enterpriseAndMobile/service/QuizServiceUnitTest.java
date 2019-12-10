@@ -1,8 +1,10 @@
 package enterpriseAndMobile.service;
 
+import enterpriseAndMobile.QuizApplication;
 import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.repository.QuizRepository;
+import javassist.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,5 +58,19 @@ public class QuizServiceUnitTest {
         given(quizRepository.getQuizById(anyInt())).willReturn(Optional.of(quiz));
         quizService.getQuizById(0);
         Assertions.assertEquals(quiz.getId(), quizService.getQuizById(0).get().getId());
+    }
+
+    @Test
+    public void deleteQuizById(){
+        Quiz quiz = new Quiz();
+        given(quizRepository.getQuizById(quiz.getId())).willReturn(Optional.of(quiz));
+        quizService.removeQuiz(quiz.getId());
+        Assertions.assertEquals(0, quizService.getAllQuizzes().size());
+    }
+
+    @Test
+    public void ThrowNotFoundWhenDeletingQuizThatDoesNotExist(){
+        given(quizRepository.getQuizById(anyInt())).willReturn(Optional.empty());
+        Assertions.assertThrows(Exception.class, () -> quizService.removeQuiz(1));
     }
 }

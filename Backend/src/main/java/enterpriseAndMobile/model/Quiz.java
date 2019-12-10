@@ -24,7 +24,7 @@ public class Quiz {
 
     private String name;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Round> rounds;
 
     private boolean enabled;

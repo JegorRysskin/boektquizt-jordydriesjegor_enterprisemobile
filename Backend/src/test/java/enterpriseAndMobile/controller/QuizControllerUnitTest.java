@@ -4,13 +4,17 @@ import enterpriseAndMobile.converter.JsonStringConverter;
 import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.service.QuizService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,6 +31,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -64,7 +69,7 @@ public class QuizControllerUnitTest {
     }
 
     @Test
-    public void addQuiz_ToDatabase() throws Exception{
+    public void addQuiz_ToDatabase() throws Exception {
         Quiz quiz = new Quiz("test", false);
         QuizDto quizDto = new QuizDto("test", false);
 
@@ -80,7 +85,7 @@ public class QuizControllerUnitTest {
     }
 
     @Test
-    public void getItemById() throws Exception{
+    public void getItemById() throws Exception {
         Quiz quiz = new Quiz("test", false);
 
         given(quizService.getQuizById(anyInt())).willReturn(Optional.of(quiz));
@@ -89,6 +94,16 @@ public class QuizControllerUnitTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is("test")));
+    }
+
+    @Test
+    public void deleteQuizById() throws Exception {
+        Quiz quiz = new Quiz();
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .delete("/quiz/1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
 
