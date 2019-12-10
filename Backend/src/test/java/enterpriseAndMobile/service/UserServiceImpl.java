@@ -2,6 +2,7 @@ package enterpriseAndMobile.service;
 
 
 import enterpriseAndMobile.dao.UserDao;
+import enterpriseAndMobile.dto.UserDto;
 import enterpriseAndMobile.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,6 +49,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         //return Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN"));
     }
 
+
+
     public List<User> findAll() {
         List<User> list = new ArrayList<>();
         userDao.findAll().iterator().forEachRemaining(list::add);
@@ -73,11 +76,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public User save(UserDto user) {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
-        newUser.setEmail(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         user.setRole(new String[]{"ADMIN", "USER"});
         newUser.setRoles(roleService.findRoleByName(user.getRole()));
-        newUser.setCreatedAt(Date.valueOf(LocalDate.now()));
         return userDao.save(newUser);
     }
 }

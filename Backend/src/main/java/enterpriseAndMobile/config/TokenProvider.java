@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static elision.hangry.model.Constants.*;
+import static enterpriseAndMobile.model.Constants.*;
 
 @Component
 public class TokenProvider implements Serializable {

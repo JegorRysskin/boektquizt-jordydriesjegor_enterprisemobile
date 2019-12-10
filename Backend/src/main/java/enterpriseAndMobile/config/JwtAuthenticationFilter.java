@@ -1,6 +1,5 @@
 package enterpriseAndMobile.config;
 
-import elision.hangry.config.TokenProvider;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static elision.hangry.model.Constants.*;
+import static enterpriseAndMobile.model.Constants.*;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 

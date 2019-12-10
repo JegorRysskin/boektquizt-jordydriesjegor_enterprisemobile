@@ -1,7 +1,6 @@
 package enterpriseAndMobile.dao;
 
-
-import elision.hangry.model.User;
+import enterpriseAndMobile.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
