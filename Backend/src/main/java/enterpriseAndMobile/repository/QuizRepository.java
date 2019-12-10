@@ -20,4 +20,8 @@ public interface QuizRepository extends JpaRepository<Quiz, Integer> {
     default Quiz addQuiz(Quiz quiz){
         return save(quiz);
     }
+
+    default void deleteQuiz(Quiz quiz){
+        delete(quiz);
+    }
 }

@@ -45,4 +45,10 @@ public class QuizRestController {
         Quiz quiz = quizService.addQuiz(quizDto);
         return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity removeQuiz(@PathVariable("id") int id) {
+        quizService.removeQuiz(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

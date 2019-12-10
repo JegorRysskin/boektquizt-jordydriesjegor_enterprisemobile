@@ -12,9 +12,6 @@ public class Answer {
     private String answer;
 
     @ManyToOne
-    private Question question;
-
-    @ManyToOne
     private Team team;
 
     public int getId() {
@@ -28,12 +25,6 @@ public class Answer {
     public void setAnswer(String answer) {
         this.answer = answer;
     }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) { this.question = question; }
 
     public void setId(int id) { this.id = id; }
 

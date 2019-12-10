@@ -12,22 +12,11 @@ public class Question {
     @GeneratedValue
     private int id;
 
-    @ManyToOne
-    private Round round;
-
-    @OneToMany(mappedBy = "question")
+    @OneToMany
     private List<Answer> answers;
 
     public int getId() {
         return id;
-    }
-
-    public Round getRound() {
-        return round;
-    }
-
-    public void setRound(Round round) {
-        this.round = round;
     }
 
     public List<Answer> getAnswers() {
