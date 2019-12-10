@@ -7,6 +7,7 @@ using System.Net.Mime;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
 using JuryApp.Core.Models;
 using JuryApp.Core.Services;
 using JuryApp.Views;

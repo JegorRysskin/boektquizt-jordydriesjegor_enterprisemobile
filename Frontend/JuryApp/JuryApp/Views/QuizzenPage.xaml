@@ -13,12 +13,16 @@
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
-            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Quizzes, Mode=OneWay}"
-                      IsItemClickEnabled="False"
+
+            <Button x:Name="CreateButton" Style="{StaticResource AccentButtonStyle}" Content="Nieuwe quiz" VerticalAlignment="Top" Margin="20" Click="CreateButton_Click"/>
+
+            <GridView x:Name="Quizzes" ItemsSource="{x:Bind ViewModel.Quizzes, Mode=OneWay}"
+                      IsItemClickEnabled="True"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
-                      HorizontalAlignment="Center">
+                      HorizontalAlignment="Center"
+                      ItemClick="Quizzes_OnItemClick">
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Padding="80" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">

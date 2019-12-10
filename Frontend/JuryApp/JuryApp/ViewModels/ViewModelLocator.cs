@@ -21,7 +21,9 @@ namespace JuryApp.ViewModels
             Register<MainViewModel, MainPage>();
             Register<QuizzenViewModel, QuizzenPage>();
             Register<TeamsViewModel, TeamsPage>();
+            Register<EditQuizViewModel, EditQuizPage>();
         }
+        public EditQuizViewModel EditQuizViewModel => SimpleIoc.Default.GetInstance<EditQuizViewModel>();
 
         public TeamsViewModel TeamsViewModel => SimpleIoc.Default.GetInstance<TeamsViewModel>();
 
