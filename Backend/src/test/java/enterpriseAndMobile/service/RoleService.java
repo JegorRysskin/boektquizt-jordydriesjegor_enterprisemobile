@@ -2,6 +2,7 @@ package enterpriseAndMobile.service;
 
 
 import enterpriseAndMobile.model.Role;
+import enterpriseAndMobile.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
