@@ -14,23 +14,10 @@ namespace JuryApp.Views
 {
     public sealed partial class QuizzenPage : Page
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
         private QuizzenViewModel ViewModel => ViewModelLocator.Current.QuizzenViewModel;
-        public Quiz SelectedQuiz { get; set; }
-
         public QuizzenPage()
         {
             InitializeComponent();
-        }
-
-        private void CreateButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
-        }
-
-        private void Quizzes_OnItemClick(object sender, ItemClickEventArgs e)
-        {
-            NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
         }
     }
 }

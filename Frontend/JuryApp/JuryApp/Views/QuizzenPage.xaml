@@ -4,25 +4,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
-
-            <Button x:Name="CreateButton" Style="{StaticResource AccentButtonStyle}" Content="Nieuwe quiz" VerticalAlignment="Top" Margin="20" Click="CreateButton_Click"/>
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <Button x:Name="CreateButton" Style="{StaticResource AccentButtonStyle}" Content="Nieuwe quiz" VerticalAlignment="Top" Margin="20" Command="{x:Bind ViewModel.CreateQuizCommand}"/>
 
             <GridView x:Name="QuizzesGridView" ItemsSource="{x:Bind ViewModel.Quizzes, Mode=OneWay}"
                       IsItemClickEnabled="True"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
-                      HorizontalAlignment="Center"
-                      ItemClick="Quizzes_OnItemClick">
+                      HorizontalAlignment="Center">
+
+                <i:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="ItemClick">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.EditQuizCommand}"/>
+                    </core:EventTriggerBehavior>
+                </i:Interaction.Behaviors>
+
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Padding="80" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">

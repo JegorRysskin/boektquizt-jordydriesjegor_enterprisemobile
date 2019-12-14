@@ -125,6 +125,9 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
     </PackageReference>
+    <PackageReference Include="MvvmLightLibsStd10">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
     <PackageReference Include="MvvmLightStd10">
       <Version>5.4.1.2</Version>
     </PackageReference>
@@ -141,12 +144,16 @@
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
+    <Compile Include="ViewModels\CreateQuizViewModel.cs" />
     <Compile Include="ViewModels\EditQuizViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\QuizzenViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\TeamsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\CreateQuizPage.xaml.cs">
+      <DependentUpon>CreateQuizPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditQuizPage.xaml.cs">
       <DependentUpon>EditQuizPage.xaml</DependentUpon>
     </Compile>
@@ -187,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateQuizPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

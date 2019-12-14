@@ -12,23 +12,20 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using JuryApp.Core.Models;
-using JuryApp.Core.Services;
 using JuryApp.ViewModels;
+
 
 namespace JuryApp.Views
 {
-    public sealed partial class EditQuizPage : Page
+    public sealed partial class CreateQuizPage : Page
     {
-        private readonly QuizService _quizService;
-
-        private EditQuizViewModel ViewModel => ViewModelLocator.Current.EditQuizViewModel;
-
-        public EditQuizPage()
+        private CreateQuizViewModel ViewModel
+        {
+            get { return ViewModelLocator.Current.CreateQuizViewModel; }
+        }
+        public CreateQuizPage()
         {
             InitializeComponent();
-            //TODO: Get selectedindex from quizzenpage and request quiz by id and fill it into editquizpage
-            //SelectedQuiz = _quizService.GetQuizById(id);
         }
     }
 }
