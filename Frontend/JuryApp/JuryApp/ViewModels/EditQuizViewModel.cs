@@ -10,10 +10,8 @@ namespace JuryApp.ViewModels
 {
     public class EditQuizViewModel : ViewModelBase
     {
-        public Quiz SelectedQuiz { get; set; }
         public EditQuizViewModel()
         {
-            
         }
     }
 }

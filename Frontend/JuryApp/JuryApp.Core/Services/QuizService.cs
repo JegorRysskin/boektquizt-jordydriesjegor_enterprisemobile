@@ -18,5 +18,12 @@ namespace JuryApp.Core.Services
             
             return result;
         }
+
+        public async Task<Quiz> GetQuizById(int id)
+        {
+            var result = await _httpDataService.GetAsync<Quiz>($"quiz/{id}");
+
+            return result;
+        }
     }
 }
