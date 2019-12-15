@@ -7,8 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-        <RelativePanel>
-            <TextBlock Text="{x:Bind ViewModel.SelectedQuiz.QuizName}"></TextBlock>
+        <RelativePanel Width="300" Height="300" Padding="20">
+            <TextBlock x:Name="QuizTextBlock" Text="Quiznaam:" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="6"/>
+            <TextBox x:Name="QuizTextBox" Text="{x:Bind ViewModel.SelectedQuiz.QuizName}" MaxLength="200" RelativePanel.Below="QuizTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
+
+            <CheckBox x:Name="EnableQuizCheckBox" Content="Quiz openstellen?" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" IsChecked="{x:Bind ViewModel.SelectedQuiz.QuizEnabled}"></CheckBox>
+
+            <Button Content="Quiz aanpassen" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True"></Button>
         </RelativePanel>
     </Grid>
 </Page>

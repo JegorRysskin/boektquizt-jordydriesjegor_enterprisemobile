@@ -10,6 +10,7 @@ namespace JuryApp.Core.Models
     {
         private int _quizId;
         private string _quizName;
+        private bool _quizEnabled;
 
         [JsonProperty("id")]
         public int QuizId
@@ -23,6 +24,13 @@ namespace JuryApp.Core.Models
         {
             get => _quizName;
             set => Set(() => QuizName, ref _quizName, value);
+        }
+
+        [JsonProperty("enabled")]
+        public bool QuizEnabled
+        {
+            get => _quizEnabled;
+            set => Set(() => QuizEnabled, ref _quizEnabled, value);
         }
 
     }

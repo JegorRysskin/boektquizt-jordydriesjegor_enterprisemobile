@@ -9,11 +9,11 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
         <RelativePanel Width="300" Height="300" Padding="20">
             <TextBlock x:Name="QuizTextBlock" Text="Quiznaam:" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="6"/>
-            <TextBox x:Name="QuizTextBox" MaxLength="200" RelativePanel.Below="QuizTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
+            <TextBox x:Name="QuizTextBox" Text="{x:Bind ViewModel.NewQuiz.QuizName, Mode=TwoWay}" MaxLength="200" RelativePanel.Below="QuizTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
 
-            <CheckBox x:Name="EnableQuizCheckBox" Content="Quiz openstellen?" RelativePanel.AlignHorizontalCenterWithPanel="True"  RelativePanel.AlignVerticalCenterWithPanel="True"></CheckBox>
+            <CheckBox x:Name="EnableQuizCheckBox" Content="Quiz openstellen?" RelativePanel.AlignHorizontalCenterWithPanel="True"  RelativePanel.AlignVerticalCenterWithPanel="True" IsChecked="{x:Bind ViewModel.NewQuiz.QuizEnabled, Mode=TwoWay}"></CheckBox>
 
-            <Button Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True"></Button>
+            <Button Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.CreateNewQuizCommand}"></Button>
         </RelativePanel>
     </Grid>
 </Page>

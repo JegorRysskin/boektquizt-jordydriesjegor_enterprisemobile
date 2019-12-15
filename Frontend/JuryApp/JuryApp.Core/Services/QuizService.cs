@@ -7,7 +7,7 @@ namespace JuryApp.Core.Services
 {
     public class QuizService : IQuizService
     {
-        private HttpDataService _httpDataService;
+        private readonly HttpDataService _httpDataService;
         public QuizService()
         {
             _httpDataService = new HttpDataService();
@@ -22,6 +22,13 @@ namespace JuryApp.Core.Services
         public async Task<Quiz> GetQuizById(int id)
         {
             var result = await _httpDataService.GetAsync<Quiz>($"quiz/{id}");
+
+            return result;
+        }
+
+        public async Task<bool> AddQuiz(Quiz newQuiz)
+        {
+            var result = await _httpDataService.PostAsJsonAsync("quiz", newQuiz);
 
             return result;
         }
