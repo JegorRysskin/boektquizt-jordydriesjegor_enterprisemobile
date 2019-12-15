@@ -20,15 +20,11 @@ namespace JuryApp.Views
 {
     public sealed partial class EditQuizPage : Page
     {
-        private readonly QuizService _quizService;
-
         private EditQuizViewModel ViewModel => ViewModelLocator.Current.EditQuizViewModel;
 
         public EditQuizPage()
         {
             InitializeComponent();
-            //TODO: Get selectedindex from quizzenpage and request quiz by id and fill it into editquizpage
-            //SelectedQuiz = _quizService.GetQuizById(id);
         }
     }
 }

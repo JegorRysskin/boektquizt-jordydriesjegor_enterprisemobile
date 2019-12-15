@@ -6,14 +6,14 @@
   IgnorableNamespaces="uap mp">
 
   <Identity Name="a5eacb7d-2beb-431f-ad49-da9e2722c05c"
-            Publisher="CN=Jegor-Laptop"
+            Publisher="CN=jegor"
             Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="a5eacb7d-2beb-431f-ad49-da9e2722c05c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>JuryApp.Tests.xUnit</DisplayName>
-    <PublisherDisplayName>Jegor-Laptop</PublisherDisplayName>
+    <PublisherDisplayName>Jegor</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

@@ -37,7 +37,8 @@ namespace JuryApp.ViewModels
             }
         }
         public RelayCommand CreateQuizCommand => new RelayCommand(NavigateToCreateQuizPage);
-        public RelayCommand EditQuizCommand => new RelayCommand(NavigateToEditQuizPage);
+
+        public RelayCommand<int> EditQuizCommand => new RelayCommand<int>(NavigateToEditQuizPage);
 
 
         public QuizzenViewModel()
@@ -51,11 +52,10 @@ namespace JuryApp.ViewModels
             NavigationService.Navigate(typeof(CreateQuizViewModel).FullName);
         }
 
-        private void NavigateToEditQuizPage()
+        private void NavigateToEditQuizPage(int selectedIndex)
         {
+            Messenger.Default.Send(_quizzes[selectedIndex]);
             NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
-            //TODO: send actual clicked quiz
-            Messenger.Default.Send(_quizzes[1]);
         }
 
         private async void FetchListOfQuizzes()

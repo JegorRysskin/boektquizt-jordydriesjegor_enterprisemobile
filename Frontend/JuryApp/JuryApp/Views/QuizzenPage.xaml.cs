@@ -18,6 +18,7 @@ namespace JuryApp.Views
         public QuizzenPage()
         {
             InitializeComponent();
+
         }
     }
 }
