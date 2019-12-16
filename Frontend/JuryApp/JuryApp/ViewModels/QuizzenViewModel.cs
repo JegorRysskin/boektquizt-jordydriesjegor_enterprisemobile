@@ -37,7 +37,6 @@ namespace JuryApp.ViewModels
             }
         }
 
-        public RelayCommand FetchListCommand => new RelayCommand(FetchListOfQuizzes);
         public RelayCommand CreateQuizCommand => new RelayCommand(NavigateToCreateQuizPage);
         public RelayCommand<int> EditQuizCommand => new RelayCommand<int>(NavigateToEditQuizPage);
 
@@ -45,6 +44,14 @@ namespace JuryApp.ViewModels
         public QuizzenViewModel()
         {
             _quizService = new QuizService();
+            FetchListOfQuizzes();
+            //TODO: Navigationservice.Navigated not ideal as it invokes too often
+            NavigationService.Navigated += NavigationService_Navigated;
+        }
+
+        private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            FetchListOfQuizzes();
         }
 
         private void NavigateToCreateQuizPage()
@@ -56,10 +63,12 @@ namespace JuryApp.ViewModels
         {
             Messenger.Default.Send(_quizzes[selectedIndex]);
             NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
+
         }
 
         private async void FetchListOfQuizzes()
         {
+            //TODO: Might need to force a refresh so it doesnt load cache
             Quizzes = await _quizService.GetAllQuizzes();
         }
 

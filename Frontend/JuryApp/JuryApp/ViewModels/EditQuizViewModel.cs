@@ -11,22 +11,11 @@ namespace JuryApp.ViewModels
 {
     public class EditQuizViewModel : ViewModelBase
     {
-        private Quiz _selectedQuiz;
-
-        public Quiz SelectedQuiz
-        {
-            get => _selectedQuiz;
-            set
-            {
-                if (_selectedQuiz == value) return;
-                _selectedQuiz = value;
-                RaisePropertyChanged("SelectedQuiz");
-            }
-        }
+        public Quiz SelectedQuiz { get; set; }
 
         public EditQuizViewModel()
         {
-            Messenger.Default.Register<Quiz>(this, (quiz) => { _selectedQuiz = quiz; });
+            Messenger.Default.Register<Quiz>(this, (quiz) => { SelectedQuiz = quiz; });
         }
     }
 }

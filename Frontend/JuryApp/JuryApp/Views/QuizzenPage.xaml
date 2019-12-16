@@ -20,9 +20,6 @@
                       HorizontalAlignment="Center">
 
                 <i:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="Loaded">
-                        <core:InvokeCommandAction Command="{x:Bind ViewModel.FetchListCommand}"/>
-                    </core:EventTriggerBehavior>
                     <core:EventTriggerBehavior EventName="SelectionChanged">
                         <core:InvokeCommandAction Command="{x:Bind ViewModel.EditQuizCommand}" CommandParameter="{Binding SelectedIndex, ElementName=QuizzesGridView}"/>
                     </core:EventTriggerBehavior>

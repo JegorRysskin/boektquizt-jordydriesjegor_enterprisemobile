@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Reflection.Metadata;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -31,7 +33,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.GoBack();
+                NavigationService.Navigate(typeof(QuizzenViewModel).FullName);
             }
         }
     }
