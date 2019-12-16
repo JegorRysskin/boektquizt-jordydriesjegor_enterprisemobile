@@ -36,15 +36,15 @@ namespace JuryApp.ViewModels
                 CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
             }
         }
-        public RelayCommand CreateQuizCommand => new RelayCommand(NavigateToCreateQuizPage);
 
+        public RelayCommand FetchListCommand => new RelayCommand(FetchListOfQuizzes);
+        public RelayCommand CreateQuizCommand => new RelayCommand(NavigateToCreateQuizPage);
         public RelayCommand<int> EditQuizCommand => new RelayCommand<int>(NavigateToEditQuizPage);
 
 
         public QuizzenViewModel()
         {
             _quizService = new QuizService();
-            FetchListOfQuizzes();
         }
 
         private void NavigateToCreateQuizPage()
@@ -62,6 +62,7 @@ namespace JuryApp.ViewModels
         {
             Quizzes = await _quizService.GetAllQuizzes();
         }
+
 
     }
 }
