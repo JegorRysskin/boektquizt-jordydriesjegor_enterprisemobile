@@ -27,9 +27,9 @@
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Padding="80" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                        <StackPanel Padding="100" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                             <TextBlock Text="{Binding QuizId}"/>
-                            <TextBlock Text="{Binding QuizName}"/>
+                            <TextBlock Text="{Binding QuizName}" MaxWidth="80"/>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>

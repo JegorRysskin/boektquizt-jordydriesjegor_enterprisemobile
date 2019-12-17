@@ -12,9 +12,9 @@ namespace JuryApp.Core.Services
         {
             _httpDataService = new HttpDataService();
         }
-        public async Task<ObservableCollection<Quiz>> GetAllQuizzes()
+        public async Task<ObservableCollection<Quiz>> GetAllQuizzes(bool forceRefresh)
         {
-            var result = await _httpDataService.GetAsync<ObservableCollection<Quiz>>("quiz");
+            var result = await _httpDataService.GetAsync<ObservableCollection<Quiz>>("quiz", forceRefresh: forceRefresh);
             
             return result;
         }

@@ -44,14 +44,14 @@ namespace JuryApp.ViewModels
         public QuizzenViewModel()
         {
             _quizService = new QuizService();
-            FetchListOfQuizzes();
-            //TODO: Navigationservice.Navigated not ideal as it invokes too often
+            FetchListOfQuizzes(false);
+            //TODO: Navigationservice.Navigated not ideal as it invokes too often, but does the trick
             NavigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            FetchListOfQuizzes();
+            FetchListOfQuizzes(true);
         }
 
         private void NavigateToCreateQuizPage()
@@ -61,15 +61,17 @@ namespace JuryApp.ViewModels
 
         private void NavigateToEditQuizPage(int selectedIndex)
         {
-            Messenger.Default.Send(_quizzes[selectedIndex]);
-            NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
+            if (selectedIndex != -1)
+            {
+                Messenger.Default.Send(_quizzes[selectedIndex]);
+                NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
+            }
 
         }
 
-        private async void FetchListOfQuizzes()
+        private async void FetchListOfQuizzes(bool forceRefresh)
         {
-            //TODO: Might need to force a refresh so it doesnt load cache
-            Quizzes = await _quizService.GetAllQuizzes();
+            Quizzes = await _quizService.GetAllQuizzes(forceRefresh);
         }
 
 

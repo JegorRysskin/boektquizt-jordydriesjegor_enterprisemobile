@@ -9,7 +9,7 @@
 
   <Identity
     Name="4EE619A1-4BE0-43B9-BAEA-6BC46205FEAD"
-    Publisher="CN=jegor"
+    Publisher="CN=Jegor-Laptop"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="4EE619A1-4BE0-43B9-BAEA-6BC46205FEAD" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
