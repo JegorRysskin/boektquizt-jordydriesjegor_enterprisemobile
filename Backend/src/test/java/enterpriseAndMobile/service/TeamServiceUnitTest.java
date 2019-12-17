@@ -12,7 +12,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
@@ -26,7 +29,7 @@ public class TeamServiceUnitTest {
     private TeamService teamService;
 
     @Test
-    public void getAllQuizzes() {
+    public void getAllTeams_FromTeamService() {
         Team team1 = new Team();
         Team team2 = new Team();
 
@@ -37,5 +40,23 @@ public class TeamServiceUnitTest {
 
         given(teamRepository.getAllTeams()).willReturn(teams);
         Assertions.assertEquals(2, teamService.getAllTeams().size());
+    }
+
+    @Test
+    public void getTeamById_FromTeamService(){
+        Team team = new Team();
+
+        given(teamRepository.getTeamById(anyInt())).willReturn(Optional.of(team));
+
+        Assertions.assertTrue(teamService.getTeamById(1).isPresent());
+    }
+
+    @Test
+    public void getTeamByName_FromTeamService(){
+        Team team = new Team("test");
+
+        given(teamRepository.getTeamByName(anyString())).willReturn(team);
+
+        Assertions.assertEquals("test", teamService.getItemByName("test").getName());
     }
 }

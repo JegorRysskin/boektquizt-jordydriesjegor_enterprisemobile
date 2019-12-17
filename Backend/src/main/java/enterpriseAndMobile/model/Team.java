@@ -22,11 +22,11 @@ public class Team {
     @OneToMany(mappedBy = "team")
     private List<Answer> answers;
 
-    private boolean enabled;
+    private Double scores = 0.0;
+
+    private boolean enabled = false;
 
     public int getId() { return id; }
-
-    public void setId(int id) { this.id = id; }
 
     public String getName() { return name; }
 
@@ -39,4 +39,12 @@ public class Team {
     public boolean isEnabled() { return enabled; }
 
     public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
+    public Double getScores() {
+        return scores;
+    }
+
+    public void setScores(Double scores) {
+        this.scores = scores;
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -33,5 +34,28 @@ public class TeamRepositoryIntegrationTest {
         List<Team> found = teamRepository.getAllTeams();
 
         Assertions.assertEquals(2, found.size());
+    }
+
+    @Test
+    public void getTeamById_FromTeamRepository(){
+        Team team1 = new Team("test");
+
+        entityManager.persist(team1);
+        entityManager.flush();
+
+        Optional<Team> team = teamRepository.getTeamById(team1.getId());
+
+        Assertions.assertTrue(team.isPresent());
+    }
+
+    @Test
+    public void getTeamByName_FromTeamRepository(){
+        Team team1 = new Team("test");
+
+        entityManager.persist(team1);
+        entityManager.flush();
+
+        Team team = teamRepository.getTeamByName("test");
+        Assertions.assertEquals("test", team.getName());
     }
 }
