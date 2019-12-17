@@ -28,7 +28,6 @@ namespace JuryApp.ViewModels
 
         private async void CreateNewQuiz()
         {
-            //TODO: refresh list op quizzes when navigated back - Parameter with Navigation? Maybe event that could trigger this?
             var result = await _quizService.AddQuiz(NewQuiz);
 
             if (result)

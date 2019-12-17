@@ -45,7 +45,7 @@ namespace JuryApp.ViewModels
         {
             _quizService = new QuizService();
             FetchListOfQuizzes(false);
-            //TODO: Navigationservice.Navigated not ideal as it invokes too often, but does the trick
+
             NavigationService.Navigated += NavigationService_Navigated;
         }
 
