@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.QueryParam;
@@ -24,6 +25,7 @@ public class QuizRestController {
     @Autowired
     private QuizService quizService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Quiz>> getAllQuizzes() {
         List<Quiz> quizzes = quizService.getAllQuizzes();
@@ -33,6 +35,7 @@ public class QuizRestController {
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Quiz> getQuizById(@PathVariable("id") int id) {
         return quizService.getQuizById(id)
@@ -40,6 +43,7 @@ public class QuizRestController {
                 .orElseGet(notFound());
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto) {
         Quiz quiz = quizService.addQuiz(quizDto);
