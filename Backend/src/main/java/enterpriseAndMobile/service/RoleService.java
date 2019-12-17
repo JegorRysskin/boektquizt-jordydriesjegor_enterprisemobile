@@ -18,10 +18,6 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-//    public Role findRoleByName(String name){
-//        return roleRepository.getRoleByName(name);
-//    }
-
     public Set<Role> findRoleByName(String[] name) {
         Set<Role> set = new HashSet<>();
         for (String roleName : name) {
