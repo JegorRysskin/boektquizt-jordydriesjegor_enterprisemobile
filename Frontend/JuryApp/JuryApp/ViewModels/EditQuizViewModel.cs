@@ -19,18 +19,19 @@ namespace JuryApp.ViewModels
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         public Quiz SelectedQuiz { get; set; }
-        private QuizService _quizService;
+        private readonly QuizService _quizService;
 
         public EditQuizViewModel()
         {
-            SelectedQuiz = new Quiz{QuizEnabled = true, QuizName = "input"};
             _quizService = new QuizService();
-            Messenger.Default.Register<Quiz>(this, SetSelectedQuiz);
+
+            NavigationService.Navigated += NavigationService_Navigated;
         }
 
-        private void SetSelectedQuiz(Quiz messagedQuiz)
+        private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            SelectedQuiz = messagedQuiz;
+            Messenger.Default.Register<Quiz>(this, (quiz) => { SelectedQuiz = quiz; });
+
         }
 
         public RelayCommand DeleteQuizCommand => new RelayCommand(DeleteQuiz);
