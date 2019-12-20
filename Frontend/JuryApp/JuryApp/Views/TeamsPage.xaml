@@ -15,7 +15,7 @@
 
             <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" VerticalAlignment="Top" Margin="20" IsEnabled="False"/>
 
-            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
+            <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"

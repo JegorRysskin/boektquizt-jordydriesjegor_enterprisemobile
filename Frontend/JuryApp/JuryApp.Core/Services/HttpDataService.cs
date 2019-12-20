@@ -132,7 +132,6 @@ namespace JuryApp.Core.Services
                 client.DefaultRequestHeaders.Authorization = null;
                 return;
             }
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
     }
