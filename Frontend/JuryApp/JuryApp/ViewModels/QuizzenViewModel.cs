@@ -63,10 +63,15 @@ namespace JuryApp.ViewModels
         {
             if (selectedIndex != -1)
             {
-                Messenger.Default.Send(_quizzes[selectedIndex]);
+                Messenger.Default.Send(new NotificationMessageAction("test", SenderAction));
                 NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
             }
 
+        }
+
+        public void SenderAction()
+        {
+            
         }
 
         private async void FetchListOfQuizzes(bool forceRefresh)
