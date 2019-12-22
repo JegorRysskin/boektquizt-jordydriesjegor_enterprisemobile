@@ -13,14 +13,13 @@ import java.util.Set;
 public class User {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(generator = "sequence-generator1")
     @GenericGenerator(
             name = "sequence-generator1",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = "sequence_name", value = "user_sequence"),
-                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "5"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             })
     private long id;
