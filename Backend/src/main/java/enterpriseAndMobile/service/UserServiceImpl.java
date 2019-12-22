@@ -3,6 +3,7 @@ package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.dao.UserDao;
 import enterpriseAndMobile.dto.UserDto;
+import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -75,8 +76,9 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-        user.setRole(new String[]{"ADMIN", "USER"});
+        user.setRole(new String[]{"USER"});
         newUser.setRoles(roleService.findRoleByName(user.getRole()));
+        newUser.setTeam(new Team(user.getUsername()));
         return userDao.save(newUser);
     }
 }

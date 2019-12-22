@@ -8,14 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -23,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(TeamRestController.class)
+@WithMockUser(roles = "ADMIN")
 public class TeamControllerUnitTest {
 
     @Autowired
@@ -53,6 +58,39 @@ public class TeamControllerUnitTest {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].name", is(team1.getName())));
     }
+
+    @Test
+    public void GetTeamById_FromTeamController() throws Exception {
+        Team team = new Team("test1");
+
+        mockMvc.perform(get("/team/id/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        given(teamService.getTeamById(anyInt())).willReturn(Optional.of(team));
+
+        mockMvc.perform(get("/team/id/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(team.getName())));
+    }
+
+    @Test
+    public void GetTeamByName_FromTeamController() throws Exception {
+        Team team = new Team("test1");
+
+        mockMvc.perform(get("/team/name/test1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        given(teamService.getItemByName(anyString())).willReturn(team);
+
+        mockMvc.perform(get("/team/name/test1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is(team.getName())));
+    }
 }
+
 
 
