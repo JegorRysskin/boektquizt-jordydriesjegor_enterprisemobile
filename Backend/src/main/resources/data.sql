@@ -1,6 +1,8 @@
 INSERT INTO `role` (`id`, `description`, `name`) VALUES
 (0, 'Team', 'USER'),
-(1, 'Admin', 'ADMIN');
+(1, 'Admin', 'ADMIN'),
+(2, 'Engineer', 'ENGINEER');
+
 
 INSERT INTO `team` (`id`, `enabled`, `name`, `scores`) VALUES
 (1, b'0', 'Team1', 0),
