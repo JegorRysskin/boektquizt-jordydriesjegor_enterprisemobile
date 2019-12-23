@@ -6,13 +6,20 @@
              xmlns:behavior="clr-namespace:BoektQuiz.Behavior;assembly=BoektQuiz"
              mc:Ignorable="d"
              x:Class="BoektQuiz.Views.QuestionPage"
-             Title="{Binding Title}"
-             BackgroundColor="Black">
+             xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
+             xmlns:converter="clr-namespace:BoektQuiz.Converters"
+             Util:ViewModelLocator.AutoWireViewModel="True"
+             Title="{Binding Question.Text}"
+             BackgroundColor="Black"
+             NavigationPage.HasBackButton="False">
+    <ContentPage.Resources>
+        <converter:AnswerToStringConverter x:Key="AnswerToStringConverter"/>
+    </ContentPage.Resources>
 
     <StackLayout Spacing="20" Padding="15">
         <Label Text="{Binding Question.Text}" d:Text="Item name" FontSize="Medium" TextColor="White"/>
         <Label Text="Antwoord:" FontSize="Medium" TextColor="White"/>
-        <Entry Text="{Binding Question.Answer, Mode=TwoWay}" Placeholder="Vul hier je antwoord in" TextColor="White" PlaceholderColor="GhostWhite">
+        <Entry Text="{Binding Question.Answer, Mode=TwoWay, Converter={StaticResource AnswerToStringConverter}}" Placeholder="Vul hier je antwoord in" TextColor="White" PlaceholderColor="GhostWhite">
             <Entry.Behaviors>
                 <behavior:EntryValidationBehavior/>
             </Entry.Behaviors>

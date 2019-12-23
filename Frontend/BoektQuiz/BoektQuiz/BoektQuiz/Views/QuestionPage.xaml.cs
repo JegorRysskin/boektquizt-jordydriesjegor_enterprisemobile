@@ -1,11 +1,8 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 using BoektQuiz.Models;
 using BoektQuiz.Services;
+using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
 using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
@@ -18,46 +15,25 @@ namespace BoektQuiz.Views
     public partial class QuestionPage : ContentPage
     {
         QuestionViewModel viewModel;
-        public Question Question { get; set; }
-
-        private MockDataStore dataStore = new MockDataStore();
-
-        public QuestionPage(QuestionViewModel viewModel)
-        {
-            InitializeComponent();
-
-            BindingContext = this.viewModel = viewModel;
-
-            CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
-        }
+        public bool IsACEnabled { get; private set; } // AC stands for Anti-Cheat in this context and not Air-Conditioning
 
         public QuestionPage()
         {
-            //InitializeComponent();
-
-            for (int id = 9; id >= 0; id--)
-            {
-                Navigation.PushAsync(new QuestionPage(id));
-            }
-
-            CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
-        }
-
-        public QuestionPage(int id = 0)
-        {
             InitializeComponent();
 
-            Question = dataStore.GetQuestionAsync(id).Result;
-
-            viewModel = new QuestionViewModel(Navigation, Question);
+            viewModel = new QuestionViewModel(AppContainer.Resolve<INavigationService>());
             BindingContext = viewModel;
 
-                        CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
+            IsACEnabled = true;
+
+            MessagingCenter.Instance.Subscribe<QuestionViewModel, bool>(this, "IsACEnabled", (sender, isACEnabled) => { IsACEnabled = isACEnabled; });
+
+            CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
         }
 
         void HandleConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            if (CrossConnectivity.Current.IsConnected)
+            if (CrossConnectivity.Current.IsConnected && IsACEnabled)
             {
                 var alert = DisplayAlert("Valsspeler", "U wordt nu gediskwalificeerd",
                     "Ik aanvaard de diskwalificatie");

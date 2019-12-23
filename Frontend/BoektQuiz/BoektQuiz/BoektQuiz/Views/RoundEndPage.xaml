@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BoektQuiz.Views.RoundEndPage"
+             xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
+             Util:ViewModelLocator.AutoWireViewModel="True"
+             Title="{Binding Round.Text}"
+             BackgroundColor="Black"
+             NavigationPage.HasBackButton="False">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Nu mag u de WiFi terug aanzetten om de antwoorden te versturen."
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand" TextColor="White"/>
+            <Button Text="Antwoorden Versturen" Command="{Binding EndRoundCommand}" BackgroundColor="Accent" TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

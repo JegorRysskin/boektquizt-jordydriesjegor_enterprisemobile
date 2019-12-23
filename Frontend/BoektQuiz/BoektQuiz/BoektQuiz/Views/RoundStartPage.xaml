@@ -5,8 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BoektQuiz.Views.RoundStartPage"
-             Title="{Binding Title}"
-             BackgroundColor="Black">
+             xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
+             Util:ViewModelLocator.AutoWireViewModel="True"
+             Title="{Binding Round.Text}"
+             BackgroundColor="Black"
+             NavigationPage.HasBackButton="False">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Om de ronde te starten, dien je eerst de WiFi uit te zetten."

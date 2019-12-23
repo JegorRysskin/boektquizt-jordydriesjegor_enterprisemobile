@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behavior="clr-namespace:BoektQuiz.Behavior;assembly=BoektQuiz"
+             mc:Ignorable="d"
+             xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
+             Util:ViewModelLocator.AutoWireViewModel="True"
+             x:Class="BoektQuiz.Views.RegisterPage"
+             BackgroundColor="Black"
+             Title="Registreren">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Teamnaam:" TextColor="White"/>
+            <Entry Text="{Binding TeamName, Mode=TwoWay}" Placeholder="Vul hier je teamnaam in" TextColor="White" PlaceholderColor="GhostWhite">
+                <Entry.Behaviors>
+                    <behavior:EntryValidationBehavior/>
+                </Entry.Behaviors>
+            </Entry>
+            <Label Text="Paswoord:" TextColor="White"/>
+            <Entry Text="{Binding Password, Mode=TwoWay}" Placeholder="Vul hier je paswoord in" IsPassword="True" TextColor="White" PlaceholderColor="GhostWhite">
+                <Entry.Behaviors>
+                    <behavior:EntryValidationBehavior/>
+                </Entry.Behaviors>
+            </Entry>
+            <Button Text="Team Registreren" Command="{Binding RegisterTeamCommand}" BackgroundColor="Accent" TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

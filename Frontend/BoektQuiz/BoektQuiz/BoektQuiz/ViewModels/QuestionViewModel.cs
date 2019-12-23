@@ -1,6 +1,8 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using BoektQuiz.Models;
+using BoektQuiz.Services;
+using BoektQuiz.Util;
 using BoektQuiz.Views;
 using Xamarin.Forms;
 
@@ -8,27 +10,52 @@ namespace BoektQuiz.ViewModels
 {
     public class QuestionViewModel : BaseViewModel
     {
-        public Question Question { get; set; }
-
-        private bool _isEntryFilledIn;
-
-        public bool IsEntryFilledIn
-        {
-            get => _isEntryFilledIn;
-            set
-            {
-                if (_isEntryFilledIn == value) return;
-                _isEntryFilledIn = value;
+        private Question _question;
+        public Question Question { 
+            get => _question; 
+            set {
+                if (_question == value) return;
+                _question = value;
                 OnPropertyChanged();
             }
         }
 
-        public INavigation Navigation;
-        public QuestionViewModel(INavigation navigation, Question question = null)
+        public int Index { get; set; }
+
+        public Round _round;
+        public Round Round
         {
-            Title = question?.Text;
-            Question = question;
-            Navigation = navigation;
+            get => _round;
+            set
+            {
+                if (_round == value) return;
+                _round = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private INavigationService _navigationService;
+
+        public QuestionViewModel()
+        {
+        }
+
+        public QuestionViewModel(INavigationService navigationService)
+        {
+            _navigationService = navigationService;
+            if (Round != null)
+            {
+                MessagingCenter.Instance.Unsubscribe<QuestionViewModel, Round>(this, "Round");
+                Question = Round.Questions[Index];
+            } 
+            else
+            {
+                MessagingCenter.Instance.Subscribe<RoundStartViewModel, Round>(this, "Round", (sender, round) => {
+                    this.Index = 0;
+                    Round = round; 
+                    Question = Round.Questions[Index]; 
+                });
+            }
         }
 
         private Command _sendAnswerCommand;
@@ -36,14 +63,29 @@ namespace BoektQuiz.ViewModels
         public Command SendAnswerCommand =>
             _sendAnswerCommand ?? (_sendAnswerCommand = new Command(OnSendAnswer, CanSendAnswer));
 
-        private void OnSendAnswer()
+        private async void OnSendAnswer()
         {
-            Navigation.PopAsync();
+            Index++;
+            if (Index < Round.Questions.Count)
+            {
+                Question = Round.Questions[Index];
+            } 
+            else
+            {
+                await _navigationService.NavigateToAsync(RoutingConstants.RoundEndRoute);
+                MessagingCenter.Instance.Send(this, "IsACEnabled", false);
+                MessagingCenter.Instance.Send(this, "Round", Round);
+            }
         }
 
         public bool CanSendAnswer()
         {
-            return IsEntryFilledIn;
+            if (Question != null)
+            {
+                return Question.Answer.AnswerString.Length > 0;
+            }
+
+            return false;
         }
     }
 }

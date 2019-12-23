@@ -1,5 +1,6 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using BoektQuiz.Annotations;
 
@@ -7,20 +8,12 @@ namespace BoektQuiz.Models
 {
     public class Question : INotifyPropertyChanged
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public int RoundId { get; set; }
         public string Text { get; set; }
-        private string _answer;
-
-        public string Answer
-        {
-            get => _answer;
-            set
-            {
-                if (_answer == value) return;
-                _answer = value;
-                OnPropertyChanged();
-            }
-        }
+        public Answer Answer { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

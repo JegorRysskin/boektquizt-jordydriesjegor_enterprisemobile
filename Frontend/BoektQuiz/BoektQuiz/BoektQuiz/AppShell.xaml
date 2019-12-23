@@ -29,145 +29,18 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <!-- Your Pages -->
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
-        <Tab Title="Home" Icon="tab_feed.png">
+        <Tab Title="Home" Icon="tab_home.png">
             <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
         </Tab>
-        <Tab Title="Ronde 1" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>0</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
+        <Tab Title="Login" Icon="tab_login.png">
+            <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" />
         </Tab>
-        <Tab Title="Ronde 2" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>1</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
+        <Tab Title="Registreren" Icon="tab_register.png">
+            <ShellContent ContentTemplate="{DataTemplate local:RegisterPage}" />
         </Tab>
-        <Tab Title="Ronde 3" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>2</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
-        </Tab>
-        <Tab Title="Ronde 4" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>3</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
-        </Tab>
-        <Tab Title="Ronde 5" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>4</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
-        </Tab>
-        <Tab Title="Ronde 6" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>5</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
-        </Tab>
-        <Tab Title="Ronde 7" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>6</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
-        </Tab>
-        <Tab Title="Ronde 8" Icon="tab_feed.png">
-            <ShellContent>
-                <ShellContent.ContentTemplate>
-                    <DataTemplate>
-                        <local:RoundStartPage>
-                            <x:Arguments>
-                                <x:Int32>7</x:Int32>
-                            </x:Arguments>
-                        </local:RoundStartPage>
-                    </DataTemplate>
-                </ShellContent.ContentTemplate>
-            </ShellContent>
+        <Tab Title="Vorige rondes raadplegen" Icon="tab_round.png">
+            <ShellContent ContentTemplate="{DataTemplate local:RoundOverviewPage}" />
         </Tab>
     </FlyoutItem>
-
-    <!-- Optional Templates 
-    // These may be provided inline as below or as separate classes.
-
-    // This header appears at the top of the Flyout.
-    <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid>ContentHere</Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
-
-    // ItemTemplate is for ShellItems as displayed in a Flyout
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Title, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.ItemTemplate>
-
-    // MenuItemTemplate is for MenuItems as displayed in a Flyout
-    <Shell.MenuItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Text, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.MenuItemTemplate>
-
-    -->
-
 </Shell>

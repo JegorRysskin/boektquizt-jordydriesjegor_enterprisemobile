@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="BoektQuiz.Views.HomePage"
+             xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
+             Util:ViewModelLocator.AutoWireViewModel="True"
              BackgroundColor="Black"
              Title="Home">
     <ContentPage.Content>

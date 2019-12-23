@@ -1,4 +1,6 @@
 ﻿using BoektQuiz.Models;
+using BoektQuiz.Services;
+using BoektQuiz.Util;
 using BoektQuiz.Views;
 using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
@@ -8,28 +10,28 @@ namespace BoektQuiz.ViewModels
 {
     public class RoundStartViewModel
     {
-        public string Title { get; set; }
-
-        public INavigation Navigation;
+        private INavigationService _navigationService;
         public Round Round { get; set; }
 
         private Command _startRoundCommand;
 
+        private MockDataStore dataStore = new MockDataStore();
+
         public Command StartRoundCommand =>
             _startRoundCommand ?? (_startRoundCommand = new Command(OnStartRound, CanStartRound));
 
-        public RoundStartViewModel(INavigation navigation, Round round = null)
+        public RoundStartViewModel(INavigationService navigationService, int id)
         {
-            Title = round?.Text;
-            Round = round;
-            Navigation = navigation;
+            Round = dataStore.GetRoundAsync(id).Result;
+            _navigationService = navigationService;
             CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
         }
 
         private async void OnStartRound()
         {
             //Start Round
-            await Navigation.PushAsync(new QuestionPage());
+            await _navigationService.NavigateToAsync(RoutingConstants.QuestionRoute);
+            MessagingCenter.Instance.Send(this, "Round", Round);
         }
 
         public bool CanStartRound()
