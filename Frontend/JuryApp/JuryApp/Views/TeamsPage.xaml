@@ -7,18 +7,19 @@
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <!--
                 The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
                 Place your content here.
             -->
-            <GridView x:Name="Teams" ItemsSource="{x:Bind ViewModel.Items}"
+
+            <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" VerticalAlignment="Top" Margin="20" IsEnabled="False"/>
+
+            <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
-                      SelectionMode="None"
-                      ItemClick="Teams_OnItemClick_ItemClick"
+                      SelectionMode="Single"
                       HorizontalAlignment="Center">
                 <GridView.ItemTemplate>
                     <DataTemplate>
@@ -34,6 +35,17 @@
                     </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
             </GridView>
+            <ContentDialog
+                x:Name="DeleteContentDialog"
+                Title="Ben je zeker?"
+                PrimaryButtonText="Verwijder"
+                CloseButtonText="Annuleren"
+                DefaultButton="Primary">
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <TextBlock Text="Je staat op het punt om dit team te verwijderen!" 
+                               TextWrapping="Wrap" Width="288" />
+                </StackPanel>
+            </ContentDialog>
         </Grid>
     </Grid>
 </Page>

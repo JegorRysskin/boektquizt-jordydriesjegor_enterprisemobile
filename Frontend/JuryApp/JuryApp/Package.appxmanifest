@@ -16,7 +16,7 @@
 
   <Properties>
     <DisplayName>JuryApp</DisplayName>
-    <PublisherDisplayName>Jegor-Laptop</PublisherDisplayName>
+    <PublisherDisplayName>Jegor</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

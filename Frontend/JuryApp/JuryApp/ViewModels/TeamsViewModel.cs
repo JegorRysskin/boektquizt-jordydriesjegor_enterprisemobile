@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using GalaSoft.MvvmLight;
 using JuryApp.Core.Models;
-using JuryApp.Views;
+using JuryApp.Core.Services;
 
 namespace JuryApp.ViewModels
 {
-    public class TeamsViewModel : ViewModelBase
+    public class TeamsViewModel : ViewModelBase, INotifyCollectionChanged
     {
-        public IList Items { get; set; }
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        private ObservableCollection<Team> _teams;
+        private readonly TeamService _teamService;
+
+        public ObservableCollection<Team> Teams
+        {
+            get => _teams;
+            set
+            {
+                _teams = value;
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            }
+        }
 
         public TeamsViewModel()
         {
-            Items = new List<Team>
-            {
-                new Team{TeamId = 1, TeamName = "TeamA"},
-                new Team{TeamId = 2, TeamName = "TeamB"},
-                new Team{TeamId = 3, TeamName = "TeamC"},
-                new Team{TeamId = 4, TeamName = "TeamD"},
-                new Team{TeamId = 5, TeamName = "TeamE"},
-                new Team{TeamId = 6, TeamName = "TeamF"}
-            };
+            _teamService = new TeamService();
+            FetchListOfTeams();
+        }
+
+        private async void FetchListOfTeams()
+        {
+            Teams = await _teamService.GetAllTeams();
         }
     }
 }

@@ -1,10 +1,25 @@
-﻿namespace JuryApp.Core.Models
+﻿using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
+
+namespace JuryApp.Core.Models
 {
-    public class Team
+    public class Team : ObservableObject
     {
+        private int _teamId;
+        private string _teamName;
 
-        public int TeamId { get; set; }
+        [JsonProperty("id")]
+        public int TeamId
+        {
+            get => _teamId;
+            set => Set(() => TeamId, ref _teamId, value);
+        }
 
-        public string TeamName { get; set; }
+        [JsonProperty("name")]
+        public string TeamName
+        {
+            get => _teamName;
+            set => Set(() => TeamName, ref _teamName, value);
+        }
     }
 }

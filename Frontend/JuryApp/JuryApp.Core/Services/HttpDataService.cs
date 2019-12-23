@@ -16,7 +16,7 @@ namespace JuryApp.Core.Services
         private readonly Dictionary<string, object> responseCache;
         private HttpClient client;
 
-        public HttpDataService(string defaultBaseUrl = "")
+        public HttpDataService(string defaultBaseUrl = "http://localhost:8080")
         {
             client = new HttpClient();
 
@@ -132,7 +132,6 @@ namespace JuryApp.Core.Services
                 client.DefaultRequestHeaders.Authorization = null;
                 return;
             }
-
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
     }

@@ -6,13 +6,25 @@ import java.util.List;
 @Entity
 @Table(name = "quiz")
 public class Quiz {
+    public Quiz() {
+    }
+
+    public Quiz(String name) {
+        this.name = name;
+    }
+
+    public Quiz(String name, boolean enabled) {
+        this.name = name;
+        this.enabled = enabled;
+    }
+
     @Id
     @GeneratedValue
     private int id;
 
     private String name;
 
-    @OneToMany(mappedBy = "quiz")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Round> rounds;
 
     private boolean enabled;
