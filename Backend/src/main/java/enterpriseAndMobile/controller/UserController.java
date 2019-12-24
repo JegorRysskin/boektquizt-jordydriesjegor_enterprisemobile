@@ -31,9 +31,16 @@ public class UserController {
 
     @PostMapping(value = "/signup")
     public User saveUser(@RequestBody UserDto user){
+        user.setRole(new String[]{"USER"});
         return userService.save(user);
     }
 
+    @PreAuthorize("hasRole('ENGINEER')")
+    @PostMapping(value = "/addAdmin")
+    public User addAdmin(@RequestBody UserDto user){
+        user.setRole(new String[]{"ADMIN"});
+        return userService.save(user);
+    }
 
 
 }
