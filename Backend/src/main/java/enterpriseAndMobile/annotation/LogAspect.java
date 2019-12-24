@@ -1,5 +1,6 @@
 package enterpriseAndMobile.annotation;
 
+import enterpriseAndMobile.jmsQuee.MessageSender;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,7 +10,14 @@ import java.time.LocalDateTime;
 
 @Aspect
 @Component
- public class LogAspect {
+public class LogAspect {
+
+    private final MessageSender messageSender;
+
+    public LogAspect(MessageSender messageSender) {
+        this.messageSender = messageSender;
+    }
+
     @Around(value = "@annotation(LogExecutionTime)")
     public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
         long start = System.currentTimeMillis();
@@ -18,7 +26,8 @@ import java.time.LocalDateTime;
 
         long executionTime = System.currentTimeMillis() - start;
 
-        System.out.println("Log message: " + joinPoint.getSignature() + " executed in " + executionTime + "ms at " + LocalDateTime.now());
+        messageSender.sendMessage("Log message: " + joinPoint.getSignature() + " executed in " + executionTime + "ms at " + LocalDateTime.now());
+
         return proceed;
     }
 }
