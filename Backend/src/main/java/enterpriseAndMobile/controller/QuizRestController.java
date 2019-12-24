@@ -1,5 +1,6 @@
 package enterpriseAndMobile.controller;
 
+import enterpriseAndMobile.annotation.LogExecutionTime;
 import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.service.QuizService;
@@ -25,6 +26,7 @@ public class QuizRestController {
     @Autowired
     private QuizService quizService;
 
+    @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Quiz>> getAllQuizzes() {
@@ -35,6 +37,7 @@ public class QuizRestController {
         return new ResponseEntity<>(quizzes, HttpStatus.OK);
     }
 
+    @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Quiz> getQuizById(@PathVariable("id") int id) {
@@ -43,6 +46,7 @@ public class QuizRestController {
                 .orElseGet(notFound());
     }
 
+    @LogExecutionTime
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto) {
@@ -50,6 +54,7 @@ public class QuizRestController {
         return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }
 
+    @LogExecutionTime
     @DeleteMapping(value = "{id}")
     public ResponseEntity removeQuiz(@PathVariable("id") int id) {
         quizService.removeQuiz(id);
