@@ -6,10 +6,8 @@ using BoektQuiz.Models;
 
 namespace BoektQuiz.Services
 {
-    public class MockDataStore : IDataStore<Question>
+    public class MockDataStore : IDataStore<Round>
     {
-        private readonly List<Team> teams;
-        private readonly List<Question> questions;
         private readonly List<Question> questions1;
         private readonly List<Question> questions2;
         private readonly List<Question> questions3;
@@ -22,12 +20,6 @@ namespace BoektQuiz.Services
 
         public MockDataStore()
         {
-            teams = new List<Team>()
-            {
-                new Team() { Id = 1, TeamName = "Team 1" }
-            };
-            questions = GenerateQuestionsList(0);
-
             questions1 = GenerateQuestionsList(0);
 
             questions2 = GenerateQuestionsList(1);
@@ -57,27 +49,13 @@ namespace BoektQuiz.Services
             };
         }
 
-        public async Task<bool> AddQuestionAsync(Question question)
-        {
-            questions.Add(question);
-
-            return await Task.FromResult(true);
-        }
-        public async Task<bool> AddRoundAsync(Round round)
+        public async Task<bool> AddItemAsync(Round round)
         {
             rounds.Add(round);
 
             return await Task.FromResult(true);
         }
-        public async Task<bool> UpdateQuestionAsync(Question question)
-        {
-            var oldQuestion = questions.Where((Question arg) => arg.Id == question.Id).FirstOrDefault();
-            questions.Remove(oldQuestion);
-            questions.Add(question);
-
-            return await Task.FromResult(true);
-        }
-        public async Task<bool> UpdateRoundAsync(Round round)
+        public async Task<bool> UpdateItemAsync(Round round)
         {
             var oldRound = rounds.Where((Round arg) => arg.Id == round.Id).FirstOrDefault();
             rounds.Remove(oldRound);
@@ -85,33 +63,18 @@ namespace BoektQuiz.Services
 
             return await Task.FromResult(true);
         }
-        public async Task<bool> DeleteQuestionAsync(int id)
-        {
-            var oldQuestion = questions.Where((Question arg) => arg.Id == id).FirstOrDefault();
-            questions.Remove(oldQuestion);
-
-            return await Task.FromResult(true);
-        }
-        public async Task<bool> DeleteRoundAsync(int id)
+        public async Task<bool> DeleteItemAsync(int id)
         {
             var oldRound = rounds.Where((Round arg) => arg.Id == id).FirstOrDefault();
             rounds.Remove(oldRound);
 
             return await Task.FromResult(true);
         }
-        public async Task<Question> GetQuestionAsync(int id)
-        {
-            return await Task.FromResult(questions.FirstOrDefault(s => s.Id == id));
-        }
-        public async Task<Round> GetRoundAsync(int id)
+        public async Task<Round> GetItemAsync(int id)
         {
             return await Task.FromResult(rounds.FirstOrDefault(r => r.Id == id));
         }
-        public async Task<IEnumerable<Question>> GetQuestionsAsync(bool forceRefresh = false)
-        {
-            return await Task.FromResult(questions);
-        }
-        public async Task<IEnumerable<Round>> GetRoundsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Round>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(rounds);
         }

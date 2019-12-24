@@ -22,7 +22,7 @@ namespace BoektQuiz.ViewModels
 
         public RoundStartViewModel(INavigationService navigationService, int id)
         {
-            Round = dataStore.GetRoundAsync(id).Result;
+            Round = dataStore.GetItemAsync(id).Result;
             _navigationService = navigationService;
             CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
         }

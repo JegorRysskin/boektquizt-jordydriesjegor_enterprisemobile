@@ -19,7 +19,7 @@ namespace BoektQuiz.ViewModels
 
         public AppShellViewModel(AppShell appShell)
         {
-            List<Round> rounds = dataStore.GetRoundsAsync().Result.ToList();
+            List<Round> rounds = dataStore.GetItemsAsync().Result.ToList();
 
             foreach (Round round in rounds)
             {

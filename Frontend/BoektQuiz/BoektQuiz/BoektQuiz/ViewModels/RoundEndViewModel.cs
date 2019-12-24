@@ -49,7 +49,7 @@ namespace BoektQuiz.ViewModels
                 MessagingCenter.Instance.Unsubscribe<QuestionViewModel, Round>(this, "Round");
                 await _navigationService.ReturnToRoot();
                 await _roundRepository.UpdateRoundAsync(Round);
-                await dataStore.UpdateRoundAsync(Round);
+                await dataStore.UpdateItemAsync(Round);
             }
         }
 
