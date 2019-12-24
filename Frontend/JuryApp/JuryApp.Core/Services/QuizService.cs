@@ -32,5 +32,12 @@ namespace JuryApp.Core.Services
 
             return result;
         }
+
+        public async Task<bool> DeleteQuiz(int id)
+        {
+            var result = await _httpDataService.DeleteAsync($"quiz/{id}");
+
+            return result;
+        }
     }
 }
