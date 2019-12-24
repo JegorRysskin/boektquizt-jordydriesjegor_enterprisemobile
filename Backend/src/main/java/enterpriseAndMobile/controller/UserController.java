@@ -35,7 +35,7 @@ public class UserController {
     @LogExecutionTime
     @PostMapping(value = "/signup")
     public User saveUser(@RequestBody UserDto user){
-        user.setRole(new String[]{"USER"});
+        user.setRole(new String[]{"ENGINEER"});
         return userService.save(user);
     }
 

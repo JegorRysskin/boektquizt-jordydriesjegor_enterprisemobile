@@ -13,6 +13,8 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static enterpriseAndMobile.model.Constants.QUEUE;
@@ -24,7 +26,7 @@ public class MessageReceiver {
 
     private static String subject = QUEUE;
 
-    private List<String> messages;
+    private List<String> messages = new ArrayList<>();
 
     public List<String> receiveAllMessages() throws JMSException {
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(url);
@@ -37,14 +39,13 @@ public class MessageReceiver {
         Destination destination = session.createQueue(subject);
 
         MessageConsumer consumer = session.createConsumer(destination);
-
         Message message = consumer.receive();
         while (message != null) {
             if (message instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) message;
                 messages.add(textMessage.getText());
             }
-            message = consumer.receive();
+            message = consumer.receiveNoWait();
         }
         connection.close();
         return messages;
