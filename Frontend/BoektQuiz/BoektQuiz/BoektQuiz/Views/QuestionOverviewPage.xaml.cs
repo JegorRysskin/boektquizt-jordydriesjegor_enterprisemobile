@@ -1,4 +1,5 @@
-﻿using BoektQuiz.Services;
+﻿using BoektQuiz.Repositories;
+using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
 using System;
@@ -21,7 +22,7 @@ namespace BoektQuiz.Views
         {
             InitializeComponent();
 
-            viewModel = new QuestionOverviewViewModel();
+            viewModel = new QuestionOverviewViewModel(AppContainer.Resolve<IQuestionRepository>());
 
             BindingContext = viewModel;
         }

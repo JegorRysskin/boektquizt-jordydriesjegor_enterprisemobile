@@ -4,7 +4,9 @@ using BoektQuiz.Services;
 using BoektQuiz.Util;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BoektQuiz.ViewModels
@@ -20,6 +22,8 @@ namespace BoektQuiz.ViewModels
         private Command _itemSelectCommand;
         public Command ItemSelectCommand =>
             _itemSelectCommand ?? (_itemSelectCommand = new Command(OnItemSelect, CanItemSelect));
+
+        public Command LoadItemsCommand { get; set; }
 
         private bool CanItemSelect(object arg)
         {
@@ -47,7 +51,31 @@ namespace BoektQuiz.ViewModels
         {
             _navigationService = navigationService;
             _roundRepository = roundRepository;
-                                                                                                                                                                                                                                                               Rounds = roundRepository.GetAllRoundsAsync().Result;
+
+            Rounds = roundRepository.GetAllRoundsAsync().Result;
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+        }
+
+        async Task ExecuteLoadItemsCommand()
+        {
+            if (IsBusy)
+                return;
+
+            IsBusy = true;
+
+            try
+            {
+                Rounds.Clear();
+                Rounds = await _roundRepository.GetAllRoundsAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
