@@ -6,6 +6,6 @@ namespace JuryApp.Core.Services.Interfaces
 {
     public interface ITeamService
     {
-        Task<ObservableCollection<Team>> GetAllTeams();
+        Task<ObservableCollection<Team>> GetAllTeams(bool forceRefresh);
     }
 }
