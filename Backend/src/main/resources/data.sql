@@ -5,9 +5,14 @@ INSERT INTO `role` (`id`, `description`, `name`) VALUES
 
 
 INSERT INTO `team` (`id`, `enabled`, `name`, `scores`) VALUES
-(1, b'0', 'Team1', 0),
-(2, b'0', 'Team2', 0),
-(3, b'0', 'Team3', 0);
+(1, b'0', 'Team1', 30),
+(2, b'0', 'Team2', 20),
+(3, b'0', 'Team3', 10);
+
+INSERT INTO `quiz` (`id`, `enabled`, `name`) VALUES
+(1, b'0', 'Quiz1'),
+(2, b'0', 'Quiz2'),
+(3, b'0', 'Quiz3');
 
 INSERT INTO `user` (`id`, `password`, `username`, `team_id`) VALUES
 (1, '$2a$10$sXvem93Fd4nh9VDZFWcwBe5j9j43mJDTDjR6G3Qiv1/6nTIJGBgSW', 'admin', NULL),
