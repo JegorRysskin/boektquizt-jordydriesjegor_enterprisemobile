@@ -1,53 +1,55 @@
 ﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using GalaSoft.MvvmLight;
-using JuryApp.Core.Models;
-using JuryApp.Core.Services;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using JuryApp.Core.Models;
+using JuryApp.Core.Services;
 using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
-    public class TeamsViewModel : ViewModelBase, INotifyCollectionChanged
+    public class TeamsViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
-        private ObservableCollection<Team> _teams;
+
         private readonly TeamService _teamService;
 
-        public ObservableCollection<Team> Teams
-        {
-            get => _teams;
-            set
-            {
-                _teams = value;
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            }
-        }
+        public Teams Teams { get; set; } = new Teams();
 
         public RelayCommand<int> EditTeamCommand => new RelayCommand<int>(NavigateToEditTeamPage);
+
         public TeamsViewModel()
         {
             _teamService = new TeamService();
             FetchListOfTeams(false);
+
             NavigationService.Navigated += NavigationService_Navigated;
         }
+
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             FetchListOfTeams(true);
         }
+
         private void NavigateToEditTeamPage(int selectedIndex)
         {
             if (selectedIndex != -1)
             {
-                Messenger.Default.Send(_teams[selectedIndex]);
+                Messenger.Default.Send(Teams[selectedIndex]);
                 NavigationService.Navigate(typeof(EditTeamViewModel).FullName);
             }
+
         }
+
         private async void FetchListOfTeams(bool forceRefresh)
         {
-            Teams = await _teamService.GetAllTeams(forceRefresh);
+            var teams = await _teamService.GetAllTeams(forceRefresh);
+
+            Teams.Clear();
+            foreach (var team in teams)
+            {
+                Teams.Add(team);
+            }
         }
     }
 }

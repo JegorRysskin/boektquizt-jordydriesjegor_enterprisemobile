@@ -1,4 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using JuryApp.Core.Models;
@@ -10,6 +15,7 @@ namespace JuryApp.ViewModels
     public class EditTeamViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+
         public Team SelectedTeam { get; set; }
         private readonly TeamService _teamService;
 
@@ -17,6 +23,7 @@ namespace JuryApp.ViewModels
         {
             _teamService = new TeamService();
             NavigationService.Navigated += NavigationService_Navigated;
+
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -29,6 +36,7 @@ namespace JuryApp.ViewModels
         private async void DeleteTeam()
         {
             var result = await _teamService.DeleteTeam(SelectedTeam.TeamId);
+
             if (result)
             {
                 NavigationService.Navigate(typeof(TeamsViewModel).FullName);
