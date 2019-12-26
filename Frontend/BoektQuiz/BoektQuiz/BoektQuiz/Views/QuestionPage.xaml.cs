@@ -28,12 +28,12 @@ namespace BoektQuiz.Views
 
             MessagingCenter.Instance.Subscribe<QuestionViewModel, bool>(this, "IsACEnabled", (sender, isACEnabled) => { IsACEnabled = isACEnabled; });
 
-            CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
+            Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
         }
 
         void HandleConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            if (CrossConnectivity.Current.IsConnected && IsACEnabled)
+            if (Connectivity.Instance.IsConnected && IsACEnabled)
             {
                 var alert = DisplayAlert("Valsspeler", "U wordt nu gediskwalificeerd",
                     "Ik aanvaard de diskwalificatie");

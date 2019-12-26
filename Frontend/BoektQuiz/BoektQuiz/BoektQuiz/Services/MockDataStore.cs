@@ -74,7 +74,7 @@ namespace BoektQuiz.Services
         {
             return await Task.FromResult(rounds.FirstOrDefault(r => r.Id == id));
         }
-        public async Task<IEnumerable<Round>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Round>> GetItemsAsync()
         {
             return await Task.FromResult(rounds);
         }

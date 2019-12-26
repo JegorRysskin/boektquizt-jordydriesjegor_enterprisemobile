@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using BoektQuiz.Models;
 using BoektQuiz.Services;
 using BoektQuiz.Views;
@@ -11,17 +12,13 @@ namespace BoektQuiz.ViewModels
 {
     public class AppShellViewModel : BaseViewModel
     {
-        private MockDataStore dataStore = new MockDataStore();
-
         public List<Round> Rounds { get; set; }
 
-        public AppShell Shell { get; set; }
-
-        public AppShellViewModel(AppShell appShell)
+        public AppShellViewModel(AppShell appShell, IDataStore<Round> dataStore)
         {
-            List<Round> rounds = dataStore.GetItemsAsync().Result.ToList();
+            Rounds = dataStore.GetItemsAsync().Result.ToList();
 
-            foreach (Round round in rounds)
+            foreach (Round round in Rounds)
             {
                 ShellSection shell_section = new ShellSection
                 {

@@ -39,7 +39,7 @@ namespace BoektQuiz.ViewModels
             MessagingCenter.Instance.Subscribe<QuestionViewModel, Round>(this, "Round", (sender, round) => { Round = round; });
             _navigationService = navigationService;
             _roundRepository = roundRepository;
-            CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
+            Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
         }
 
         private async void OnEndRound()
@@ -55,7 +55,7 @@ namespace BoektQuiz.ViewModels
 
         public bool CanEndRound()
         {
-            return CrossConnectivity.Current.IsConnected;
+            return Connectivity.Instance.IsConnected;
         }
 
         void HandleConnectivityChanged(object sender, ConnectivityChangedEventArgs e)

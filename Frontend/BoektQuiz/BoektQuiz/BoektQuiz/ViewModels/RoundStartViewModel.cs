@@ -15,16 +15,14 @@ namespace BoektQuiz.ViewModels
 
         private Command _startRoundCommand;
 
-        private MockDataStore dataStore = new MockDataStore();
-
         public Command StartRoundCommand =>
             _startRoundCommand ?? (_startRoundCommand = new Command(OnStartRound, CanStartRound));
 
-        public RoundStartViewModel(INavigationService navigationService, int id)
+        public RoundStartViewModel(INavigationService navigationService, IDataStore<Round> dataStore, int id)
         {
             Round = dataStore.GetItemAsync(id).Result;
             _navigationService = navigationService;
-            CrossConnectivity.Current.ConnectivityChanged += HandleConnectivityChanged;
+            Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
         }
 
         private async void OnStartRound()
@@ -36,7 +34,7 @@ namespace BoektQuiz.ViewModels
 
         public bool CanStartRound()
         {
-            return !CrossConnectivity.Current.IsConnected;
+            return !Connectivity.Instance.IsConnected;
         }
 
         void HandleConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
