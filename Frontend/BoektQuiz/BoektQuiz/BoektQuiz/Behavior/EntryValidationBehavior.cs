@@ -22,12 +22,20 @@ namespace BoektQuiz.Behavior
 
         void OnEntryTextChanged(object sender, TextChangedEventArgs args)
         {
-            bool isEntryFilledIn = ((Entry) sender).Text.Length > 0;
             var bC = ((Entry) sender).BindingContext;
-            if (bC is ItemDetailViewModel vM)
+            if (bC is QuestionViewModel qVM)
             {
-                vM.IsEntryFilledIn = isEntryFilledIn;
-                vM.SendAnswerCommand.ChangeCanExecute();
+                qVM.SendAnswerCommand.ChangeCanExecute();
+            }
+
+            if (bC is RegisterViewModel rVM)
+            {
+                rVM.RegisterTeamCommand.ChangeCanExecute();
+            }
+
+            if (bC is LoginViewModel lVM)
+            {
+                lVM.LoginCommand.ChangeCanExecute();
             }
         }
     }

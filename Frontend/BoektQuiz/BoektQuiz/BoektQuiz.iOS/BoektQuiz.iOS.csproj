@@ -129,8 +129,11 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.2.0" />
+    <PackageReference Include="NUnit3TestAdapter">
+      <Version>3.15.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -138,5 +141,113 @@
       <Project>{918D3718-0D81-4B8E-A4E1-B1EC6312603B}</Project>
       <Name>BoektQuiz</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_home%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_home%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_login%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_login%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_register.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_register%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_register%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_1%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_1%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_2%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_2%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_3%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_3%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_4%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_4%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_5%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_5%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_6%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_6%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_7%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_7%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_8%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\tab_round_8%403x.png" />
   </ItemGroup>
 </Project>

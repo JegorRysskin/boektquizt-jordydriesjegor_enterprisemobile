@@ -12,8 +12,6 @@ namespace BoektQuiz.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Vraag> DataStore => DependencyService.Get<IDataStore<Vraag>>();
-
         bool isBusy = false;
         public bool IsBusy
         {
