@@ -148,6 +148,7 @@
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="ViewModels\CreateQuizViewModel.cs" />
     <Compile Include="ViewModels\EditQuizViewModel.cs" />
+    <Compile Include="ViewModels\EditTeamViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\QuizzenViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
