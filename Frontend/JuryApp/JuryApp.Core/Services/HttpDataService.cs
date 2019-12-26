@@ -4,8 +4,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
+using JuryApp.Core.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace JuryApp.Core.Services
 {
@@ -32,8 +33,6 @@ namespace JuryApp.Core.Services
         {
             T result = default(T);
 
-            // The responseCache is a simple store of past responses to avoid unnecessary requests for the same resource.
-            // Feel free to remove it or extend this request logic as appropraite for your app.
             if (forceRefresh || !responseCache.ContainsKey(uri))
             {
                 AddAuthorizationHeader(accessToken);
@@ -85,6 +84,15 @@ namespace JuryApp.Core.Services
             var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
             return response.IsSuccessStatusCode;
+        }
+
+        public async Task<string> GetLoginToken(LoginUser user, string uri = "signin")
+        {
+            var serializedItem = JsonConvert.SerializeObject(user);
+            var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var tokenObject = JObject.Parse(responseContent)["token"].ToString();
+            return tokenObject;
         }
 
         public async Task<bool> PutAsync<T>(string uri, T item)
