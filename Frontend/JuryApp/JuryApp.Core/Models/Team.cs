@@ -8,6 +8,7 @@ namespace JuryApp.Core.Models
         private int _teamId;
         private string _teamName;
         private bool _teamEnabled;
+        private double _teamScore;
 
         [JsonProperty("id")]
         public int TeamId
@@ -29,6 +30,13 @@ namespace JuryApp.Core.Models
         {
             get => _teamEnabled;
             set => Set(() => TeamEnabled, ref _teamEnabled, value);
+        }
+
+        [JsonProperty("scores")]
+        public double TeamScore
+        {
+            get => _teamScore;
+            set => Set(() => TeamScore, ref _teamScore, value);
         }
     }
 }
