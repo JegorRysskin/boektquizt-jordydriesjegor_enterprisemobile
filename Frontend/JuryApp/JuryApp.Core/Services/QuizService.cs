@@ -8,14 +8,17 @@ namespace JuryApp.Core.Services
     public class QuizService : IQuizService
     {
         private readonly HttpDataService _httpDataService;
+
         public QuizService()
         {
             _httpDataService = new HttpDataService();
         }
+
         public async Task<ObservableCollection<Quiz>> GetAllQuizzes(bool forceRefresh)
         {
-            var result = await _httpDataService.GetAsync<ObservableCollection<Quiz>>("quiz", forceRefresh: forceRefresh);
-            
+            var result =
+                await _httpDataService.GetAsync<ObservableCollection<Quiz>>("quiz", LoginService.AccessToken,
+                    forceRefresh);
             return result;
         }
 
