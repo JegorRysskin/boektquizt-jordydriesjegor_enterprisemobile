@@ -1,5 +1,6 @@
 package enterpriseAndMobile.controller;
 
+import enterpriseAndMobile.annotation.LogExecutionTime;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.service.TeamService;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ public class TeamRestController {
         this.teamService = teamService;
     }
 
+    @LogExecutionTime
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Team>> getAllTeams() {
@@ -32,6 +34,7 @@ public class TeamRestController {
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
+    @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(value = "/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getTeamById(@PathVariable("id") int id) {
@@ -43,6 +46,7 @@ public class TeamRestController {
         return new ResponseEntity<>(team.get(), HttpStatus.OK);
     }
 
+    @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(value = "/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> getTeamByName(@PathVariable("name") String name) {

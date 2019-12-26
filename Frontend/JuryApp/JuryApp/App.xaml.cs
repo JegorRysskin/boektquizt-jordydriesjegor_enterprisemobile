@@ -4,6 +4,7 @@ using JuryApp.Services;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using JuryApp.Core.Services;
 
 namespace JuryApp
 {
@@ -30,6 +31,7 @@ namespace JuryApp
             {
                 await ActivationService.ActivateAsync(args);
             }
+            LoginService.Login();
         }
 
         protected override async void OnActivated(IActivatedEventArgs args)

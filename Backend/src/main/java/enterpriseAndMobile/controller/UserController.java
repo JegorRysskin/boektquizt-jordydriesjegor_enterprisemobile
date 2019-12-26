@@ -1,6 +1,7 @@
 package enterpriseAndMobile.controller;
 
 
+import enterpriseAndMobile.annotation.LogExecutionTime;
 import enterpriseAndMobile.dto.UserDto;
 import enterpriseAndMobile.model.User;
 import enterpriseAndMobile.service.UserService;
@@ -17,23 +18,33 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @LogExecutionTime
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value="/users")
     public List<User> listUser(){
         return userService.findAll();
     }
 
+    @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @GetMapping(value = "/users/{id}")
     public User getOne(@PathVariable(value = "id") Long id){
         return userService.findById(id);
     }
 
+    @LogExecutionTime
     @PostMapping(value = "/signup")
     public User saveUser(@RequestBody UserDto user){
+        user.setRole(new String[]{"USER"});
         return userService.save(user);
     }
 
+    @PreAuthorize("hasRole('ENGINEER')")
+    @PostMapping(value = "/addAdmin")
+    public User addAdmin(@RequestBody UserDto user){
+        user.setRole(new String[]{"ADMIN"});
+        return userService.save(user);
+    }
 
 
 }
