@@ -14,9 +14,14 @@ namespace JuryApp.Core.Services
             _httpDataService = new HttpDataService();
         }
 
-        public async Task<ObservableCollection<Team>> GetAllTeams()
+        public async Task<ObservableCollection<Team>> GetAllTeams(bool forceRefresh)
         {
-            var result = await _httpDataService.GetAsync<ObservableCollection<Team>>("team", LoginService.AccessToken);
+            var result = await _httpDataService.GetAsync<ObservableCollection<Team>>("team", LoginService.AccessToken, forceRefresh);
+            return result;
+        }
+        public async Task<bool> DeleteTeam(int id)
+        {
+            var result = await _httpDataService.DeleteAsync($"team/{id}");
             return result;
         }
     }
