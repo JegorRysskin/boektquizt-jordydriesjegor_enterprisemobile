@@ -91,8 +91,7 @@ namespace JuryApp.Core.Services
             var serializedItem = JsonConvert.SerializeObject(user);
             var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
             var responseContent = await response.Content.ReadAsStringAsync();
-            var tokenObject = JObject.Parse(responseContent)["token"].ToString();
-            return tokenObject;
+            return JObject.Parse(responseContent)["token"].ToString();
         }
 
         public async Task<bool> PutAsync<T>(string uri, T item)
