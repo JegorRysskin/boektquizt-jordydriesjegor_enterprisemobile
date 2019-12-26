@@ -17,6 +17,5 @@ namespace JuryApp.Views
         {
             InitializeComponent();
         }
-
     }
 }
