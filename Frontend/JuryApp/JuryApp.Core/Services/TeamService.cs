@@ -21,7 +21,7 @@ namespace JuryApp.Core.Services
         }
         public async Task<bool> DeleteTeam(int id)
         {
-            var result = await _httpDataService.DeleteAsync($"team/{id}");
+            var result = await _httpDataService.DeleteAsync($"users/{id}", LoginService.AccessToken);
             return result;
         }
     }

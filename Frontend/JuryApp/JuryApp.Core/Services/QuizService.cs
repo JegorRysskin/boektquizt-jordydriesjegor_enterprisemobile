@@ -16,9 +16,7 @@ namespace JuryApp.Core.Services
 
         public async Task<Quizzes> GetAllQuizzes(bool forceRefresh)
         {
-            var result =
-                await _httpDataService.GetAsync<Quizzes>("quiz", LoginService.AccessToken,
-                    forceRefresh);
+            var result = await _httpDataService.GetAsync<Quizzes>("quiz", LoginService.AccessToken, forceRefresh);
             return result;
         }
 

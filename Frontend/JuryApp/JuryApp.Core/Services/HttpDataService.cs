@@ -124,8 +124,9 @@ namespace JuryApp.Core.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> DeleteAsync(string uri)
+        public async Task<bool> DeleteAsync(string uri, string accessToken = null)
         {
+            AddAuthorizationHeader(accessToken);
             var response = await client.DeleteAsync(uri);
 
             return response.IsSuccessStatusCode;

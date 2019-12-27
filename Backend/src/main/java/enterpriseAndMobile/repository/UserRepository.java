@@ -1,5 +1,6 @@
 package enterpriseAndMobile.repository;
 
+import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -35,4 +36,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     default Optional<User> addNewUser(User user){
         return Optional.of(save(user));
     }
+
+    @Transactional
+    void deleteUserByTeam(Team team);
+
 }
