@@ -151,6 +151,7 @@
     <Compile Include="ViewModels\EditTeamViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\QuizzenViewModel.cs" />
+    <Compile Include="ViewModels\ScoresViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\TeamsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -168,6 +169,9 @@
     </Compile>
     <Compile Include="Views\QuizzenPage.xaml.cs">
       <DependentUpon>QuizzenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScoresPage.xaml.cs">
+      <DependentUpon>ScoresPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
@@ -220,6 +224,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\QuizzenPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ScoresPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

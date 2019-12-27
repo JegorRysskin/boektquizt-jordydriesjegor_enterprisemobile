@@ -153,4 +153,8 @@
     <value>Teams</value>
     <comment>Navigation view item name for Teams</comment>
   </data>
+  <data name="Shell_Scores.Content" xml:space="preserve">
+    <value>Tussenstand</value>
+    <comment>Navigation view item name for Tussenstand</comment>
+  </data>
 </root>

@@ -10,24 +10,25 @@
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            
-
             <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
                       HorizontalAlignment="Center">
+
+
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="SelectionChanged">
                         <core:InvokeCommandAction Command="{x:Bind ViewModel.EditTeamCommand}" CommandParameter="{Binding SelectedIndex, ElementName=TeamsGridView}"/>
                     </core:EventTriggerBehavior>
                 </interactivity:Interaction.Behaviors>
+
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Padding="80" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                        <StackPanel Padding="100" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                             <TextBlock Text="{Binding TeamId}"/>
-                            <TextBlock Text="{Binding TeamName}"/>
+                            <TextBlock Text="{Binding TeamName}" MaxWidth="80"/>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>

@@ -7,7 +7,7 @@ namespace JuryApp.Core.Services.Interfaces
 {
     public interface IQuizService
     {
-        Task<ObservableCollection<Quiz>> GetAllQuizzes(bool forceRefresh);
+        Task<Quizzes> GetAllQuizzes(bool forceRefresh);
         Task<Quiz> GetQuizById(int id);
         Task<bool> AddQuiz(Quiz newQuiz);
         Task<bool> DeleteQuiz(int id);
