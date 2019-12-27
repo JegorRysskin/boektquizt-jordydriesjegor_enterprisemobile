@@ -6,6 +6,8 @@ import enterpriseAndMobile.dto.UserDto;
 import enterpriseAndMobile.model.User;
 import enterpriseAndMobile.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +47,19 @@ public class UserController {
         user.setRole(new String[]{"ADMIN"});
         return userService.save(user);
     }
+
+    @LogExecutionTime
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping(value="/users/{id}")
+    public ResponseEntity removeUserByTeamId(@PathVariable("id") int id){
+        boolean success = userService.deleteByTeamId(id);
+        if(success == true){
+            return new ResponseEntity(HttpStatus.OK);
+        } else{
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 
 }

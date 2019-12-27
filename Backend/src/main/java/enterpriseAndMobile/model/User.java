@@ -33,7 +33,7 @@ public class User {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Team team;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLES", joinColumns = {
             @JoinColumn(name = "USER_ID")}, inverseJoinColumns = {
             @JoinColumn(name = "ROLE_ID")})
@@ -41,6 +41,10 @@ public class User {
 
     public User() {
 
+    }
+
+    public User(Team team) {
+        this.team = team;
     }
 
     public User(long id) {
