@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using JuryApp.Core.Models;
+using JuryApp.Core.Models.Collections;
 
 namespace JuryApp.Core.Services.Interfaces
 {

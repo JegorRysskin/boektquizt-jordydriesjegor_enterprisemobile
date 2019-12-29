@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-namespace JuryApp.Core.Models
+namespace JuryApp.Core.Models.Collections
 {
-    public class Quizzes : ObservableCollection<Quiz>
+    public class Answers : ObservableCollection<Answer>
     {
 
     }

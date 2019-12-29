@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using JuryApp.Core.Models;
+using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services.Interfaces;
 
 namespace JuryApp.Core.Services

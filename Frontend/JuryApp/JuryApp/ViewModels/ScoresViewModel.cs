@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using JuryApp.Core.Models;
+using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 
 namespace JuryApp.ViewModels

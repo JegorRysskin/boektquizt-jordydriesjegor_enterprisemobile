@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using GalaSoft.MvvmLight;
+using JuryApp.Core.Models.Collections;
 using Newtonsoft.Json;
 
 namespace JuryApp.Core.Models
@@ -11,6 +12,7 @@ namespace JuryApp.Core.Models
         private int _quizId;
         private string _quizName;
         private bool _quizEnabled;
+        private Rounds _quizRounds;
 
         [JsonProperty("id")]
         public int QuizId
@@ -33,5 +35,11 @@ namespace JuryApp.Core.Models
             set => Set(() => QuizEnabled, ref _quizEnabled, value);
         }
 
+        [JsonProperty("rounds")]
+        public Rounds QuizRounds
+        {
+            get => _quizRounds;
+            set => Set(() => QuizRounds, ref _quizRounds, value);
+        }
     }
 }
