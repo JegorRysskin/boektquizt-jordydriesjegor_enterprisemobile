@@ -27,12 +27,12 @@ public class Quiz {
     }
 
     @Id
-    @GeneratedValue(generator = "sequence-generator-quiz")
+    @GeneratedValue(generator = "sequence-generator3")
     @GenericGenerator(
-            name = "sequence-generator-quiz",
+            name = "sequence-generator3",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "sequence-generator-quiz"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "quiz_sequence"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             })

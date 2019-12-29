@@ -9,13 +9,13 @@ import java.util.List;
 @Table(name = "round")
 public class Round {
 
-    @Id
-    @GeneratedValue(generator = "sequence-generator-round")
+     @Id
+    @GeneratedValue(generator = "sequence-generator2")
     @GenericGenerator(
-            name = "sequence-generator-round",
+            name = "sequence-generator2",
             strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "sequence-generator-round"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "round_sequence"),
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             })
