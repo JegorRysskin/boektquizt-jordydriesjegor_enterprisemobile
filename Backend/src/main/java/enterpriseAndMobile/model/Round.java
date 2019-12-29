@@ -1,5 +1,7 @@
 package enterpriseAndMobile.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,7 +10,15 @@ import java.util.List;
 public class Round {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "sequence-generator-round")
+    @GenericGenerator(
+            name = "sequence-generator-round",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "sequence-generator-round"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            })
     private int id;
 
     private boolean enabled;
