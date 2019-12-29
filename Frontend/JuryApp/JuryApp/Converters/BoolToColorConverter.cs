@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
 namespace JuryApp.Converters
@@ -11,9 +7,9 @@ namespace JuryApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if ((bool) value)
+            if ((bool)value)
                 return "DarkGreen";
-            
+
             return "DarkRed";
         }
 

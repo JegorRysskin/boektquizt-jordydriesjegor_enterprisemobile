@@ -11,6 +11,8 @@ public class Round {
     @GeneratedValue
     private int id;
 
+    private boolean enabled;
+
     @OneToMany
     private List<Question> questions;
 
@@ -24,5 +26,13 @@ public class Round {
 
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

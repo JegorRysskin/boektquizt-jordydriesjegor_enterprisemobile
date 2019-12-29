@@ -142,7 +142,7 @@
     <comment>The page is unknown or not registered in navigation service</comment>
   </data>
   <data name="Shell_Main.Content" xml:space="preserve">
-    <value>Main</value>
+    <value>Hoofdpagina</value>
     <comment>Navigation view item name for Main</comment>
   </data>
   <data name="Shell_Quizzen.Content" xml:space="preserve">

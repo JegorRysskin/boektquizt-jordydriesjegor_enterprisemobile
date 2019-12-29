@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Windows.UI.Xaml;
-using JuryApp.ViewModels;
+﻿using JuryApp.ViewModels;
 using Windows.UI.Xaml.Controls;
-using JuryApp.Core.Models;
-using JuryApp.Core.Services;
 
 namespace JuryApp.Views
 {

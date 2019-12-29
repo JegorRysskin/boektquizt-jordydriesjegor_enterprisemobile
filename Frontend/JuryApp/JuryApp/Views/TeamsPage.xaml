@@ -32,8 +32,8 @@
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Padding="100" Margin="10" Background="{Binding TeamEnabled, Converter={StaticResource BoolToColorConverter}}">
-                            <TextBlock Text="{Binding TeamId}"/>
-                            <TextBlock Text="{Binding TeamName}" MaxWidth="80"/>
+                            <TextBlock Text="{Binding TeamId}" TextAlignment="Center"/>
+                            <TextBlock Text="{Binding TeamName}" MinWidth="60" HorizontalTextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>

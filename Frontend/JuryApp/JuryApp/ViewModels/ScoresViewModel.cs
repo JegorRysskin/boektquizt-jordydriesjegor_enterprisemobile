@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using JuryApp.Core.Models;
-using JuryApp.Core.Models.Collections;
+﻿using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
+using System.Linq;
 
 namespace JuryApp.ViewModels
 {

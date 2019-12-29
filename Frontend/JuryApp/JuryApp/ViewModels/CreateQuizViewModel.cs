@@ -1,15 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection.Metadata;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace JuryApp.ViewModels
 {
@@ -44,10 +40,10 @@ namespace JuryApp.ViewModels
         {
 
             NewQuiz.QuizRounds = new Rounds();
-                
+
             for (var i = 0; i < amountOfRoundsToCreate; i++)
             {
-                NewQuiz.QuizRounds.Add(new Round());
+                NewQuiz.QuizRounds.Add(new Round { RoundEnabled = false });
             }
         }
     }

@@ -4,15 +4,48 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:converters="using:JuryApp.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"></converters:BoolToColorConverter>
+    </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid
-            Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <!--
-                The SystemControlPageBackgroundChromeLowBrush background represents where you should place your content. 
-                Place your content here.
-            -->
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+            <RelativePanel>
+                <TextBlock x:Name="ActiveQuizTextBlock" Margin="10" Text="Actieve quizzen" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
+
+                <GridView x:Name="QuizzesGridView" ItemsSource="{x:Bind ViewModel.EnabledQuizzes, Mode=OneWay}"
+                      IsItemClickEnabled="True"
+                      IsSwipeEnabled="False"
+                      CanDragItems="False"
+                      SelectionMode="Single"
+                      HorizontalAlignment="Center"
+                      RelativePanel.Below="ActiveQuizTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True">
+
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                            <core:InvokeCommandAction Command="{x:Bind ViewModel.RoundControlCommand}" CommandParameter="{Binding SelectedIndex, ElementName=QuizzesGridView}"/>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+
+                    <GridView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Padding="100" Margin="10" Background="{Binding QuizEnabled, Converter={StaticResource BoolToColorConverter}}">
+                                <TextBlock Text="{Binding QuizId}" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding QuizName}" MinWidth="60" HorizontalTextAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+                </GridView>
+            </RelativePanel>
         </Grid>
     </Grid>
 </Page>

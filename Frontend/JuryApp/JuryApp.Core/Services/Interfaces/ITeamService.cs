@@ -1,7 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using JuryApp.Core.Models.Collections;
 using System.Threading.Tasks;
-using JuryApp.Core.Models;
-using JuryApp.Core.Models.Collections;
 
 namespace JuryApp.Core.Services.Interfaces
 {

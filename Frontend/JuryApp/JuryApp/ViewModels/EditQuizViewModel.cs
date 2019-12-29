@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Views;
 using JuryApp.Core.Models;
-using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
+using System;
 
 namespace JuryApp.ViewModels
 {
@@ -33,7 +25,6 @@ namespace JuryApp.ViewModels
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             Messenger.Default.Register<Quiz>(this, (quiz) => { SelectedQuiz = quiz; });
-
         }
 
         public RelayCommand DeleteQuizCommand => new RelayCommand(DeleteQuiz);
