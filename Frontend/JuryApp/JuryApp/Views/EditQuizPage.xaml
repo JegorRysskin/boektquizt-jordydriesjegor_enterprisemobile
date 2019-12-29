@@ -24,7 +24,7 @@
             </RelativePanel>
 
             <GridView x:Name="RoundsGridView" ItemsSource="{x:Bind ViewModel.SelectedQuiz.QuizRounds, Mode=OneWay}"
-                      IsItemClickEnabled="False"
+                      IsItemClickEnabled="True"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
@@ -34,7 +34,7 @@
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Padding="50" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
-                            <TextBlock Text="{Binding RoundId}"/>
+                            <TextBlock Text="{Binding RoundName}"/>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>

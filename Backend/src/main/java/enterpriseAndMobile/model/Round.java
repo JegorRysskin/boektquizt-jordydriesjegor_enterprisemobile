@@ -13,6 +13,8 @@ public class Round {
 
     private boolean enabled;
 
+    private String name;
+
     @OneToMany
     private List<Question> questions;
 
@@ -35,4 +37,8 @@ public class Round {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public String getName() { return name; }
+
+    public void setName(String name) { this.name = name; }
 }

@@ -9,6 +9,7 @@ namespace JuryApp.Core.Models
         private int _roundId;
         private Questions _roundQuestions;
         private bool _roundEnabled;
+        private string _roundName;
 
         [JsonProperty("id")]
         public int RoundId
@@ -24,11 +25,18 @@ namespace JuryApp.Core.Models
             set => Set(() => RoundQuestions, ref _roundQuestions, value);
         }
 
-        [JsonProperty]
+        [JsonProperty("enabled")]
         public bool RoundEnabled
         {
             get => _roundEnabled;
             set => Set(() => RoundEnabled, ref _roundEnabled, value);
+        }
+
+        [JsonProperty("name")]
+        public string RoundName
+        {
+            get => _roundName;
+            set => Set(() => RoundName, ref _roundName, value);
         }
     }
 }

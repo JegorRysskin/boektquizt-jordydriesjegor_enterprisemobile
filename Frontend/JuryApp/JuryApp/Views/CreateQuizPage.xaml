@@ -15,7 +15,7 @@
 
             <CheckBox x:Name="EnableQuizCheckBox" Content="Quiz openstellen?" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="QuizTextBox" IsChecked="{x:Bind ViewModel.NewQuiz.QuizEnabled, Mode=TwoWay}"></CheckBox>
 
-            <TextBlock x:Name="RoundsTextBlock" Text="Voeg rondes toe:" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="6"/>
+            <TextBlock x:Name="RoundsTextBlock" Text="Aantal rondes:" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="6"/>
             <ComboBox x:Name="RoundsComboBox" ItemsSource="{x:Bind ViewModel.ListOfTen}" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="RoundsTextBlock">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="SelectionChanged">

@@ -21,14 +21,14 @@
                   IsItemClickEnabled="True"
                   IsSwipeEnabled="False"
                   CanDragItems="False"
-                  SelectionMode="None"
+                  SelectionMode="Single"
                   HorizontalAlignment="Center"
                   RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="ActiveRoundTextBlock">
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Padding="100" Margin="10" Background="{Binding RoundEnabled, Converter={StaticResource BoolToColorConverter}}">
-                            <TextBlock Text="{Binding RoundId}" TextAlignment="Center"/>
+                            <TextBlock Text="{Binding RoundName}" TextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>
