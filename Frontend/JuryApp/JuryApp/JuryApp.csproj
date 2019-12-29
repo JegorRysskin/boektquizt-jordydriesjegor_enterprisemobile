@@ -141,6 +141,7 @@
     <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
+    <Compile Include="Converters\BoolToColorConverter.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ActivationService.cs" />
@@ -273,6 +274,7 @@
       <Name>JuryApp.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

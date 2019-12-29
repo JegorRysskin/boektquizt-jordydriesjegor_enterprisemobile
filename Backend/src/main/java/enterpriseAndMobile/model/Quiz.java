@@ -18,6 +18,12 @@ public class Quiz {
         this.enabled = enabled;
     }
 
+    public Quiz(String name, boolean enabled, List<Round> rounds) {
+        this.name = name;
+        this.enabled = enabled;
+        this.rounds = rounds;
+    }
+
     @Id
     @GeneratedValue
     private int id;

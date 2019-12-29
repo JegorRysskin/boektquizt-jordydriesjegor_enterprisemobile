@@ -30,14 +30,14 @@ namespace JuryApp.Core.Services
 
         public async Task<bool> AddQuiz(Quiz newQuiz)
         {
-            var result = await _httpDataService.PostAsJsonAsync("quiz", newQuiz);
+            var result = await _httpDataService.PostAsJsonAsync("quiz", newQuiz, LoginService.AccessToken);
 
             return result;
         }
 
         public async Task<bool> DeleteQuiz(int id)
         {
-            var result = await _httpDataService.DeleteAsync($"quiz/{id}");
+            var result = await _httpDataService.DeleteAsync($"quiz/{id}", LoginService.AccessToken);
 
             return result;
         }
