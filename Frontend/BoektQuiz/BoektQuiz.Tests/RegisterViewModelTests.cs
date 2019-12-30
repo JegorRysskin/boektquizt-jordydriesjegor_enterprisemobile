@@ -18,10 +18,10 @@ namespace BoektQuiz.Tests
         }
 
         [Test]
-        public void EmptyTeamNameAndPasswordShouldDisableRegisterTeamButton()
+        public void EmptyUsernameAndPasswordShouldDisableRegisterTeamButton()
         {
             //Arrange
-            _sut.TeamName = String.Empty;
+            _sut.Username = String.Empty;
             _sut.Password = String.Empty;
 
             //Act
@@ -32,10 +32,10 @@ namespace BoektQuiz.Tests
         }
 
         [Test]
-        public void EmptyTeamNameShouldDisableRegisterTeamButton()
+        public void EmptyUsernameShouldDisableRegisterTeamButton()
         {
             //Arrange
-            _sut.TeamName = String.Empty;
+            _sut.Username = String.Empty;
             _sut.Password = Guid.NewGuid().ToString();
 
             //Act
@@ -49,7 +49,7 @@ namespace BoektQuiz.Tests
         public void EmptyPasswordAndPasswordShouldDisableRegisterTeamButton()
         {
             //Arrange
-            _sut.TeamName = Guid.NewGuid().ToString();
+            _sut.Username = Guid.NewGuid().ToString();
             _sut.Password = String.Empty;
 
             //Act
@@ -63,7 +63,7 @@ namespace BoektQuiz.Tests
         public void ToShortPasswordAndPasswordShouldDisableRegisterTeamButton()
         {
             //Arrange
-            _sut.TeamName = Guid.NewGuid().ToString().Substring(0, 2);
+            _sut.Username = Guid.NewGuid().ToString().Substring(0, 2);
             _sut.Password = Guid.NewGuid().ToString().Substring(0, 5);
 
             //Act
@@ -77,7 +77,7 @@ namespace BoektQuiz.Tests
         public void CorrectlyFilledInPasswordAndPasswordShouldEnableRegisterTeamButton()
         {
             //Arrange
-            _sut.TeamName = Guid.NewGuid().ToString();
+            _sut.Username = Guid.NewGuid().ToString();
             _sut.Password = Guid.NewGuid().ToString();
 
             //Act
