@@ -19,23 +19,13 @@ using JuryApp.Views;
 
 namespace JuryApp.ViewModels
 {
-    public class QuizzenViewModel : ViewModelBase, INotifyCollectionChanged
+    public class QuizzenViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
         private readonly QuizService _quizService;
 
-        private ObservableCollection<Quiz> _quizzes;
-        public ObservableCollection<Quiz> Quizzes
-        {
-            get => _quizzes;
-            set
-            {
-                _quizzes = value;
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            }
-        }
+        public Quizzes Quizzes { get; set; } = new Quizzes();
 
         public RelayCommand CreateQuizCommand => new RelayCommand(NavigateToCreateQuizPage);
         public RelayCommand<int> EditQuizCommand => new RelayCommand<int>(NavigateToEditQuizPage);
@@ -63,7 +53,7 @@ namespace JuryApp.ViewModels
         {
             if (selectedIndex != -1)
             {
-                Messenger.Default.Send(_quizzes[selectedIndex]);
+                Messenger.Default.Send(Quizzes[selectedIndex]);
                 NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
             }
 
@@ -71,9 +61,13 @@ namespace JuryApp.ViewModels
 
         private async void FetchListOfQuizzes(bool forceRefresh)
         {
-            Quizzes = await _quizService.GetAllQuizzes(forceRefresh);
+            var quizzes = await _quizService.GetAllQuizzes(forceRefresh);
+
+            Quizzes.Clear();
+            foreach (var quiz in quizzes)
+            {
+                Quizzes.Add(quiz);
+            }
         }
-
-
     }
 }

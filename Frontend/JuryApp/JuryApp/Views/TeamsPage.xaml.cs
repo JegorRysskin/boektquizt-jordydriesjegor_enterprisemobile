@@ -17,24 +17,5 @@ namespace JuryApp.Views
         {
             InitializeComponent();
         }
-
-//        private async void DeleteButton_OnClick(object sender, RoutedEventArgs e)
-//        {
-//            ContentDialogResult result = await DeleteContentDialog.ShowAsync();
-//            if (result == ContentDialogResult.Primary)
-//            {
-//                ViewModel.Teams.RemoveAt(Teams.SelectedIndex);
-//                DeleteButton.Content = "Verwijder";
-//            }
-//        }
-//
-//        private void Teams_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-//        {
-//            if (DeleteButton.IsEnabled == false)
-//                DeleteButton.IsEnabled = true;
-//            
-//            if(Teams.SelectedIndex != -1)
-//                DeleteButton.Content = $"Verwijder {Environment.NewLine}{ViewModel.Teams[Teams.SelectedIndex].TeamName}";
-//        }
     }
 }

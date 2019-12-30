@@ -148,8 +148,10 @@
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="ViewModels\CreateQuizViewModel.cs" />
     <Compile Include="ViewModels\EditQuizViewModel.cs" />
+    <Compile Include="ViewModels\EditTeamViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\QuizzenViewModel.cs" />
+    <Compile Include="ViewModels\ScoresViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\TeamsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
@@ -159,11 +161,17 @@
     <Compile Include="Views\EditQuizPage.xaml.cs">
       <DependentUpon>EditQuizPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\EditTeamPage.xaml.cs">
+      <DependentUpon>EditTeamPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QuizzenPage.xaml.cs">
       <DependentUpon>QuizzenPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScoresPage.xaml.cs">
+      <DependentUpon>ScoresPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellPage.xaml.cs">
       <DependentUpon>ShellPage.xaml</DependentUpon>
@@ -207,11 +215,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditTeamPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\QuizzenPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ScoresPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

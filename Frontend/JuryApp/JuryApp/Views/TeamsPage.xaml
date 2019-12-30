@@ -4,23 +4,31 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-            <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" VerticalAlignment="Top" Margin="20" IsEnabled="False"/>
-
             <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
                       HorizontalAlignment="Center">
+
+
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.EditTeamCommand}" CommandParameter="{Binding SelectedIndex, ElementName=TeamsGridView}"/>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Padding="80" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                        <StackPanel Padding="100" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                             <TextBlock Text="{Binding TeamId}"/>
-                            <TextBlock Text="{Binding TeamName}"/>
+                            <TextBlock Text="{Binding TeamName}" MaxWidth="80"/>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>
@@ -30,17 +38,6 @@
                     </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
             </GridView>
-            <ContentDialog
-                x:Name="DeleteContentDialog"
-                Title="Ben je zeker?"
-                PrimaryButtonText="Verwijder"
-                CloseButtonText="Annuleren"
-                DefaultButton="Primary">
-                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <TextBlock Text="Je staat op het punt om dit team te verwijderen!" 
-                               TextWrapping="Wrap" Width="288" />
-                </StackPanel>
-            </ContentDialog>
         </Grid>
     </Grid>
 </Page>

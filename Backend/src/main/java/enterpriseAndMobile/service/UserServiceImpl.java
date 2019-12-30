@@ -5,6 +5,8 @@ import enterpriseAndMobile.dao.UserDao;
 import enterpriseAndMobile.dto.UserDto;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.model.User;
+import enterpriseAndMobile.repository.TeamRepository;
+import enterpriseAndMobile.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,22 +17,28 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserDetailsService, UserService {
 
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
 
-    @Autowired
-    private BCryptPasswordEncoder bcryptEncoder;
+    private final BCryptPasswordEncoder bcryptEncoder;
 
-    @Autowired
-    private RoleService roleService;
+    private final RoleService roleService;
+
+    private final UserRepository userRepository;
+
+    private final TeamRepository teamRepository;
+
+    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder bcryptEncoder, RoleService roleService, UserRepository userRepository, TeamRepository teamRepository) {
+        this.userDao = userDao;
+        this.bcryptEncoder = bcryptEncoder;
+        this.roleService = roleService;
+        this.userRepository = userRepository;
+        this.teamRepository = teamRepository;
+    }
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userDao.findByUsername(username);
@@ -81,4 +89,16 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         newUser.setTeam(new Team(user.getUsername()));
         return userDao.save(newUser);
     }
+
+    @Override
+    public boolean deleteByTeamId(int id) {
+        Optional<Team> team = teamRepository.getTeamById(id);
+        if(team.isPresent()) {
+            userRepository.deleteUserByTeam(team.get());
+            return true;
+        } else{
+            return false;
+        }
+    }
+
 }

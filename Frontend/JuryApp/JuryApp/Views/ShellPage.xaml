@@ -31,9 +31,10 @@
             Or to use an IconElement instead of a Symbol see https://github.com/Microsoft/WindowsTemplateStudio/blob/master/docs/projectTypes/navigationpane.md
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
-            <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Document" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.MainViewModel" />
-            <winui:NavigationViewItem x:Uid="Shell_Quizzen" Icon="Document" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.QuizzenViewModel" />
-            <winui:NavigationViewItem x:Uid="Shell_Teams" Icon="Document" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.TeamsViewModel" />
+            <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.MainViewModel" />
+            <winui:NavigationViewItem x:Uid="Shell_Quizzen" Icon="Library" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.QuizzenViewModel" />
+            <winui:NavigationViewItem x:Uid="Shell_Teams" Icon="People" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.TeamsViewModel" />
+            <winui:NavigationViewItem x:Uid="Shell_Scores" Icon="ShowResults" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.ScoresViewModel" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior
