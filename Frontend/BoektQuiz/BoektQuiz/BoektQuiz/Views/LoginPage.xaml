@@ -13,7 +13,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Teamnaam:" TextColor="White"/>
-            <Entry Text="{Binding TeamName, Mode=TwoWay}" Placeholder="Vul hier je teamnaam in" TextColor="White" PlaceholderColor="GhostWhite">
+            <Entry Text="{Binding Username, Mode=TwoWay}" Placeholder="Vul hier je teamnaam in" TextColor="White" PlaceholderColor="GhostWhite">
                 <Entry.Behaviors>
                     <behavior:EntryValidationBehavior/>
                 </Entry.Behaviors>
@@ -25,6 +25,7 @@
                 </Entry.Behaviors>
             </Entry>
             <Button Text="Login" Command="{Binding LoginCommand}" BackgroundColor="Accent" TextColor="White"/>
+            <Label Text="{Binding Status}" TextColor="{Binding StatusColor}" VerticalOptions="End"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
