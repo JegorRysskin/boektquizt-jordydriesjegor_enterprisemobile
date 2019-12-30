@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using JuryApp.ViewModels;
 
 using Xunit;

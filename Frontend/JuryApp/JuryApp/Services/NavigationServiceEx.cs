@@ -1,9 +1,7 @@
-﻿using System;
+﻿using JuryApp.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using JuryApp.Helpers;
-
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;

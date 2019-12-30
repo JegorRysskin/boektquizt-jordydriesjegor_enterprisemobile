@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 using GalaSoft.MvvmLight.Ioc;
 
 using JuryApp.Services;
@@ -25,7 +24,10 @@ namespace JuryApp.ViewModels
             Register<CreateQuizViewModel, CreateQuizPage>();
             Register<EditTeamViewModel, EditTeamPage>();
             Register<ScoresViewModel, ScoresPage>();
+            Register<RoundsViewModel, RoundsPage>();
         }
+
+        public RoundsViewModel RoundsViewModel => SimpleIoc.Default.GetInstance<RoundsViewModel>();
 
         public ScoresViewModel ScoresViewModel => SimpleIoc.Default.GetInstance<ScoresViewModel>();
 

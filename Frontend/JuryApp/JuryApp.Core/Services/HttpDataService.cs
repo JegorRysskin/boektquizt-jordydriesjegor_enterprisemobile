@@ -1,12 +1,12 @@
-﻿using System;
+﻿using JuryApp.Core.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using JuryApp.Core.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace JuryApp.Core.Services
 {
@@ -72,7 +72,7 @@ namespace JuryApp.Core.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<bool> PostAsJsonAsync<T>(string uri, T item)
+        public async Task<bool> PostAsJsonAsync<T>(string uri, T item, string accessToken = null)
         {
             if (item == null)
             {
@@ -80,7 +80,7 @@ namespace JuryApp.Core.Services
             }
 
             var serializedItem = JsonConvert.SerializeObject(item);
-
+            AddAuthorizationHeader(accessToken);
             var response = await client.PostAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
             return response.IsSuccessStatusCode;

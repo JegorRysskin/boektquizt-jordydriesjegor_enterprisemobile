@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-
-using JuryApp.Services;
+﻿using JuryApp.Services;
 using JuryApp.ViewModels;
-
+using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 
 namespace JuryApp.Activation

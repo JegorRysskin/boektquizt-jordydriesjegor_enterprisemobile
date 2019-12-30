@@ -1,10 +1,8 @@
-﻿using System;
+﻿using JuryApp.Activation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-using JuryApp.Activation;
-
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

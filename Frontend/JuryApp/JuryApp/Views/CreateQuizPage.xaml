@@ -5,15 +5,26 @@
     xmlns:local="using:JuryApp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
         <RelativePanel Width="300" Height="300" Padding="20">
             <TextBlock x:Name="QuizTextBlock" Text="Quiznaam:" RelativePanel.AlignHorizontalCenterWithPanel="True" Margin="6"/>
             <TextBox x:Name="QuizTextBox" Text="{x:Bind ViewModel.NewQuiz.QuizName, Mode=TwoWay}" MaxLength="200" RelativePanel.Below="QuizTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
 
-            <CheckBox x:Name="EnableQuizCheckBox" Content="Quiz openstellen?" RelativePanel.AlignHorizontalCenterWithPanel="True"  RelativePanel.AlignVerticalCenterWithPanel="True" IsChecked="{x:Bind ViewModel.NewQuiz.QuizEnabled, Mode=TwoWay}"></CheckBox>
+            <CheckBox x:Name="EnableQuizCheckBox" Content="Quiz openstellen?" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="QuizTextBox" IsChecked="{x:Bind ViewModel.NewQuiz.QuizEnabled, Mode=TwoWay}"></CheckBox>
 
-            <Button Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.CreateNewQuizCommand}"></Button>
+            <TextBlock x:Name="RoundsTextBlock" Text="Aantal rondes:" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="6"/>
+            <ComboBox x:Name="RoundsComboBox" ItemsSource="{x:Bind ViewModel.ListOfTen}" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="RoundsTextBlock">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.CreateRoundsCommand}" CommandParameter="{Binding SelectedItem, ElementName=RoundsComboBox}"/>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </ComboBox>
+
+            <Button x:Name="CreateQuizButton" Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.CreateNewQuizCommand}"></Button>
         </RelativePanel>
     </Grid>
 </Page>

@@ -6,12 +6,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:converters="using:JuryApp.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converters:BoolToColorConverter x:Key="BoolToColorConverter"></converters:BoolToColorConverter>
+    </Page.Resources>
+
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
-                      IsItemClickEnabled="False"
+                      IsItemClickEnabled="True"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
@@ -26,9 +31,9 @@
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Padding="100" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
-                            <TextBlock Text="{Binding TeamId}"/>
-                            <TextBlock Text="{Binding TeamName}" MaxWidth="80"/>
+                        <StackPanel Padding="100" Margin="10" Background="{Binding TeamEnabled, Converter={StaticResource BoolToColorConverter}}">
+                            <TextBlock Text="{Binding TeamId}" TextAlignment="Center"/>
+                            <TextBlock Text="{Binding TeamName}" MinWidth="60" HorizontalTextAlignment="Center"/>
                         </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>

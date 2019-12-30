@@ -31,7 +31,7 @@ public class QuizService {
 
     @Transactional
     public Quiz addQuiz(QuizDto quizDto) {
-        Quiz quiz = new Quiz(quizDto.getName(), quizDto.isEnabled());
+        Quiz quiz = new Quiz(quizDto.getName(), quizDto.isEnabled(), quizDto.getRounds());
         return quizRepository.addQuiz(quiz);
     }
 

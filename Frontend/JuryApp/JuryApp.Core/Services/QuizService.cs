@@ -1,7 +1,7 @@
-﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using JuryApp.Core.Models;
+﻿using JuryApp.Core.Models;
+using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace JuryApp.Core.Services
 {
@@ -16,7 +16,7 @@ namespace JuryApp.Core.Services
 
         public async Task<Quizzes> GetAllQuizzes(bool forceRefresh)
         {
-            var result = await _httpDataService.GetAsync<Quizzes>("quiz", LoginService.AccessToken, forceRefresh);
+            var result = await _httpDataService.GetAsync<Quizzes>("quiz", await LoginService.Login(), forceRefresh);
             return result;
         }
 
@@ -29,14 +29,14 @@ namespace JuryApp.Core.Services
 
         public async Task<bool> AddQuiz(Quiz newQuiz)
         {
-            var result = await _httpDataService.PostAsJsonAsync("quiz", newQuiz);
+            var result = await _httpDataService.PostAsJsonAsync("quiz", newQuiz, await LoginService.Login());
 
             return result;
         }
 
         public async Task<bool> DeleteQuiz(int id)
         {
-            var result = await _httpDataService.DeleteAsync($"quiz/{id}");
+            var result = await _httpDataService.DeleteAsync($"quiz/{id}", await LoginService.Login());
 
             return result;
         }

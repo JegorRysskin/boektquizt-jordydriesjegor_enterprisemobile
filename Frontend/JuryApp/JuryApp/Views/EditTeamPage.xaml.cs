@@ -1,5 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
-using JuryApp.ViewModels;
+﻿using JuryApp.ViewModels;
+using Windows.UI.Xaml.Controls;
 
 namespace JuryApp.Views
 {

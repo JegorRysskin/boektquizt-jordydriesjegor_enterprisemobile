@@ -1,5 +1,7 @@
 package enterpriseAndMobile.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -18,8 +20,22 @@ public class Quiz {
         this.enabled = enabled;
     }
 
+    public Quiz(String name, boolean enabled, List<Round> rounds) {
+        this.name = name;
+        this.enabled = enabled;
+        this.rounds = rounds;
+    }
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "sequence-generator3")
+    @GenericGenerator(
+            name = "sequence-generator3",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "quiz_sequence"),
+                    @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
+                    @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
+            })
     private int id;
 
     private String name;

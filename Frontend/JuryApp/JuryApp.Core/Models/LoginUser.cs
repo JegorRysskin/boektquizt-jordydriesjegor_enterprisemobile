@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace JuryApp.Core.Models
+﻿namespace JuryApp.Core.Models
 {
     public class LoginUser
     {

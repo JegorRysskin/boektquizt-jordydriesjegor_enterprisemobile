@@ -1,7 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using JuryApp.Core.Models;
+using JuryApp.Core.Models.Collections;
 using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-using JuryApp.Core.Models;
 
 namespace JuryApp.Core.Services.Interfaces
 {

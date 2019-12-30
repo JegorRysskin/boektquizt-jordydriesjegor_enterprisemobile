@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Net.Mime;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using GalaSoft.MvvmLight.Views;
-using JuryApp.Core.Models;
+using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
-using JuryApp.Views;
 
 namespace JuryApp.ViewModels
 {
@@ -56,7 +44,6 @@ namespace JuryApp.ViewModels
                 Messenger.Default.Send(Quizzes[selectedIndex]);
                 NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
             }
-
         }
 
         private async void FetchListOfQuizzes(bool forceRefresh)
