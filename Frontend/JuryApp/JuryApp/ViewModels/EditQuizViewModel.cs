@@ -5,12 +5,15 @@ using JuryApp.Core.Models;
 using JuryApp.Core.Services;
 using JuryApp.Services;
 using System;
+using Windows.UI.Xaml.Media;
+using JuryApp.Helpers;
 
 namespace JuryApp.ViewModels
 {
     public class EditQuizViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
 
         public Quiz SelectedQuiz { get; set; }
         private readonly QuizService _quizService;
@@ -19,11 +22,7 @@ namespace JuryApp.ViewModels
         {
             _quizService = new QuizService();
 
-            NavigationService.Navigated += NavigationService_Navigated;
-        }
-
-        private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-        {
+            SelectedQuiz = MessengerCache.CachedSelectedQuiz;
             Messenger.Default.Register<Quiz>(this, (quiz) => { SelectedQuiz = quiz; });
         }
 
