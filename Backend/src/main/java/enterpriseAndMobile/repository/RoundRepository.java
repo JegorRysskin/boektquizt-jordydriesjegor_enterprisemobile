@@ -10,4 +10,8 @@ import java.util.Optional;
 public interface RoundRepository extends JpaRepository<Round, Integer> {
     @Override
     Optional<Round> findById(Integer integer);
+
+    default Round patchRound(Round round){
+        return save(round);
+    }
 }
