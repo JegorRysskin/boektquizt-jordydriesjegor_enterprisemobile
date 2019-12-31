@@ -30,4 +30,15 @@ public class RoundRepositoryIntegrationTest {
 
         Assertions.assertEquals(round.getId(), found.get().getId());
     }
+
+    @Test
+    public void patchRound_fromRoundRepository(){
+        Round round = new Round();
+        entityManager.persist(round);
+        entityManager.flush();
+        round.setName("test");
+        Round returnedRound = roundRepository.patchRound(round);
+        Assertions.assertEquals(returnedRound.getId(), round.getId());
+        Assertions.assertEquals(returnedRound.getName(), round.getName());
+    }
 }
