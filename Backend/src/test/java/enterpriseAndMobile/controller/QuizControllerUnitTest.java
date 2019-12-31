@@ -2,6 +2,7 @@ package enterpriseAndMobile.controller;
 
 import enterpriseAndMobile.converter.JsonStringConverter;
 import enterpriseAndMobile.dto.QuizDto;
+import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.service.QuizService;
 import org.junit.jupiter.api.Assertions;
@@ -106,6 +107,23 @@ public class QuizControllerUnitTest {
                 .delete("/quiz/1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void patchQuizById() throws Exception {
+        Quiz patchedQuiz = new Quiz("test", true);
+        QuizPatchDto quizPatchDto = new QuizPatchDto("test", true);
+
+        given(quizService.patchQuiz(anyInt(), any())).willReturn(patchedQuiz);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .patch("/quiz/1")
+                .content(JsonStringConverter.asJsonString(quizPatchDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("test")))
+                .andExpect(jsonPath("$.enabled", is(true)));
     }
 }
 
