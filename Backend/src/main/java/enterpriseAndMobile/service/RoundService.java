@@ -1,5 +1,6 @@
 package enterpriseAndMobile.service;
 
+import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.model.Round;
 import enterpriseAndMobile.repository.RoundRepository;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,11 @@ public class RoundService {
     }
 
     @Transactional(readOnly = true)
-    public Round getRoundById(int id){
+    public Round getRoundById(int id) throws NotFoundException {
         Optional<Round> foundRound =  roundRepository.findById(id);
-        return null;
+        if(foundRound.isPresent()){
+            return foundRound.get();
+        }
+        throw new NotFoundException("Round was't found.");
     }
 }

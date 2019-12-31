@@ -21,7 +21,7 @@ public class RoundRepositoryIntegrationTest {
     private RoundRepository roundRepository;
 
     @Test
-    public void getAllTeams_FromTeamRepository() {
+    public void getRoundById_FromRoundRepository() {
         Round round = new Round();
         entityManager.persist(round);
         entityManager.flush();
