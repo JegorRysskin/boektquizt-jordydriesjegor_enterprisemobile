@@ -5,12 +5,14 @@ using JuryApp.Core.Models;
 using JuryApp.Core.Services;
 using JuryApp.Services;
 using System;
+using JuryApp.Helpers;
 
 namespace JuryApp.ViewModels
 {
     public class EditTeamViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
 
         public Team SelectedTeam { get; set; }
         private readonly TeamService _teamService;
@@ -18,12 +20,8 @@ namespace JuryApp.ViewModels
         public EditTeamViewModel()
         {
             _teamService = new TeamService();
-            NavigationService.Navigated += NavigationService_Navigated;
 
-        }
-
-        private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
-        {
+            SelectedTeam = MessengerCache.CachedSelectedTeam;
             Messenger.Default.Register<Team>(this, (team) => { SelectedTeam = team; });
         }
 

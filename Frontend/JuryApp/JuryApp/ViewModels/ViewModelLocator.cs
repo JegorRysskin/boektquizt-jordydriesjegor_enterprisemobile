@@ -1,6 +1,6 @@
 ﻿
 using GalaSoft.MvvmLight.Ioc;
-
+using JuryApp.Helpers;
 using JuryApp.Services;
 using JuryApp.Views;
 
@@ -15,6 +15,9 @@ namespace JuryApp.ViewModels
 
         private ViewModelLocator()
         {
+            SimpleIoc.Default.Register(() => new MessengerCache());
+            MessengerCache = SimpleIoc.Default.GetInstance<MessengerCache>();
+
             SimpleIoc.Default.Register(() => new NavigationServiceEx());
             SimpleIoc.Default.Register<ShellViewModel>();
             Register<MainViewModel, MainPage>();
@@ -46,6 +49,8 @@ namespace JuryApp.ViewModels
         public ShellViewModel ShellViewModel => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
         public NavigationServiceEx NavigationService => SimpleIoc.Default.GetInstance<NavigationServiceEx>();
+
+        public MessengerCache MessengerCache;
 
         public void Register<VM, V>()
             where VM : class
