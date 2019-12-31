@@ -1,13 +1,13 @@
 package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.dto.QuizDto;
+import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.model.Quiz;
+import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.repository.QuizRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.ws.rs.NotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +36,25 @@ public class QuizService {
     }
 
     @Transactional
-    public void removeQuiz(int id){
+    public void removeQuiz(int id) throws NotFoundException {
         Optional<Quiz> quiz = quizRepository.getQuizById(id);
         if(quiz.isPresent()){
             quizRepository.deleteQuiz(quiz.get());
-        } else{
+        } else {
             throw new NotFoundException("The quiz you tried to delete wasn't found.");
         }
+    }
+
+    @Transactional
+    public Quiz patchQuiz(int id, QuizPatchDto patch) throws NotFoundException {
+        Optional<Quiz> quiz = quizRepository.getQuizById(id);
+        if (quiz.isPresent()) {
+            if (patch.getName() != "" || !patch.getName().equals(quiz.get().getName())) {
+                quiz.get().setName(patch.getName());
+            }
+            quiz.get().setEnabled(patch.isEnabled());
+            return quizRepository.patchQuiz(quiz.get());
+        }
+        throw new NotFoundException("The quiz you tried to patch wasn't found.");
     }
 }

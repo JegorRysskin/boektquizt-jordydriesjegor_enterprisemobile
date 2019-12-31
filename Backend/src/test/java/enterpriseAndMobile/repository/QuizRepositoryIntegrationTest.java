@@ -67,4 +67,17 @@ public class QuizRepositoryIntegrationTest {
         quizRepository.deleteQuiz(quiz);
         Assertions.assertTrue(quizRepository.getQuizById(quiz.getId()).isEmpty());
     }
+
+    @Test
+    public void patchQuiz_FromQuizRepository() {
+        Quiz quiz = new Quiz();
+        quiz.setName("test");
+        entityManager.persist(quiz);
+        entityManager.flush();
+
+        Quiz patched = quizRepository.patchQuiz(quiz);
+
+        Assertions.assertEquals("test", patched.getName());
+        Assertions.assertEquals(quiz.getId(), patched.getId());
+    }
 }
