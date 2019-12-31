@@ -8,8 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "round")
 public class Round {
-
-     @Id
+    @Id
     @GeneratedValue(generator = "sequence-generator2")
     @GenericGenerator(
             name = "sequence-generator2",
@@ -19,6 +18,8 @@ public class Round {
                     @org.hibernate.annotations.Parameter(name = "initial_value", value = "1"),
                     @org.hibernate.annotations.Parameter(name = "increment_size", value = "1")
             })
+
+
     private int id;
 
     private boolean enabled;
@@ -27,6 +28,14 @@ public class Round {
 
     @OneToMany
     private List<Question> questions;
+
+    public Round() {
+    }
+
+    public Round(String name) {
+        this.name = name;
+    }
+
 
     public int getId() {
         return id;
