@@ -2,20 +2,25 @@ package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.dto.RoundPatchDto;
+import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Round;
+import enterpriseAndMobile.repository.QuizRepository;
 import enterpriseAndMobile.repository.RoundRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class RoundService {
 
     private final RoundRepository roundRepository;
+    private final QuizRepository quizRepository;
 
-    public RoundService(RoundRepository roundRepository) {
+    public RoundService(RoundRepository roundRepository, QuizRepository quizRepository) {
         this.roundRepository = roundRepository;
+        this.quizRepository = quizRepository;
     }
 
     @Transactional(readOnly = true)
@@ -41,5 +46,15 @@ public class RoundService {
             return roundRepository.patchRound(foundRound.get());
         }
         throw new NotFoundException("Round was't found.");
+    }
+
+    @Transactional(readOnly = true)
+    public List<Round> getListOfRoundsByQuizById(int id) throws NotFoundException {
+        Optional<Quiz> quiz = quizRepository.getQuizById(id);
+        if(quiz.isPresent()){
+            return quiz.get().getRounds();
+        } else {
+            throw new NotFoundException("The quiz you tried to get wasn't found.");
+        }
     }
 }

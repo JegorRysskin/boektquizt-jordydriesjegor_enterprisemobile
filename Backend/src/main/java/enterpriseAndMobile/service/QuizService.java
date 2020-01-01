@@ -26,16 +26,6 @@ public class QuizService {
     }
 
     @Transactional(readOnly = true)
-    public List<Round> getListOfRoundsByQuizById(int id) throws NotFoundException {
-        Optional<Quiz> quiz = quizRepository.getQuizById(id);
-        if(quiz.isPresent()){
-            return quiz.get().getRounds();
-        } else {
-            throw new NotFoundException("The quiz you tried to get wasn't found.");
-        }
-    }
-
-    @Transactional(readOnly = true)
     public List<Quiz> getAllQuizzes() {
         return quizRepository.getAllQuizzes();
     }
