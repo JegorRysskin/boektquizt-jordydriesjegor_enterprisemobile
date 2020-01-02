@@ -57,4 +57,18 @@ public class RoundService {
             throw new NotFoundException("The quiz you tried to get wasn't found.");
         }
     }
+
+    public List<Round> getListOfRoundsByEnabled() throws NotFoundException {
+        List<Quiz> quiz = quizRepository.getAllQuizzes();
+        int count = 0;
+        while(!quiz.get(count).isEnabled() && quiz.size() >= count){
+            count++;
+        }
+        if(quiz.size() < count){
+            throw new NotFoundException("No quiz is enabled.");
+        }
+        return quiz.get(count).getRounds();
+    }
+
+
 }

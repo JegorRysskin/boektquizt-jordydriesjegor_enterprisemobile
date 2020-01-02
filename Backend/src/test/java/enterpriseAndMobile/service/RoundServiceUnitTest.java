@@ -65,4 +65,31 @@ public class RoundServiceUnitTest {
         List<Round> foundList = roundService.getListOfRoundsByQuizById(quiz.getId());
         Assertions.assertEquals(1, foundList.size());
     }
+
+    @Test
+    public void getListOfRoundsByEnabled() throws NotFoundException {
+        List<Quiz> quizzes = new ArrayList<>();
+        Quiz quiz = new Quiz();
+        Round round = new Round();
+        List<Round> list = new ArrayList<>();
+        list.add(round);
+        quiz.setRounds(list);
+        quiz.setEnabled(false);
+
+        Quiz quiz2 = new Quiz();
+        Round round1 = new Round();
+        Round round2 = new Round();
+        List<Round> list2 = new ArrayList<>();
+        list2.add(round1);
+        list2.add(round2);
+        quiz2.setRounds(list2);
+        quiz2.setEnabled(true);
+
+        quizzes.add(quiz);
+        quizzes.add(quiz2);
+
+        given(quizRepository.getAllQuizzes()).willReturn(quizzes);
+        List<Round> foundList = roundService.getListOfRoundsByEnabled();
+        Assertions.assertEquals(2, foundList.size());
+    }
 }

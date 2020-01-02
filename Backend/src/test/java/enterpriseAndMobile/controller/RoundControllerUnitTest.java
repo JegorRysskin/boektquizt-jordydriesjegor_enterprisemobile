@@ -66,6 +66,19 @@ public class RoundControllerUnitTest {
     }
 
     @Test
+    public void GetRoundsByEnabledQuiz_FromRoundController() throws Exception {
+        Round round = new Round();
+        List<Round> list = new ArrayList<>();
+        list.add(round);
+
+        given(roundService.getListOfRoundsByEnabled()).willReturn(list);
+
+        mockMvc.perform(get("/round")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     public void patchRoundById_FromRoundController() throws Exception {
         Round patchedRound = new Round("test");
         RoundPatchDto patchDto = new RoundPatchDto("test");

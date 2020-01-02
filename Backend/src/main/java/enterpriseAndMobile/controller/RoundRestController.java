@@ -41,14 +41,14 @@ public class RoundRestController {
 
     @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @GetMapping(value = "/quizId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Round>> getRoundsByQuizId(@PathVariable("id") int id) {
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Round>> getRoundsByEnabledQuiz() {
         try {
-            List<Round> found = roundService.getListOfRoundsByQuizById(id);
+            List<Round> found = roundService.getListOfRoundsByEnabled();
             return new ResponseEntity<>(found, HttpStatus.OK);
         } catch (NotFoundException e) {
             logger.error(e.getMessage(), e);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
