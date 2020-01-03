@@ -7,10 +7,7 @@ namespace JuryApp.Views
 {
     public sealed partial class MainPage : Page
     {
-        private MainViewModel ViewModel
-        {
-            get { return ViewModelLocator.Current.MainViewModel; }
-        }
+        private MainViewModel ViewModel => ViewModelLocator.Current.MainViewModel;
 
         public MainPage()
         {

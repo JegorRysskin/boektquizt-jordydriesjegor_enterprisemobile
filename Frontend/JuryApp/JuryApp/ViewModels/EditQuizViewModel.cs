@@ -16,6 +16,7 @@ namespace JuryApp.ViewModels
         private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
 
         public Quiz SelectedQuiz { get; set; }
+        public bool AlreadyOneEnabledQuiz { get; set; }
         private readonly QuizService _quizService;
 
         public EditQuizViewModel()
@@ -24,13 +25,19 @@ namespace JuryApp.ViewModels
 
             SelectedQuiz = MessengerCache.CachedSelectedQuiz;
             Messenger.Default.Register<Quiz>(this, (quiz) => { SelectedQuiz = quiz; });
+            AlreadyOneEnabledQuiz = MessengerCache.CachedAlreadyOneEnabledQuiz;
+            Messenger.Default.Register<bool>(this, (b) => { AlreadyOneEnabledQuiz = b; });
         }
+
 
         public RelayCommand DeleteQuizCommand => new RelayCommand(DeleteQuiz);
         public RelayCommand EditQuizCommand => new RelayCommand(EditQuiz);
 
         private async void EditQuiz()
         {
+            if (AlreadyOneEnabledQuiz)
+                SelectedQuiz.QuizEnabled = false;
+            
             var result = await _quizService.EditQuiz(SelectedQuiz.QuizId, SelectedQuiz);
 
             if (result)
@@ -45,7 +52,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.Navigate(typeof(QuizzenViewModel).FullName);
+                NavigationService.GoBack();
             }
         }
     }

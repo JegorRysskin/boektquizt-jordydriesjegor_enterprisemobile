@@ -33,7 +33,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.Navigate(typeof(TeamsViewModel).FullName);
+                NavigationService.GoBack();
             }
         }
     }
