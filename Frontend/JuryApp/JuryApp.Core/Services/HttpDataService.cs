@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -121,6 +122,47 @@ namespace JuryApp.Core.Services
 
             var response = await client.PutAsync(uri, new StringContent(serializedItem, Encoding.UTF8, "application/json"));
 
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> PatchAsync<T>(string uri, T item)
+        {
+            if (item == null)
+            {
+                return false;
+            }
+
+            var serializedItem = JsonConvert.SerializeObject(item);
+            var buffer = Encoding.UTF8.GetBytes(serializedItem);
+            var byteContent = new ByteArrayContent(buffer);
+
+            var method = new HttpMethod("PATCH");
+            var request = new HttpRequestMessage(method, uri)
+            {
+                Content = byteContent
+            };
+
+            var response = await client.SendAsync(request);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> PatchAsJsonAsync<T>(string uri, T item, string accessToken = null)
+        {
+            if (item == null)
+            {
+                return false;
+            }
+
+            var serializedItem = JsonConvert.SerializeObject(item);
+            AddAuthorizationHeader(accessToken);
+
+            var method = new HttpMethod("PATCH");
+            var request = new HttpRequestMessage(method, uri)
+            {
+                Content = new StringContent(serializedItem, Encoding.UTF8, "application/json")
+            };
+
+            var response = await client.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
 

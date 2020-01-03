@@ -27,6 +27,17 @@ namespace JuryApp.ViewModels
         }
 
         public RelayCommand DeleteQuizCommand => new RelayCommand(DeleteQuiz);
+        public RelayCommand EditQuizCommand => new RelayCommand(EditQuiz);
+
+        private async void EditQuiz()
+        {
+            var result = await _quizService.EditQuiz(SelectedQuiz.QuizId, SelectedQuiz);
+
+            if (result)
+            {
+                NavigationService.GoBack();
+            }
+        }
 
         private async void DeleteQuiz()
         {
