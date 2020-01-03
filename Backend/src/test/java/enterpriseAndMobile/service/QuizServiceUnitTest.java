@@ -82,7 +82,7 @@ public class QuizServiceUnitTest {
     }
 
     @Test
-    public void ThrowNotFoundWhenDeletingQuizThatDoesNotExist(){
+    public void ThrowNotFoundWhenDeletingQuizThatDoesNotExist() {
         given(quizRepository.getQuizById(anyInt())).willReturn(Optional.empty());
         Assertions.assertThrows(Exception.class, () -> quizService.removeQuiz(1));
     }

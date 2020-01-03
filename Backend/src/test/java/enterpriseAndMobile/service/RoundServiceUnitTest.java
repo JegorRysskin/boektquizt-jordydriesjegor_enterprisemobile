@@ -2,7 +2,9 @@ package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.dto.RoundPatchDto;
+import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Round;
+import enterpriseAndMobile.repository.QuizRepository;
 import enterpriseAndMobile.repository.RoundRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -23,6 +27,8 @@ import static org.mockito.BDDMockito.given;
 public class RoundServiceUnitTest {
     @MockBean
     private RoundRepository roundRepository;
+    @MockBean
+    private QuizRepository quizRepository;
 
     @Autowired
     private RoundService roundService;
@@ -46,5 +52,44 @@ public class RoundServiceUnitTest {
         Round patchedRound = roundService.patchRound(0, patch);
         Assertions.assertEquals(patch.getName(), patchedRound.getName());
         Assertions.assertEquals(round.getId(), patchedRound.getId());
+    }
+
+    @Test
+    public void getListOfRoundsByQuizId() throws NotFoundException {
+        Quiz quiz = new Quiz();
+        Round round = new Round();
+        List<Round> list = new ArrayList<>();
+        list.add(round);
+        quiz.setRounds(list);
+        given(quizRepository.getQuizById(anyInt())).willReturn(Optional.of(quiz));
+        List<Round> foundList = roundService.getListOfRoundsByQuizById(quiz.getId());
+        Assertions.assertEquals(1, foundList.size());
+    }
+
+    @Test
+    public void getListOfRoundsByEnabled() throws NotFoundException {
+        List<Quiz> quizzes = new ArrayList<>();
+        Quiz quiz = new Quiz();
+        Round round = new Round();
+        List<Round> list = new ArrayList<>();
+        list.add(round);
+        quiz.setRounds(list);
+        quiz.setEnabled(false);
+
+        Quiz quiz2 = new Quiz();
+        Round round1 = new Round();
+        Round round2 = new Round();
+        List<Round> list2 = new ArrayList<>();
+        list2.add(round1);
+        list2.add(round2);
+        quiz2.setRounds(list2);
+        quiz2.setEnabled(true);
+
+        quizzes.add(quiz);
+        quizzes.add(quiz2);
+
+        given(quizRepository.getAllQuizzes()).willReturn(quizzes);
+        List<Round> foundList = roundService.getListOfRoundsByEnabled();
+        Assertions.assertEquals(2, foundList.size());
     }
 }

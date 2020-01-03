@@ -18,6 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -39,7 +41,7 @@ public class RoundControllerUnitTest {
     private RoundService roundService;
 
     @Test
-    public void GetRoundById_FromTeamController() throws Exception {
+    public void GetRoundById_FromRoundController() throws Exception {
         Round round = new Round("test");
 
         given(roundService.getRoundById(anyInt())).willReturn(round);
@@ -51,7 +53,33 @@ public class RoundControllerUnitTest {
     }
 
     @Test
-    public void patchRoundById() throws Exception {
+    public void GetRoundsByQuizId_FromRoundController() throws Exception {
+        Round round = new Round();
+        List<Round> list = new ArrayList<>();
+        list.add(round);
+
+        given(roundService.getListOfRoundsByQuizById(anyInt())).willReturn(list);
+
+        mockMvc.perform(get("/round/quizId/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void GetRoundsByEnabledQuiz_FromRoundController() throws Exception {
+        Round round = new Round();
+        List<Round> list = new ArrayList<>();
+        list.add(round);
+
+        given(roundService.getListOfRoundsByEnabled()).willReturn(list);
+
+        mockMvc.perform(get("/round")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void patchRoundById_FromRoundController() throws Exception {
         Round patchedRound = new Round("test");
         RoundPatchDto patchDto = new RoundPatchDto("test");
 

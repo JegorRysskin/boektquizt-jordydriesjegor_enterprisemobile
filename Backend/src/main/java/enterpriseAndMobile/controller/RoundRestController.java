@@ -2,9 +2,7 @@ package enterpriseAndMobile.controller;
 
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.annotation.LogExecutionTime;
-import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.RoundPatchDto;
-import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Round;
 import enterpriseAndMobile.service.RoundService;
 import org.apache.commons.logging.Log;
@@ -14,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -31,11 +31,24 @@ public class RoundRestController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Round> getRoundById(@PathVariable("id") int id) {
         try {
-            Round found  = roundService.getRoundById(id);
+            Round found = roundService.getRoundById(id);
             return new ResponseEntity<>(found, HttpStatus.OK);
         } catch (NotFoundException e) {
             logger.error(e.getMessage(), e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @LogExecutionTime
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Round>> getRoundsByEnabledQuiz() {
+        try {
+            List<Round> found = roundService.getListOfRoundsByEnabled();
+            return new ResponseEntity<>(found, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error(e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

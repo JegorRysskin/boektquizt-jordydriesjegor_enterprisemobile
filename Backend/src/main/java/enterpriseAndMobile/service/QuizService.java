@@ -4,6 +4,7 @@ import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.Exception.NotFoundException;
+import enterpriseAndMobile.model.Round;
 import enterpriseAndMobile.repository.QuizRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
