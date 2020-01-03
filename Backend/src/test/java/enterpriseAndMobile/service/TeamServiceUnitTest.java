@@ -1,5 +1,9 @@
 package enterpriseAndMobile.service;
 
+import enterpriseAndMobile.Exception.NotFoundException;
+import enterpriseAndMobile.dto.QuizPatchDto;
+import enterpriseAndMobile.dto.TeamPatchDto;
+import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.repository.TeamRepository;
 import org.junit.jupiter.api.Assertions;
@@ -14,8 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(SpringExtension.class)
@@ -58,5 +61,18 @@ public class TeamServiceUnitTest {
         given(teamRepository.getTeamByName(anyString())).willReturn(team);
 
         Assertions.assertEquals("test", teamService.getItemByName("test").getName());
+    }
+
+    @Test
+    public void patchTeamById() throws NotFoundException {
+        Team team = new Team();
+        Team returnedTeam = new Team("test");
+        TeamPatchDto patchDto = new TeamPatchDto("test", true);
+
+        given(teamRepository.getTeamById(anyInt())).willReturn(Optional.of(team));
+        given(teamRepository.patchTeam(any())).willReturn(returnedTeam);
+        Team found = teamService.patchTeam(0, patchDto);
+        Assertions.assertEquals(patchDto.getName(), found.getName());
+        Assertions.assertEquals(team.getId(), found.getId());
     }
 }

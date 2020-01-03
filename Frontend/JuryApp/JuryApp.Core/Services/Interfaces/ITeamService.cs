@@ -1,5 +1,6 @@
 ﻿using JuryApp.Core.Models.Collections;
 using System.Threading.Tasks;
+using JuryApp.Core.Models;
 
 namespace JuryApp.Core.Services.Interfaces
 {
@@ -7,5 +8,6 @@ namespace JuryApp.Core.Services.Interfaces
     {
         Task<Teams> GetAllTeams(bool forceRefresh);
         Task<bool> DeleteTeam(int id);
+        Task<bool> EditTeam(int id, Team editedTeam);
     }
 }

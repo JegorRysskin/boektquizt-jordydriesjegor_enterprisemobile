@@ -1,6 +1,7 @@
 ﻿using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services.Interfaces;
 using System.Threading.Tasks;
+using JuryApp.Core.Models;
 
 namespace JuryApp.Core.Services
 {
@@ -18,9 +19,17 @@ namespace JuryApp.Core.Services
             var result = await _httpDataService.GetAsync<Teams>("team", await LoginService.Login(), forceRefresh);
             return result;
         }
+
         public async Task<bool> DeleteTeam(int id)
         {
             var result = await _httpDataService.DeleteAsync($"users/{id}", await LoginService.Login());
+            return result;
+        }
+
+        public async Task<bool> EditTeam(int id, Team editedTeam)
+        {
+            var result = await _httpDataService.PatchAsJsonAsync($"team/{id}", editedTeam, await LoginService.Login());
+
             return result;
         }
     }
