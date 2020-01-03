@@ -10,6 +10,7 @@ namespace JuryApp.Core.Services.Interfaces
         Task<Quiz> GetQuizById(int id);
         Task<bool> AddQuiz(Quiz newQuiz);
         Task<bool> DeleteQuiz(int id);
+        Task<bool> EditQuiz(int id, Quiz editedQuiz);
     }
 
 }

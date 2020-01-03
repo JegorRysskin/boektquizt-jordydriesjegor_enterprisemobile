@@ -1,8 +1,12 @@
 package enterpriseAndMobile.controller;
 
+import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.annotation.LogExecutionTime;
+import enterpriseAndMobile.dto.TeamPatchDto;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.service.TeamService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/team")
 public class TeamRestController {
+    protected final Log logger = LogFactory.getLog(getClass());
 
     private final TeamService teamService;
 
@@ -58,5 +63,16 @@ public class TeamRestController {
         return new ResponseEntity<>(team, HttpStatus.OK);
     }
 
-
+    @LogExecutionTime
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping(value = "{id}")
+    public ResponseEntity<Team> patchTeam(@PathVariable("id") int id, @RequestBody TeamPatchDto patchDto) {
+        try {
+            Team team = teamService.patchTeam(id, patchDto);
+            return new ResponseEntity<>(team, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error(e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

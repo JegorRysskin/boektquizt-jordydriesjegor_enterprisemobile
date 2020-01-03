@@ -1,7 +1,9 @@
 ﻿
+using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
@@ -14,44 +16,27 @@ namespace JuryApp.ViewModels
 
         private readonly QuizService _quizService;
 
-        public Quizzes EnabledQuizzes { get; set; } = new Quizzes();
+        public Quiz EnabledQuiz { get; set; }
 
         public MainViewModel()
         {
             _quizService = new QuizService();
-            FetchListOfEnabledQuizzes(false);
+            GetEnabledQuiz(true);
 
             NavigationService.Navigated += NavigationService_Navigated;
         }
 
-        public RelayCommand<int> RoundControlCommand => new RelayCommand<int>(NavigateToRoundPage);
-
-        private void NavigateToRoundPage(int selectedIndex)
-        {
-            if (selectedIndex != -1)
-            {
-                Messenger.Default.Send(EnabledQuizzes[selectedIndex]);
-                NavigationService.Navigate(typeof(RoundsViewModel).FullName);
-            }
-        }
-
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            FetchListOfEnabledQuizzes(true);
+            GetEnabledQuiz(true);
         }
 
-        private async void FetchListOfEnabledQuizzes(bool forceRefresh)
+        private async void GetEnabledQuiz(bool forceRefresh)
         {
             var quizzes = await _quizService.GetAllQuizzes(forceRefresh);
 
-            EnabledQuizzes.Clear();
-            foreach (var quiz in quizzes)
-            {
-                if (quiz.QuizEnabled)
-                {
-                    EnabledQuizzes.Add(quiz);
-                }
-            }
+            EnabledQuiz = quizzes.FirstOrDefault(q => q.QuizEnabled);
+            RaisePropertyChanged(() => EnabledQuiz);
         }
     }
 }

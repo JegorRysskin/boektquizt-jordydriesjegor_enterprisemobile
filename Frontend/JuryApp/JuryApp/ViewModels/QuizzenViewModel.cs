@@ -1,6 +1,8 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Linq;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
@@ -42,6 +44,7 @@ namespace JuryApp.ViewModels
             if (selectedIndex != -1)
             {
                 Messenger.Default.Send(Quizzes[selectedIndex]);
+                Messenger.Default.Send(Quizzes.ToList().Exists(q => q.QuizEnabled));
                 NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
             }
         }

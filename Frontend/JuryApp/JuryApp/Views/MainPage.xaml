@@ -15,33 +15,27 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <RelativePanel>
-                <TextBlock x:Name="ActiveQuizTextBlock" Margin="10" Text="Actieve quizzen" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
-
-                <GridView x:Name="QuizzesGridView" ItemsSource="{x:Bind ViewModel.EnabledQuizzes, Mode=OneWay}"
-                      IsItemClickEnabled="True"
-                      IsSwipeEnabled="False"
-                      CanDragItems="False"
-                      SelectionMode="Single"
-                      HorizontalAlignment="Center"
-                      RelativePanel.Below="ActiveQuizTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True">
-
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="SelectionChanged">
-                            <core:InvokeCommandAction Command="{x:Bind ViewModel.RoundControlCommand}" CommandParameter="{Binding SelectedIndex, ElementName=QuizzesGridView}"/>
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
+                <TextBlock x:Name="ActiveQuizTextBlock" Text="Actieve quiz:" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
+                <TextBlock x:Name="ActiveQuizNameTextBlock" Text="{x:Bind ViewModel.EnabledQuiz.QuizName, Mode=OneWay}" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="ActiveQuizTextBlock"></TextBlock>
+    
+                <GridView x:Name="RoundsGridView" ItemsSource="{x:Bind ViewModel.EnabledQuiz.QuizRounds, Mode=OneWay}"
+                          IsItemClickEnabled="True"
+                          IsSwipeEnabled="False"
+                          CanDragItems="False"
+                          SelectionMode="Single"
+                          HorizontalAlignment="Center"
+                          RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="ActiveQuizNameTextBlock">
 
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Padding="100" Margin="10" Background="{Binding QuizEnabled, Converter={StaticResource BoolToColorConverter}}">
-                                <TextBlock Text="{Binding QuizId}" TextAlignment="Center"/>
-                                <TextBlock Text="{Binding QuizName}" MinWidth="60" HorizontalTextAlignment="Center"/>
+                            <StackPanel Padding="100" Margin="10" Background="{Binding RoundEnabled, Converter={StaticResource BoolToColorConverter}}">
+                                <TextBlock Text="{Binding RoundName}" TextAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </GridView.ItemTemplate>
                     <GridView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
+                            <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
                 </GridView>

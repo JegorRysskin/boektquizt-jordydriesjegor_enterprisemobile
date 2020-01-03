@@ -1,5 +1,6 @@
 package enterpriseAndMobile.repository;
 
+import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -57,5 +58,18 @@ public class TeamRepositoryIntegrationTest {
 
         Team team = teamRepository.getTeamByName("test");
         Assertions.assertEquals("test", team.getName());
+    }
+
+    @Test
+    public void patchTeam_FromTeamRepository() {
+        Team team = new Team();
+        team.setName("test");
+        entityManager.persist(team);
+        entityManager.flush();
+
+        Team patched = teamRepository.patchTeam(team);
+
+        Assertions.assertEquals("test", patched.getName());
+        Assertions.assertEquals(team.getId(), patched.getId());
     }
 }

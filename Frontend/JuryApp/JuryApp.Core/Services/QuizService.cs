@@ -40,5 +40,12 @@ namespace JuryApp.Core.Services
 
             return result;
         }
+
+        public async Task<bool> EditQuiz(int id, Quiz editedQuiz)
+        {
+            var result = await _httpDataService.PatchAsJsonAsync($"quiz/{id}", editedQuiz, await LoginService.Login());
+
+            return result;
+        }
     }
 }

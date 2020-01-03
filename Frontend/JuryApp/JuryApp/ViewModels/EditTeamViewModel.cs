@@ -26,6 +26,17 @@ namespace JuryApp.ViewModels
         }
 
         public RelayCommand DeleteTeamCommand => new RelayCommand(DeleteTeam);
+        public RelayCommand EditTeamCommand => new RelayCommand(EditTeam);
+
+        private async void EditTeam()
+        {
+            var result = await _teamService.EditTeam(SelectedTeam.TeamId, SelectedTeam);
+
+            if (result)
+            {
+                NavigationService.GoBack();
+            }
+        }
 
         private async void DeleteTeam()
         {
@@ -33,7 +44,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.Navigate(typeof(TeamsViewModel).FullName);
+                NavigationService.GoBack();
             }
         }
     }

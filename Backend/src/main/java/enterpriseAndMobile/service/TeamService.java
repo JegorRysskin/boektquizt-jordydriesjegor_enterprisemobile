@@ -1,5 +1,9 @@
 package enterpriseAndMobile.service;
 
+import enterpriseAndMobile.Exception.NotFoundException;
+import enterpriseAndMobile.dto.QuizPatchDto;
+import enterpriseAndMobile.dto.TeamPatchDto;
+import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.repository.TeamRepository;
 import org.springframework.stereotype.Service;
@@ -29,5 +33,18 @@ public class TeamService {
     @Transactional(readOnly = true)
     public Team getItemByName(String name) {
         return teamRepository.getTeamByName(name);
+    }
+
+    @Transactional
+    public Team patchTeam(int id, TeamPatchDto patch) throws NotFoundException {
+        Optional<Team> team = teamRepository.getTeamById(id);
+        if (team.isPresent()) {
+            if (patch.getName() != "" || !patch.getName().equals(team.get().getName())) {
+                team.get().setName(patch.getName());
+            }
+            team.get().setEnabled(patch.isEnabled());
+            return teamRepository.patchTeam(team.get());
+        }
+        throw new NotFoundException("The team you tried to patch wasn't found.");
     }
 }
