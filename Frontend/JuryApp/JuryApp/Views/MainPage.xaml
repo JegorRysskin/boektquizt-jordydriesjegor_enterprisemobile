@@ -44,6 +44,28 @@
                         </ItemsPanelTemplate>
                     </GridView.ItemsPanel>
                 </GridView>
+
+                <!-- <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Rounds, Mode=OneWay}" -->
+                <!--           IsItemClickEnabled="True" -->
+                <!--           IsSwipeEnabled="False" -->
+                <!--           CanDragItems="False" -->
+                <!--           SelectionMode="Single" -->
+                <!--           HorizontalAlignment="Center" -->
+                <!--           RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="RoundsGridView"> -->
+                <!-- -->
+                <!--     <GridView.ItemTemplate> -->
+                <!--     <DataTemplate> -->
+                <!--         <StackPanel Padding="50" Margin="10" Background="{Binding RoundEnabled, Converter={StaticResource BoolToColorConverter}}"> -->
+                <!--             <TextBlock Text="{Binding RoundName}" TextAlignment="Center"/> -->
+                <!--         </StackPanel> -->
+                <!--     </DataTemplate> -->
+                <!-- </GridView.ItemTemplate> -->
+                <!--     <GridView.ItemsPanel> -->
+                <!--         <ItemsPanelTemplate> -->
+                <!--             <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/> -->
+                <!--         </ItemsPanelTemplate> -->
+                <!--     </GridView.ItemsPanel> -->
+                <!-- </GridView> -->
             </RelativePanel>
         </Grid>
     </Grid>
