@@ -44,7 +44,7 @@ namespace JuryApp.ViewModels
             if (selectedIndex == -1) return;
 
             Messenger.Default.Send(Quizzes[selectedIndex]);
-            Messenger.Default.Send(Quizzes.ToList().Exists(q => q.QuizEnabled));
+            Messenger.Default.Send(Quizzes);
             NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
         }
 

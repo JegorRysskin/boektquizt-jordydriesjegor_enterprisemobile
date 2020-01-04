@@ -48,7 +48,7 @@ public class RoundRestController {
             return new ResponseEntity<>(found, HttpStatus.OK);
         } catch (NotFoundException e) {
             logger.error(e.getMessage(), e);
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

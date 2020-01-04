@@ -16,7 +16,7 @@ namespace JuryApp.ViewModels
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
         private readonly RoundService _roundService;
 
-        public Rounds Rounds { get; set; }
+        public Rounds Rounds { get; set; } = new Rounds();
 
         public MainViewModel()
         {
@@ -32,18 +32,12 @@ namespace JuryApp.ViewModels
         {
             if (selectedRound == null) return;
 
-            foreach (var round in Rounds)
+            Rounds.ToList().ForEach(async r =>
             {
-                round.RoundEnabled = round.RoundId == selectedRound.RoundId;
-                UpdateRound(round);
-            }
+                r.RoundEnabled = r.RoundId == selectedRound.RoundId;
+                await _roundService.EditRound(r.RoundId, r);
+            });
         }
-
-        private async void UpdateRound(Round toBeUpdatedRound)
-        {
-            await _roundService.EditRound(toBeUpdatedRound.RoundId, toBeUpdatedRound);
-        }
-
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
