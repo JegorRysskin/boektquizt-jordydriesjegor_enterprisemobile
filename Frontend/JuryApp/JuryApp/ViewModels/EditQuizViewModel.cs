@@ -32,6 +32,15 @@ namespace JuryApp.ViewModels
 
         public RelayCommand DeleteQuizCommand => new RelayCommand(DeleteQuiz);
         public RelayCommand EditQuizCommand => new RelayCommand(EditQuiz);
+        public RelayCommand<Round> NavigateToRoundCommand => new RelayCommand<Round>(NavigateToRound);
+
+        private void NavigateToRound(Round selectedRound)
+        {
+            if (selectedRound == null) return;
+
+            Messenger.Default.Send(selectedRound);
+            NavigationService.Navigate(typeof(RoundViewModel).FullName);
+        }
 
         private async void EditQuiz()
         {
