@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -13,30 +14,45 @@ namespace JuryApp.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private readonly RoundService _roundService;
 
-        private readonly QuizService _quizService;
-
-        public Quiz EnabledQuiz { get; set; }
+        public Rounds Rounds { get; set; }
 
         public MainViewModel()
         {
-            _quizService = new QuizService();
-            GetEnabledQuiz(true);
+            _roundService = new RoundService();
+            GetRoundsFromEnabledQuiz(true);
 
             NavigationService.Navigated += NavigationService_Navigated;
         }
 
-        private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRounds);
+
+        private void EnableRounds(Round selectedRound)
         {
-            GetEnabledQuiz(true);
+            foreach (var round in Rounds)
+            {
+                round.RoundEnabled = round.RoundId == selectedRound.RoundId;
+                UpdateRound(round);
+            }
+
         }
 
-        private async void GetEnabledQuiz(bool forceRefresh)
+        private async void UpdateRound(Round toBeUpdatedRound)
         {
-            var quizzes = await _quizService.GetAllQuizzes(forceRefresh);
+            await _roundService.EditRound(toBeUpdatedRound.RoundId, toBeUpdatedRound);
+        }
 
-            EnabledQuiz = quizzes.FirstOrDefault(q => q.QuizEnabled);
-            RaisePropertyChanged(() => EnabledQuiz);
+
+        private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
+            GetRoundsFromEnabledQuiz(true);
+        }
+
+        private async void GetRoundsFromEnabledQuiz(bool forceRefresh)
+        {
+            Rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
+            RaisePropertyChanged(() => Rounds);
         }
     }
 }
