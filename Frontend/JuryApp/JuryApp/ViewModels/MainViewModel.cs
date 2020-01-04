@@ -30,12 +30,13 @@ namespace JuryApp.ViewModels
 
         private void EnableRounds(Round selectedRound)
         {
+            if (selectedRound == null) return;
+
             foreach (var round in Rounds)
             {
                 round.RoundEnabled = round.RoundId == selectedRound.RoundId;
                 UpdateRound(round);
             }
-
         }
 
         private async void UpdateRound(Round toBeUpdatedRound)

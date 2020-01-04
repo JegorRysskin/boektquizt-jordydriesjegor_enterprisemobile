@@ -18,7 +18,7 @@ namespace JuryApp.Core.Models
             set => Set(() => RoundId, ref _roundId, value);
         }
 
-        [JsonProperty]
+        [JsonProperty("questions")]
         public Questions RoundQuestions
         {
             get => _roundQuestions;
