@@ -61,7 +61,7 @@ public class RoundService {
     public List<Round> getListOfRoundsByEnabled() throws NotFoundException {
         List<Quiz> quiz = quizRepository.getAllQuizzes();
         int count = 0;
-        while(!quiz.get(count).isEnabled() && quiz.size() >= count){
+        while(!quiz.get(count).isEnabled() && quiz.size() -1 > count){
             count++;
         }
         if(quiz.size() < count){
