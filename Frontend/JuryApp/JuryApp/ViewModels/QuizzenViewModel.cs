@@ -41,12 +41,11 @@ namespace JuryApp.ViewModels
 
         private void NavigateToEditQuizPage(int selectedIndex)
         {
-            if (selectedIndex != -1)
-            {
-                Messenger.Default.Send(Quizzes[selectedIndex]);
-                Messenger.Default.Send(Quizzes.ToList().Exists(q => q.QuizEnabled));
-                NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
-            }
+            if (selectedIndex == -1) return;
+
+            Messenger.Default.Send(Quizzes[selectedIndex]);
+            Messenger.Default.Send(Quizzes);
+            NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
         }
 
         private async void FetchListOfQuizzes(bool forceRefresh)
