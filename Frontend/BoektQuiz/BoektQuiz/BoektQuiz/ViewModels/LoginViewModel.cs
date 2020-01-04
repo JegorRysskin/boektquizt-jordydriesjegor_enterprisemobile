@@ -1,4 +1,5 @@
 ﻿using BoektQuiz.Models;
+using BoektQuiz.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,35 +24,38 @@ namespace BoektQuiz.ViewModels
         public Command LoginCommand => _loginCommand ??
                                               (_loginCommand = new Command(OnLogin, CanLogin));
 
+        private IBackendService _backendService;
+
+        public LoginViewModel(IBackendService backendService)
+        {
+            _backendService = backendService;
+        }
+
         private async void OnLogin()
         {
-            var loginModel = new LoginModel() { Username = Username, Password = Password };
+            var status = await _backendService.Login(Username, Password);
 
-            var json = JsonConvert.SerializeObject(loginModel);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            using (var client = new HttpClient())
+            if (status == "401")
             {
-                var response = await client.PostAsync("http://10.0.2.2:8080/signin", data); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
-
-                if (response.IsSuccessStatusCode)
+                Status = "Onjuiste combinatie van gebruikersnaam en paswoord.";
+                StatusColor = Color.FromHex("ED028C");
+            }
+            else if (status == "500") 
+            {
+                Status = "Er is iets misgelopen bij het inloggen.";
+                StatusColor = Color.FromHex("ED028C");
+            } 
+            else
+            {
+                Status = "Inloggen gelukt";
+                StatusColor = Color.Accent;
+                Application.Current.Properties["token"] = status;
+                if (Application.Current.MainPage is AppShell shell)
                 {
-                    var token = JsonConvert.DeserializeObject<TokenModel>(await response.Content.ReadAsStringAsync());
-                    Application.Current.Properties["token"] = token.Token;
-                    Status = "Inloggen gelukt";
-                    StatusColor = Color.Accent;
-                }
-                else
-                {
-                    if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    if (shell.BindingContext is AppShellViewModel aSVM)
                     {
-                        Status = "Onjuiste combinatie gebruikersnaam en wachtwoord";
-                    } else
-                    {
-                        Status = "Er is iets misgelopen bij het inloggen";
+                        aSVM.LoadRounds();
                     }
-
-                    StatusColor = Color.FromHex("ED028C");
                 }
             }
         }

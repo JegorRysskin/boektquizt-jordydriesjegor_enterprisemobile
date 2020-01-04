@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using BoektQuiz.Models;
@@ -14,9 +15,24 @@ namespace BoektQuiz.ViewModels
     {
         public List<Round> Rounds { get; set; }
 
-        public AppShellViewModel(AppShell appShell, IDataStore<Round> dataStore)
+        private AppShell _shell;
+        private IBackendService _backendService;
+
+        public AppShellViewModel(AppShell shell, IBackendService backendService)
         {
-            Rounds = dataStore.GetItemsAsync().Result.ToList();
+            _shell = shell;
+            _backendService = backendService;
+
+            if (Application.Current.Properties.ContainsKey("token"))
+            {
+                LoadRounds();
+            }
+        }
+
+        public void LoadRounds()
+        {
+            string token = Application.Current.Properties["token"].ToString();
+            Rounds = _backendService.GetAllRounds(token).Result;
 
             foreach (Round round in Rounds)
             {
@@ -28,7 +44,7 @@ namespace BoektQuiz.ViewModels
 
                 shell_section.Items.Add(new ShellContent() { Content = new RoundStartPage(round.Id) });
 
-                appShell.Items.Add(shell_section);
+                _shell.Items.Add(shell_section);
             }
         }
     }

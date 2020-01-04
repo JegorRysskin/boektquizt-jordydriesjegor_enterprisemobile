@@ -16,7 +16,7 @@ namespace BoektQuiz.Tests
     {
         private Mock<INavigationService> _navigationServiceMock;
         private Mock<IRoundRepository> _roundRepositoryMock;
-        private Mock<IDataStore<Round>> _dataStoreMock;
+        private Mock<IBackendService> _backendServiceMock;
         private Round _round;
         private CrossConnectivityFake _crossConnectivityFake;
         private RoundEndViewModel _sut;
@@ -29,12 +29,12 @@ namespace BoektQuiz.Tests
             _crossConnectivityFake = new CrossConnectivityFake();
             _navigationServiceMock = new Mock<INavigationService>();
             _roundRepositoryMock = new Mock<IRoundRepository>();
-            _sut = new RoundEndViewModel(_navigationServiceMock.Object, _roundRepositoryMock.Object);
+            _backendServiceMock = new Mock<IBackendService>();
+            _sut = new RoundEndViewModel(_navigationServiceMock.Object, _roundRepositoryMock.Object, _backendServiceMock.Object);
             _receiver = new QuestionViewModel(_navigationServiceMock.Object);
-            _dataStoreMock = new Mock<IDataStore<Round>>();
             _round = GenerateRound();
-            _dataStoreMock.Setup(ds => ds.GetItemAsync(It.IsAny<Int32>())).ReturnsAsync(_round);
-            _sender = new RoundStartViewModel(_navigationServiceMock.Object, _dataStoreMock.Object, 1);
+            _backendServiceMock.Setup(backend => backend.GetRoundById(It.IsAny<Int32>(), It.IsAny<String>())).ReturnsAsync(_round);
+            _sender = new RoundStartViewModel(_navigationServiceMock.Object, _backendServiceMock.Object, 1);
             _sender.StartRoundCommand.Execute(null);
             Connectivity.Instance = _crossConnectivityFake;
         }
@@ -43,7 +43,7 @@ namespace BoektQuiz.Tests
         public void Constructor_ShouldLoadRound()
         {
             //Act
-            var sut = new RoundEndViewModel(_navigationServiceMock.Object, _roundRepositoryMock.Object);
+            var sut = new RoundEndViewModel(_navigationServiceMock.Object, _roundRepositoryMock.Object, _backendServiceMock.Object);
             FillInAnswers();
 
             //Assert

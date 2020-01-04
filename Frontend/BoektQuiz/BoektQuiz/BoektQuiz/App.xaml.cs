@@ -24,8 +24,6 @@ namespace BoektQuiz
             MainPage = new AppShell();
 
             InitializeNavigation();
-
-            DependencyService.Register<MockDataStore>();
         }
 
         private void InitializeDatabase()

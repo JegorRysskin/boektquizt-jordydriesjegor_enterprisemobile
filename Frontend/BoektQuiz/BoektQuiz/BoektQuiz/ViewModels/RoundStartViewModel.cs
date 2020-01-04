@@ -18,9 +18,10 @@ namespace BoektQuiz.ViewModels
         public Command StartRoundCommand =>
             _startRoundCommand ?? (_startRoundCommand = new Command(OnStartRound, CanStartRound));
 
-        public RoundStartViewModel(INavigationService navigationService, IDataStore<Round> dataStore, int id)
+        public RoundStartViewModel(INavigationService navigationService, IBackendService backendService, int id)
         {
-            Round = dataStore.GetItemAsync(id).Result;
+            string token = Application.Current.Properties["token"].ToString();
+            Round = backendService.GetRoundById(id, token).Result;
             _navigationService = navigationService;
             Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
         }

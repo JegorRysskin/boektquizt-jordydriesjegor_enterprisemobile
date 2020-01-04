@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
 using Xamarin.Forms;
@@ -18,7 +19,7 @@ namespace BoektQuiz.Views
         public RegisterPage()
         {
             InitializeComponent();
-            BindingContext = this.viewModel = new RegisterViewModel();
+            BindingContext = this.viewModel = new RegisterViewModel(AppContainer.Resolve<IBackendService>());
         }
     }
 }

@@ -27,7 +27,7 @@ namespace BoektQuiz.Util
             builder.RegisterType<NavigationService>().As<INavigationService>();
             //General
             builder.RegisterInstance(BoektQuizContextFactory.Create()).As<BoektQuizContext>();
-            builder.RegisterType<MockDataStore>().As<IDataStore<Round>>();
+            builder.RegisterType<BackendService>().As<IBackendService>();
             builder.RegisterType<RoundRepository>().As<IRoundRepository>();
             builder.RegisterType<QuestionRepository>().As<IQuestionRepository>();
             _container = builder.Build();

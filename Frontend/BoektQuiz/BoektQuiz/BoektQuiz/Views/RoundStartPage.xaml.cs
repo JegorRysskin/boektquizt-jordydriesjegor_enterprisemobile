@@ -17,7 +17,7 @@ namespace BoektQuiz.Views
         {
             InitializeComponent();
 
-            viewModel = new RoundStartViewModel(AppContainer.Resolve<INavigationService>(), AppContainer.Resolve<IDataStore<Round>>(), id);
+            viewModel = new RoundStartViewModel(AppContainer.Resolve<INavigationService>(), AppContainer.Resolve<IBackendService>(), id);
 
             BindingContext = viewModel;
         }

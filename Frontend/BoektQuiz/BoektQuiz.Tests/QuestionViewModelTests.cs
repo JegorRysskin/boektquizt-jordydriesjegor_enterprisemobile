@@ -14,7 +14,7 @@ namespace BoektQuiz.Tests
     [TestFixture]
     public class QuestionViewModelTests
     {
-        private Mock<IDataStore<Round>> _dataStoreMock;
+        private Mock<IBackendService> _backendServiceMock;
         private Mock<INavigationService> _navigationServiceMock;
         private Round _round;
         private QuestionViewModel _sut;
@@ -25,10 +25,10 @@ namespace BoektQuiz.Tests
         {
             _navigationServiceMock = new Mock<INavigationService>();
             _sut = new QuestionViewModel(_navigationServiceMock.Object);
-            _dataStoreMock = new Mock<IDataStore<Round>>();
+            _backendServiceMock = new Mock<IBackendService>();
             _round = GenerateRound();
-            _dataStoreMock.Setup(ds => ds.GetItemAsync(It.IsAny<Int32>())).ReturnsAsync(_round);
-            _sender = new RoundStartViewModel(_navigationServiceMock.Object, _dataStoreMock.Object, 1);
+            _backendServiceMock.Setup(backend => backend.GetRoundById(It.IsAny<Int32>(), It.IsAny<String>())).ReturnsAsync(_round);
+            _sender = new RoundStartViewModel(_navigationServiceMock.Object, _backendServiceMock.Object, 1);
             _sender.StartRoundCommand.Execute(null);
         }
 

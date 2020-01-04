@@ -27,6 +27,8 @@ namespace BoektQuiz.ViewModels
 
         private IRoundRepository _roundRepository;
 
+        private IBackendService _backendService;
+
         private Command _endRoundCommand;
 
         private MockDataStore dataStore = new MockDataStore();
@@ -34,11 +36,12 @@ namespace BoektQuiz.ViewModels
         public Command EndRoundCommand =>
             _endRoundCommand ?? (_endRoundCommand = new Command(OnEndRound, CanEndRound));
 
-        public RoundEndViewModel(INavigationService navigationService, IRoundRepository roundRepository)
+        public RoundEndViewModel(INavigationService navigationService, IRoundRepository roundRepository, IBackendService backendService)
         {
             MessagingCenter.Instance.Subscribe<QuestionViewModel, Round>(this, "Round", (sender, round) => { Round = round; });
             _navigationService = navigationService;
             _roundRepository = roundRepository;
+            _backendService = backendService;
             Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
         }
 
@@ -49,7 +52,8 @@ namespace BoektQuiz.ViewModels
                 MessagingCenter.Instance.Unsubscribe<QuestionViewModel, Round>(this, "Round");
                 await _navigationService.ReturnToRoot();
                 await _roundRepository.UpdateRoundAsync(Round);
-                await dataStore.UpdateItemAsync(Round);
+                string token = Application.Current.Properties["token"].ToString();
+                await _backendService.PatchRound(Round, token);
             }
         }
 

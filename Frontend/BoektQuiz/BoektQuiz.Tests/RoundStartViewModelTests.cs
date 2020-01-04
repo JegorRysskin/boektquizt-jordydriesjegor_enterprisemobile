@@ -15,7 +15,7 @@ namespace BoektQuiz.Tests
     [TestFixture]
     public class RoundStartViewModelTests
     {
-        private Mock<IDataStore<Round>> _dataStoreMock;
+        private Mock<IBackendService> _backendServiceMock;
         private Mock<INavigationService> _navigationServiceMock;
         private CrossConnectivityFake _crossConnectivityFake;
         private Round _round;
@@ -25,11 +25,11 @@ namespace BoektQuiz.Tests
         public void SetUp()
         {
             _crossConnectivityFake = new CrossConnectivityFake();
-            _dataStoreMock = new Mock<IDataStore<Round>>();
+            _backendServiceMock = new Mock<IBackendService>();
             _navigationServiceMock = new Mock<INavigationService>();
             _round = GenerateRound();
-            _dataStoreMock.Setup(ds => ds.GetItemAsync(It.IsAny<Int32>())).ReturnsAsync(_round);
-            _sut = new RoundStartViewModel(_navigationServiceMock.Object, _dataStoreMock.Object, 1);
+            _backendServiceMock.Setup(backend => backend.GetRoundById(It.IsAny<Int32>(), It.IsAny<String>())).ReturnsAsync(_round);
+            _sut = new RoundStartViewModel(_navigationServiceMock.Object, _backendServiceMock.Object, 1);
             Connectivity.Instance = _crossConnectivityFake;
         }
 
@@ -37,11 +37,11 @@ namespace BoektQuiz.Tests
         public void Constructor_ShouldSetRound()
         {
             //Act
-            var sut = new RoundStartViewModel(_navigationServiceMock.Object, _dataStoreMock.Object, 1);
+            var sut = new RoundStartViewModel(_navigationServiceMock.Object, _backendServiceMock.Object, 1);
 
             //Assert
             Assert.That(sut.Round, Is.EqualTo(_round));
-            _dataStoreMock.Verify(ds => ds.GetItemAsync(It.IsAny<Int32>()), Times.AtLeastOnce); //Normally it should be triggered once but because of the _sut constructor in the SetUp, it's triggered twice.
+            _backendServiceMock.Verify(backend => backend.GetRoundById(It.IsAny<Int32>(), It.IsAny<String>()), Times.AtLeastOnce); //Normally it should be triggered once but because of the _sut constructor in the SetUp, it's triggered twice.
         }
 
         [Test]

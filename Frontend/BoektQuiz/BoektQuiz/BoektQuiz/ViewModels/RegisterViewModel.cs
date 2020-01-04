@@ -1,4 +1,5 @@
 ﻿using BoektQuiz.Models;
+using BoektQuiz.Services;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,27 +23,26 @@ namespace BoektQuiz.ViewModels
 
         public Command RegisterTeamCommand => _registerTeamCommand ?? (_registerTeamCommand = new Command(OnRegisterTeam, CanRegisterTeam));
 
+        private IBackendService _backendService;
+
+        public RegisterViewModel(IBackendService backendService)
+        {
+            _backendService = backendService;
+        }
+
         private async void OnRegisterTeam()
         {
-            var registerModel = new RegisterModel() { Username = Username, Password = Password };
-            
-            var json = JsonConvert.SerializeObject(registerModel);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            var status = await _backendService.Register(Username, Password);
 
-            using (var client = new HttpClient())
+            if (status.Equals(HttpStatusCode.Created) || status.Equals(HttpStatusCode.OK))
             {
-                var response = await client.PostAsync("http://10.0.2.2:8080/signup", data); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
-
-                if (response.IsSuccessStatusCode)
-                {
-                    Status = "Team registreren gelukt";
-                    StatusColor = Color.Accent;
-                } 
-                else
-                {
-                    Status = "Er is iets misgelopen bij het registreren";
-                    StatusColor = Color.FromHex("ED028C");
-                }
+                Status = "Team registreren gelukt";
+                StatusColor = Color.Accent;
+            }
+            else
+            {
+                Status = "Er is iets misgelopen bij het registreren";
+                StatusColor = Color.FromHex("ED028C");
             }
         }
 

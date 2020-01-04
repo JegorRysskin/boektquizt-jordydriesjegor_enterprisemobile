@@ -14,14 +14,14 @@ namespace BoektQuiz.Tests
     [TestFixture]
     public class AppShellViewModelTests
     {
-        private Mock<IDataStore<Round>> _dataStoreMock;
+        private Mock<IBackendService> _backendServiceMock;
         private AppShell _shell;
 
         [SetUp]
         public void SetUp()
         {
             AppContainer.RegisterDependencies();
-            _dataStoreMock = new Mock<IDataStore<Round>>();
+            _backendServiceMock = new Mock<IBackendService>();
             _shell = new AppShell();
         }
 
@@ -29,18 +29,18 @@ namespace BoektQuiz.Tests
         public void Constructor_ShouldLoadAllRounds()
         {
             //Arrange
-            IList<Round> allRounds = GenerateRoundsList();
-            _dataStoreMock.Setup(ds => ds.GetItemsAsync()).ReturnsAsync(allRounds);
+            List<Round> allRounds = GenerateRoundsList();
+            _backendServiceMock.Setup(backend => backend.GetAllRounds(It.IsAny<String>())).ReturnsAsync(allRounds);
 
             //Act
-            var sut = new AppShellViewModel(_shell, _dataStoreMock.Object);
+            var sut = new AppShellViewModel(_shell, _backendServiceMock.Object);
 
             //Assert
             Assert.That(sut.Rounds, Is.EqualTo(allRounds));
-            _dataStoreMock.Verify(ds => ds.GetItemsAsync(), Times.Once);
+            _backendServiceMock.Verify(backend => backend.GetAllRounds(It.IsAny<String>()), Times.Once);
         }
 
-        private IList<Round> GenerateRoundsList()
+        private List<Round> GenerateRoundsList()
         {
             var questions1 = GenerateQuestionsList(0);
 
