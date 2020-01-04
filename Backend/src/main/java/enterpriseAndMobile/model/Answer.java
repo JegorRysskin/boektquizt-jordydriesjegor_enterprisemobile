@@ -1,6 +1,7 @@
 package enterpriseAndMobile.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "answer")
@@ -9,7 +10,7 @@ public class Answer {
     @GeneratedValue
     private int id;
 
-    private String answer;
+    private List<String> answer;
 
     private Question question;
 
@@ -17,11 +18,11 @@ public class Answer {
         return id;
     }
 
-    public String getAnswer() {
+    public List<String> getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(List<String> answer) {
         this.answer = answer;
     }
 
