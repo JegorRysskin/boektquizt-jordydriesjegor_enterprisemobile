@@ -12,27 +12,18 @@ public class Question {
     @GeneratedValue
     private int id;
 
-    private String question;
-
-    private List<String> correctAnswerToQuestion;
+    @OneToMany
+    private List<Answer> answers;
 
     public int getId() {
         return id;
     }
 
-    public String getQuestion() {
-        return question;
+    public List<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public List<String> getCorrectAnswerToQuestion() {
-        return correctAnswerToQuestion;
-    }
-
-    public void setCorrectAnswerToQuestion(List<String> correctAnswerToQuestion) {
-        this.correctAnswerToQuestion = correctAnswerToQuestion;
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 }
