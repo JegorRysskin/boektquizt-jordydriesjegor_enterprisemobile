@@ -41,6 +41,9 @@ public class Quiz {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL)
+    private List<Team> teams;
+
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Round> rounds;
 
     private boolean enabled;
@@ -71,5 +74,13 @@ public class Quiz {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 }
