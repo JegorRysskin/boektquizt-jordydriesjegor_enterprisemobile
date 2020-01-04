@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -20,10 +21,28 @@ namespace JuryApp.ViewModels
         public MainViewModel()
         {
             _roundService = new RoundService();
-            GetRoundsFromEnabledQuiz(false);
+            GetRoundsFromEnabledQuiz(true);
 
             NavigationService.Navigated += NavigationService_Navigated;
         }
+
+        public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRounds);
+
+        private void EnableRounds(Round selectedRound)
+        {
+            foreach (var round in Rounds)
+            {
+                round.RoundEnabled = round.RoundId == selectedRound.RoundId;
+                UpdateRound(round);
+            }
+
+        }
+
+        private async void UpdateRound(Round toBeUpdatedRound)
+        {
+            await _roundService.EditRound(toBeUpdatedRound.RoundId, toBeUpdatedRound);
+        }
+
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {

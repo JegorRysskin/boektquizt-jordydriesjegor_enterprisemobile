@@ -25,6 +25,12 @@
                           HorizontalAlignment="Center"
                           RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="ActiveQuizTextBlock">
 
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="SelectionChanged">
+                            <core:InvokeCommandAction Command="{x:Bind ViewModel.EnableRoundCommand}" CommandParameter="{Binding SelectedItem, ElementName=RoundsGridView}"/>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+
                     <GridView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Padding="100" Margin="10" Background="{Binding RoundEnabled, Converter={StaticResource BoolToColorConverter}}">
