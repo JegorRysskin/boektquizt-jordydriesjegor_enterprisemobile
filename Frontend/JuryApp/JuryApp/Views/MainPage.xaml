@@ -15,16 +15,15 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <RelativePanel>
-                <TextBlock x:Name="ActiveQuizTextBlock" Text="Actieve quiz:" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
-                <TextBlock x:Name="ActiveQuizNameTextBlock" Text="{x:Bind ViewModel.EnabledQuiz.QuizName, Mode=OneWay}" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="ActiveQuizTextBlock"></TextBlock>
+                <TextBlock x:Name="ActiveQuizTextBlock" Text="Actieve quiz" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
     
-                <GridView x:Name="RoundsGridView" ItemsSource="{x:Bind ViewModel.EnabledQuiz.QuizRounds, Mode=OneWay}"
+                <GridView x:Name="RoundsGridView" ItemsSource="{x:Bind ViewModel.Rounds, Mode=OneWay}"
                           IsItemClickEnabled="True"
                           IsSwipeEnabled="False"
                           CanDragItems="False"
                           SelectionMode="Single"
                           HorizontalAlignment="Center"
-                          RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="ActiveQuizNameTextBlock">
+                          RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="ActiveQuizTextBlock">
 
                     <GridView.ItemTemplate>
                         <DataTemplate>

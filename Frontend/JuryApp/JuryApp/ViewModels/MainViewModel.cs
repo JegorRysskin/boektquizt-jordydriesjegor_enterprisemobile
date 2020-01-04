@@ -13,30 +13,27 @@ namespace JuryApp.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private readonly RoundService _roundService;
 
-        private readonly QuizService _quizService;
-
-        public Quiz EnabledQuiz { get; set; }
+        public Rounds Rounds { get; set; }
 
         public MainViewModel()
         {
-            _quizService = new QuizService();
-            GetEnabledQuiz(true);
+            _roundService = new RoundService();
+            GetRoundsFromEnabledQuiz(false);
 
             NavigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            GetEnabledQuiz(true);
+            GetRoundsFromEnabledQuiz(true);
         }
 
-        private async void GetEnabledQuiz(bool forceRefresh)
+        private async void GetRoundsFromEnabledQuiz(bool forceRefresh)
         {
-            var quizzes = await _quizService.GetAllQuizzes(forceRefresh);
-
-            EnabledQuiz = quizzes.FirstOrDefault(q => q.QuizEnabled);
-            RaisePropertyChanged(() => EnabledQuiz);
+            Rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
+            RaisePropertyChanged(() => Rounds);
         }
     }
 }
