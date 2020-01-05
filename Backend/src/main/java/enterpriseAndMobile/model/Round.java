@@ -26,7 +26,7 @@ public class Round {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
 
     public Round() {
