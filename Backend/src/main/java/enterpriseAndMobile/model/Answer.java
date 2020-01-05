@@ -11,8 +11,8 @@ public class Answer {
 
     private String answer;
 
-    @ManyToOne
-    private Team team;
+    @OneToOne
+    private Question question;
 
     public int getId() {
         return id;
@@ -26,9 +26,15 @@ public class Answer {
         this.answer = answer;
     }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public Team getTeam() { return team; }
+    public Question getQuestion() {
+        return question;
+    }
 
-    public void setTeam(Team team) { this.team = team; }
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 }
