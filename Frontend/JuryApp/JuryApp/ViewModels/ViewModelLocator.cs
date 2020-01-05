@@ -27,10 +27,10 @@ namespace JuryApp.ViewModels
             Register<CreateQuizViewModel, CreateQuizPage>();
             Register<EditTeamViewModel, EditTeamPage>();
             Register<ScoresViewModel, ScoresPage>();
-            Register<RoundsViewModel, RoundsPage>();
+            Register<RoundViewModel, RoundPage>();
         }
 
-        public RoundsViewModel RoundsViewModel => SimpleIoc.Default.GetInstance<RoundsViewModel>();
+        public RoundViewModel RoundViewModel => SimpleIoc.Default.GetInstance<RoundViewModel>();
 
         public ScoresViewModel ScoresViewModel => SimpleIoc.Default.GetInstance<ScoresViewModel>();
 
