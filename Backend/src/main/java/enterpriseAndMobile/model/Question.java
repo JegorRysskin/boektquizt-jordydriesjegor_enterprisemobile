@@ -14,6 +14,7 @@ public class Question {
 
     private String question;
 
+    @ElementCollection
     private List<String> correctAnswerToQuestion;
 
     public int getId() {

@@ -11,6 +11,7 @@ public class Answer {
 
     private String answer;
 
+    @OneToOne
     private Question question;
 
     public int getId() {

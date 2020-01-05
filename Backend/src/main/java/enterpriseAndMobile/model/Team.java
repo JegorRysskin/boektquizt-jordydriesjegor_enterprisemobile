@@ -29,7 +29,7 @@ public class Team {
 
     private String name;
 
-    @OneToMany(mappedBy = "team")
+    @OneToMany
     private List<Answer> answers;
 
     private Double scores = 0.0;
