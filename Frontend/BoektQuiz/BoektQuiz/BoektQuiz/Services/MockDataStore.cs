@@ -38,14 +38,14 @@ namespace BoektQuiz.Services
 
             rounds = new List<Round>()
             {
-                new Round { Id = 1, Text = "Ronde 1", Questions = questions1 },
-                new Round { Id = 2, Text = "Ronde 2", Questions = questions2 },
-                new Round { Id = 3, Text = "Ronde 3", Questions = questions3 },
-                new Round { Id = 4, Text = "Ronde 4", Questions = questions4 },
-                new Round { Id = 5, Text = "Ronde 5", Questions = questions5 },
-                new Round { Id = 6, Text = "Ronde 6", Questions = questions6 },
-                new Round { Id = 7, Text = "Ronde 7", Questions = questions7 },
-                new Round { Id = 8, Text = "Ronde 8", Questions = questions8 },
+                new Round { Id = 1, Name = "Ronde 1", Questions = questions1 },
+                new Round { Id = 2, Name = "Ronde 2", Questions = questions2 },
+                new Round { Id = 3, Name = "Ronde 3", Questions = questions3 },
+                new Round { Id = 4, Name = "Ronde 4", Questions = questions4 },
+                new Round { Id = 5, Name = "Ronde 5", Questions = questions5 },
+                new Round { Id = 6, Name = "Ronde 6", Questions = questions6 },
+                new Round { Id = 7, Name = "Ronde 7", Questions = questions7 },
+                new Round { Id = 8, Name = "Ronde 8", Questions = questions8 },
             };
         }
 

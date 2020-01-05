@@ -48,7 +48,7 @@ namespace BoektQuiz.Tests
         public void RoundWithNoQuestionListShouldDisableItemSelectCommand()
         {
             //Arrange
-            var emptyRound = new Round() { Id = 0, Text = "Empty Round" };
+            var emptyRound = new Round() { Id = 0, Name = "Empty Round" };
 
             //Act
             var canExecuteItemSelectCommand = _sut.ItemSelectCommand.CanExecute(emptyRound);
@@ -61,7 +61,7 @@ namespace BoektQuiz.Tests
         public void RoundWithQuestionListShouldEnableItemSelectCommand()
         {
             //Arrange
-            var round = new Round() { Id = 0, Text = "Round", Questions = GenerateQuestionsList(0) };
+            var round = new Round() { Id = 0, Name = "Round", Questions = GenerateQuestionsList(0) };
 
             //Act
             var canExecuteItemSelectCommand = _sut.ItemSelectCommand.CanExecute(round);
@@ -74,7 +74,7 @@ namespace BoektQuiz.Tests
         public void ItemSelectCommand_ShouldTriggerNavigationAndSendRound()
         {
             //Arrange
-            var round = new Round() { Id = 0, Text = "Round", Questions = GenerateQuestionsList(0) };
+            var round = new Round() { Id = 0, Name = "Round", Questions = GenerateQuestionsList(0) };
 
             //Act
             _sut.ItemSelectCommand.Execute(round);
@@ -92,7 +92,7 @@ namespace BoektQuiz.Tests
             //Act
             var roundsBeforeReload = new List<Round>(_sut.Rounds);
             var allRoundsModified = new List<Round>(_allRounds);
-            allRoundsModified.Add(new Round() { Id = 9, Text = "Ronde 9", Questions = GenerateQuestionsList(8) });
+            allRoundsModified.Add(new Round() { Id = 9, Name = "Ronde 9", Questions = GenerateQuestionsList(8) });
             _roundRepositoryMock.Setup(repo => repo.GetAllRoundsAsync()).ReturnsAsync(allRoundsModified);
             _sut.LoadItemsCommand.Execute(null);
             var roundsAfterReload = _sut.Rounds;
@@ -127,15 +127,15 @@ namespace BoektQuiz.Tests
 
             return new List<Round>()
             {
-                new Round { Id = -1, Text = "Ronde 0", Questions = dummyquestions },
-                new Round { Id = 1, Text = "Ronde 1", Questions = questions1 },
-                new Round { Id = 2, Text = "Ronde 2", Questions = questions2 },
-                new Round { Id = 3, Text = "Ronde 3", Questions = questions3 },
-                new Round { Id = 4, Text = "Ronde 4", Questions = questions4 },
-                new Round { Id = 5, Text = "Ronde 5", Questions = questions5 },
-                new Round { Id = 6, Text = "Ronde 6", Questions = questions6 },
-                new Round { Id = 7, Text = "Ronde 7", Questions = questions7 },
-                new Round { Id = 8, Text = "Ronde 8", Questions = questions8 },
+                new Round { Id = -1, Name = "Ronde 0", Questions = dummyquestions },
+                new Round { Id = 1, Name = "Ronde 1", Questions = questions1 },
+                new Round { Id = 2, Name = "Ronde 2", Questions = questions2 },
+                new Round { Id = 3, Name = "Ronde 3", Questions = questions3 },
+                new Round { Id = 4, Name = "Ronde 4", Questions = questions4 },
+                new Round { Id = 5, Name = "Ronde 5", Questions = questions5 },
+                new Round { Id = 6, Name = "Ronde 6", Questions = questions6 },
+                new Round { Id = 7, Name = "Ronde 7", Questions = questions7 },
+                new Round { Id = 8, Name = "Ronde 8", Questions = questions8 },
             };
         }
 

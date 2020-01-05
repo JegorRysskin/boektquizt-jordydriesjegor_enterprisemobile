@@ -66,7 +66,7 @@ namespace BoektQuiz.Context
                     new Answer() { Id = -10, AnswerString = "Dummy Antwoord 10", TeamId = -1, QuestionId = -10 }
                 });
 
-            modelBuilder.Entity<Round>().HasData(new Round() { Id = -1, Text = "Ronde 0" });
+            modelBuilder.Entity<Round>().HasData(new Round() { Id = -1, Name = "Ronde 0" });
 
             modelBuilder.Entity<Question>().HasData(new List<Question>()
                 {

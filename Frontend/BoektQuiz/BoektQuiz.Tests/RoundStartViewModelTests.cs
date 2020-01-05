@@ -100,7 +100,7 @@ namespace BoektQuiz.Tests
 
         private Round GenerateRound()
         {
-            return new Round { Id = 1, Text = "Ronde 1", Questions = GenerateQuestionsList(1) };
+            return new Round { Id = 1, Name = "Ronde 1", Questions = GenerateQuestionsList(1) };
         }
 
         private List<Question> GenerateQuestionsList(int index)

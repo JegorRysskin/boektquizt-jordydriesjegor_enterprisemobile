@@ -119,7 +119,7 @@ namespace BoektQuiz.Tests
         {
             var questions = GenerateQuestionsList();
 
-            return new Round() { Id = 1, Text = "Ronde 1", Questions = questions };
+            return new Round() { Id = 1, Name = "Ronde 1", Questions = questions };
         }
 
         private List<Question> GenerateQuestionsList()

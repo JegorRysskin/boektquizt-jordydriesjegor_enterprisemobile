@@ -38,7 +38,7 @@ namespace BoektQuiz.ViewModels
             {
                 ShellSection shell_section = new ShellSection
                 {
-                    Title = round.Text,
+                    Title = round.Name,
                     Icon = "tab_round_" + round.Id + ".png"
                 };
 

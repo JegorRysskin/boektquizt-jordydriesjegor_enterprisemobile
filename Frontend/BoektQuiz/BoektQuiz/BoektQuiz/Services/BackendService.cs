@@ -12,14 +12,14 @@ namespace BoektQuiz.Services
 {
     public class BackendService : IBackendService
     {
-        private readonly string baseUrl = "http://10.0.2.2:8080/";
+        private static readonly string baseUrl = "http://10.0.2.2:8080/";
 
         public async Task<List<Round>> GetAllRounds(string token)
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
-                var response = await client.GetAsync(baseUrl + "round"); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var response = await client.GetAsync(baseUrl + "round").ConfigureAwait(false); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -35,8 +35,9 @@ namespace BoektQuiz.Services
         {
             using (var client = new HttpClient())
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
-                var response = await client.GetAsync(baseUrl + "round/" + id); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var response = await client.GetAsync(baseUrl + "round/" + id).ConfigureAwait(false); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
 
                 if (response.IsSuccessStatusCode)
                 {
