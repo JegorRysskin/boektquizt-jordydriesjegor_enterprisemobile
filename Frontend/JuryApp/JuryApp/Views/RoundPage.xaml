@@ -21,12 +21,12 @@
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                            <TextBox Text="{Binding QuestionAnswers.Count}" TextAlignment="Center"/>
+                            <TextBox Text="{Binding QuestionText}" TextAlignment="Center"/>
                     </DataTemplate>
                 </GridView.ItemTemplate>
                 <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <ItemsWrapGrid MaximumRowsOrColumns="4" Orientation="Horizontal"/>
+                        <ItemsWrapGrid MaximumRowsOrColumns="1" Orientation="Horizontal"/>
                     </ItemsPanelTemplate>
                 </GridView.ItemsPanel>
             </GridView>
