@@ -15,6 +15,11 @@ public class Team {
         this.name = name;
     }
 
+    public Team(String name, boolean enabled) {
+        this.enabled = enabled;
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(generator = "sequence-generator")
     @GenericGenerator(

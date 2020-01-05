@@ -3,9 +3,9 @@
         <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" VerticalAlignment="Top" Margin="20" Command="{x:Bind ViewModel.DeleteTeamCommand}"/>
         <RelativePanel Width="300" Height="300" Padding="20">
             <TextBlock x:Name="TeamTextBlock" Text="Teamnaam:" RelativePanel.AlignHorizontalCenterWithPanel="True"  Margin="6"/>
-            <TextBox x:Name="TeamTextBox" Text="{x:Bind ViewModel.SelectedTeam.TeamName}" MaxLength="200" RelativePanel.Below="TeamTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
-            <CheckBox x:Name="EnableTeamCheckBox" Content="Heeft team betaald?" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" IsChecked="{x:Bind ViewModel.SelectedTeam.TeamEnabled}"></CheckBox>
-            <Button Content="Team aanpassen" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True"></Button>
+            <TextBox x:Name="TeamTextBox" Text="{x:Bind ViewModel.SelectedTeam.TeamName, Mode=TwoWay}" MaxLength="200" RelativePanel.Below="TeamTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
+            <CheckBox x:Name="EnableTeamCheckBox" Content="Heeft team betaald?" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" IsChecked="{x:Bind ViewModel.SelectedTeam.TeamEnabled, Mode=TwoWay}"></CheckBox>
+            <Button Content="Team aanpassen" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.EditTeamCommand}"></Button>
         </RelativePanel>
     </Grid>
 </Page>

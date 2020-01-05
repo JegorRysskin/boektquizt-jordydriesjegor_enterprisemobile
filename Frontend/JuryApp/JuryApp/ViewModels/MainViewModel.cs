@@ -1,7 +1,10 @@
 ﻿
+using System;
+using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
@@ -11,47 +14,40 @@ namespace JuryApp.ViewModels
     public class MainViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private readonly RoundService _roundService;
 
-        private readonly QuizService _quizService;
-
-        public Quizzes EnabledQuizzes { get; set; } = new Quizzes();
+        public Rounds Rounds { get; set; } = new Rounds();
 
         public MainViewModel()
         {
-            _quizService = new QuizService();
-            FetchListOfEnabledQuizzes(false);
+            _roundService = new RoundService();
+            GetRoundsFromEnabledQuiz(true);
 
             NavigationService.Navigated += NavigationService_Navigated;
         }
 
-        public RelayCommand<int> RoundControlCommand => new RelayCommand<int>(NavigateToRoundPage);
+        public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRounds);
 
-        private void NavigateToRoundPage(int selectedIndex)
+        private void EnableRounds(Round selectedRound)
         {
-            if (selectedIndex != -1)
+            if (selectedRound == null) return;
+
+            Rounds.ToList().ForEach(async r =>
             {
-                Messenger.Default.Send(EnabledQuizzes[selectedIndex]);
-                NavigationService.Navigate(typeof(RoundsViewModel).FullName);
-            }
+                r.RoundEnabled = r.RoundId == selectedRound.RoundId;
+                await _roundService.EditRound(r.RoundId, r);
+            });
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            FetchListOfEnabledQuizzes(true);
+            GetRoundsFromEnabledQuiz(true);
         }
 
-        private async void FetchListOfEnabledQuizzes(bool forceRefresh)
+        private async void GetRoundsFromEnabledQuiz(bool forceRefresh)
         {
-            var quizzes = await _quizService.GetAllQuizzes(forceRefresh);
-
-            EnabledQuizzes.Clear();
-            foreach (var quiz in quizzes)
-            {
-                if (quiz.QuizEnabled)
-                {
-                    EnabledQuizzes.Add(quiz);
-                }
-            }
+            Rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
+            RaisePropertyChanged(() => Rounds);
         }
     }
 }

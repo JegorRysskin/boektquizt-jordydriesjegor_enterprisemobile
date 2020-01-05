@@ -38,9 +38,13 @@ namespace JuryApp.ViewModels
 
         private void CreateRounds(int amountOfRoundsToCreate)
         {
+            // var tenEmptyQuestions = new Questions();
+            // for (var i = 1; i <= 10; i++)
+            // {
+            //    tenEmptyQuestions.Add(new Question());
+            // }
 
             NewQuiz.QuizRounds = new Rounds();
-
             for (var i = 1; i <= amountOfRoundsToCreate; i++)
             {
                 NewQuiz.QuizRounds.Add(new Round { RoundEnabled = false, RoundName = $"Ronde {i}"});
