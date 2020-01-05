@@ -15,6 +15,7 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <RelativePanel>
+                <Button x:Name="DisableAllRoundsButton" Style="{StaticResource AccentButtonStyle}" Background="DarkRed" Content="Sluit alle rondes" Margin="20" Command="{x:Bind ViewModel.DisableAllRoundsCommand}"/>
                 <TextBlock x:Name="ActiveQuizTextBlock" Text="Actieve quiz" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
     
                 <GridView x:Name="RoundsGridView" ItemsSource="{x:Bind ViewModel.Rounds, Mode=OneWay}"

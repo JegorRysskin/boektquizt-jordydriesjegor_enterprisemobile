@@ -22,7 +22,7 @@
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
 
-            <Button x:Name="CreateQuizButton" Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.CreateNewQuizCommand}"></Button>
+            <Button x:Name="CreateQuizButton" Style="{StaticResource AccentButtonStyle}" Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.CreateNewQuizCommand}"></Button>
         </RelativePanel>
     </Grid>
 </Page>
