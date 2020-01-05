@@ -12,7 +12,7 @@ namespace JuryApp.ViewModels
     public class CreateQuizViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        public readonly List<int> ListOfTen = Enumerable.Range(1, 10).ToList();
+        public readonly List<int> ListOfTenForComboBox = Enumerable.Range(1, 10).ToList();
 
         public Quiz NewQuiz { get; set; } = new Quiz();
 
