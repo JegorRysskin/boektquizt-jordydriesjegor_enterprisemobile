@@ -12,7 +12,7 @@
             <TextBlock x:Name="SelectedRoundTextBlock" Text="{x:Bind ViewModel.SelectedRound.RoundName}" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
 
             <GridView x:Name="QuestionsGridView" ItemsSource="{x:Bind ViewModel.SelectedRound.RoundQuestions, Mode=TwoWay}"
-                      IsItemClickEnabled="True"
+                      IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"

@@ -18,7 +18,7 @@
             <Button x:Name="CreateButton" Style="{StaticResource AccentButtonStyle}" Content="Nieuwe quiz" VerticalAlignment="Top" Margin="20" Command="{x:Bind ViewModel.CreateQuizCommand}"/>
 
             <GridView x:Name="QuizzesGridView" ItemsSource="{x:Bind ViewModel.Quizzes, Mode=OneWay}"
-                      IsItemClickEnabled="True"
+                      IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"
