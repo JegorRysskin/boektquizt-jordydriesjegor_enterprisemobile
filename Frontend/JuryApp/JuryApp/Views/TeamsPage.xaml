@@ -16,7 +16,7 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
-                      IsItemClickEnabled="True"
+                      IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"

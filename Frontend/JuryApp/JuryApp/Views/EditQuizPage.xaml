@@ -24,7 +24,7 @@
             </RelativePanel>
 
             <GridView x:Name="RoundsGridView" ItemsSource="{x:Bind ViewModel.SelectedQuiz.QuizRounds, Mode=OneWay}"
-                      IsItemClickEnabled="True"
+                      IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
                       SelectionMode="Single"

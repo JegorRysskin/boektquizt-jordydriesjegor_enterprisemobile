@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using JuryApp.Core.Models.Collections;
 using Newtonsoft.Json;
 
 namespace JuryApp.Core.Models
@@ -9,6 +10,7 @@ namespace JuryApp.Core.Models
         private string _teamName;
         private bool _teamEnabled;
         private double _teamScore;
+        private Answers _teamAnswers;
 
         [JsonProperty("id")]
         public int TeamId
@@ -37,6 +39,13 @@ namespace JuryApp.Core.Models
         {
             get => _teamScore;
             set => Set(() => TeamScore, ref _teamScore, value);
+        }
+
+        [JsonProperty("answers")]
+        public Answers TeamAnswers
+        {
+            get => _teamAnswers;
+            set => Set(() => TeamAnswers, ref _teamAnswers, value);
         }
     }
 }
