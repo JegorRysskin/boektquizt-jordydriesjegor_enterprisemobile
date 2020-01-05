@@ -31,8 +31,6 @@ namespace BoektQuiz.ViewModels
 
         private Command _endRoundCommand;
 
-        private MockDataStore dataStore = new MockDataStore();
-
         public Command EndRoundCommand =>
             _endRoundCommand ?? (_endRoundCommand = new Command(OnEndRound, CanEndRound));
 

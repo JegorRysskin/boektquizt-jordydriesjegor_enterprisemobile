@@ -7,7 +7,7 @@
              x:Class="BoektQuiz.Views.RoundEndPage"
              xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
              Util:ViewModelLocator.AutoWireViewModel="True"
-             Title="{Binding Round.Text}"
+             Title="{Binding Round.Name}"
              BackgroundColor="Black"
              NavigationPage.HasBackButton="False">
     <ContentPage.Content>

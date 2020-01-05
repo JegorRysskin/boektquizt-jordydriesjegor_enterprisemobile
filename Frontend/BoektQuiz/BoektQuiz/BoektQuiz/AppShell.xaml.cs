@@ -22,7 +22,7 @@ namespace BoektQuiz
             Shell.SetForegroundColor(this, Color.White);
             Shell.SetTabBarIsVisible(this, false);
 
-            viewModel = new AppShellViewModel(this, AppContainer.Resolve<IBackendService>());
+            viewModel = new AppShellViewModel(AppContainer.Resolve<IBackendService>());
             BindingContext = viewModel;
         }
     }

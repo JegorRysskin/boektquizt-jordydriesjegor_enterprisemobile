@@ -13,6 +13,8 @@ namespace BoektQuiz.ViewModels
         private INavigationService _navigationService;
         public Round Round { get; set; }
 
+        private string _token;
+
         private Command _startRoundCommand;
 
         public Command StartRoundCommand =>
@@ -20,8 +22,14 @@ namespace BoektQuiz.ViewModels
 
         public RoundStartViewModel(INavigationService navigationService, IBackendService backendService, int id)
         {
-            string token = Application.Current.Properties["token"].ToString();
-            Round = backendService.GetRoundById(id, token).Result;
+            if (Application.Current != null)
+            {
+                if (Application.Current.Properties.ContainsKey("token"))
+                {
+                    _token = Application.Current.Properties["token"].ToString();
+                } 
+            }
+            Round = backendService.GetRoundById(id, _token).Result;
             _navigationService = navigationService;
             Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
         }

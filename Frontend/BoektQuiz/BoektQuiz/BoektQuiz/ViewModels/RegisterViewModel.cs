@@ -1,5 +1,6 @@
 ﻿using BoektQuiz.Models;
 using BoektQuiz.Services;
+using BoektQuiz.Util;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,29 @@ namespace BoektQuiz.ViewModels
         public RegisterViewModel(IBackendService backendService)
         {
             _backendService = backendService;
+            Connectivity.Instance.ConnectivityChanged += Instance_ConnectivityChanged;
+
+            if (!Connectivity.Instance.IsConnected)
+            {
+                Status = "U moet verbonden zijn met het internet om te kunnen registreren.";
+                StatusColor = Color.FromHex("ED028C");
+            }
+        }
+
+        private void Instance_ConnectivityChanged(object sender, Plugin.Connectivity.Abstractions.ConnectivityChangedEventArgs e)
+        {
+            if (!Connectivity.Instance.IsConnected)
+            {
+                Status = "U moet verbonden zijn met het internet om te kunnen registreren.";
+                StatusColor = Color.FromHex("ED028C");
+            }
+            else
+            {
+                Status = String.Empty;
+                StatusColor = Color.Transparent;
+            }
+
+            RegisterTeamCommand.ChangeCanExecute();
         }
 
         private async void OnRegisterTeam()
@@ -48,9 +72,12 @@ namespace BoektQuiz.ViewModels
 
         private bool CanRegisterTeam()
         {
-            if (Username != null && Password != null)
+            if (Connectivity.Instance.IsConnected)
             {
-                return (Username.Length > 3 && Password.Length > 6);
+                if (Username != null && Password != null)
+                {
+                    return (Username.Length > 3 && Password.Length > 6);
+                }
             }
 
             return false;

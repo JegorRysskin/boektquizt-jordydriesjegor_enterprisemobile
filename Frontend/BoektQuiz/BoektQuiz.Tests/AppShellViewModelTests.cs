@@ -15,28 +15,25 @@ namespace BoektQuiz.Tests
     public class AppShellViewModelTests
     {
         private Mock<IBackendService> _backendServiceMock;
+        private List<Round> _allRounds;
         private AppShell _shell;
 
         [SetUp]
         public void SetUp()
         {
-            AppContainer.RegisterDependencies();
             _backendServiceMock = new Mock<IBackendService>();
-            _shell = new AppShell();
+            _allRounds = GenerateRoundsList();
+            _backendServiceMock.Setup(backend => backend.GetAllRounds(It.IsAny<String>())).ReturnsAsync(_allRounds);
         }
 
         [Test]
         public void Constructor_ShouldLoadAllRounds()
         {
-            //Arrange
-            List<Round> allRounds = GenerateRoundsList();
-            _backendServiceMock.Setup(backend => backend.GetAllRounds(It.IsAny<String>())).ReturnsAsync(allRounds);
-
             //Act
-            var sut = new AppShellViewModel(_shell, _backendServiceMock.Object);
+            var sut = new AppShellViewModel(_backendServiceMock.Object);
 
             //Assert
-            Assert.That(sut.Rounds, Is.EqualTo(allRounds));
+            Assert.That(sut.Rounds, Is.EqualTo(_allRounds));
             _backendServiceMock.Verify(backend => backend.GetAllRounds(It.IsAny<String>()), Times.Once);
         }
 

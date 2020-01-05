@@ -19,6 +19,7 @@ namespace BoektQuiz.Services
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
                 var response = await client.GetAsync(baseUrl + "round").ConfigureAwait(false); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
 
                 if (response.IsSuccessStatusCode)
