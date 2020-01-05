@@ -41,7 +41,7 @@ namespace JuryApp.ViewModels
             var tenEmptyQuestions = new Questions();
             for (var i = 1; i <= 10; i++)
             {
-               tenEmptyQuestions.Add(new Question{ QuestionText = $"Vraag {i}" });
+               tenEmptyQuestions.Add(new Question{ QuestionText = $"Vraag {i}", QuestionCorrectAnswers =  new List<string>{ "Correct Antwoord" } });
             }
 
             NewQuiz.QuizRounds = new Rounds();

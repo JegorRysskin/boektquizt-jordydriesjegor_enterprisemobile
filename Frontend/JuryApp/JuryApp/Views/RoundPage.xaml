@@ -15,13 +15,31 @@
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"
                       CanDragItems="False"
-                      SelectionMode="Single"
+                      SelectionMode="None"
                       HorizontalAlignment="Center"
                       RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="SelectedRoundTextBlock">
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                            <TextBox Text="{Binding QuestionText}" TextAlignment="Center"/>
+                        <StackPanel>
+                            <TextBlock Text="{Binding QuestionText}"/>
+
+                            <ListView ItemsSource="{Binding QuestionCorrectAnswers}" Width="400" SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <TextBlock Text="Correcte antwoord(en):"/>
+                                            <TextBox Text="{Binding}" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>
                 <GridView.ItemsPanel>
