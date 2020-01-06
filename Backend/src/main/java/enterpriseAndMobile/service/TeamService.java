@@ -2,7 +2,9 @@ package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.dto.QuizPatchDto;
+import enterpriseAndMobile.dto.TeamPatchAnswersDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
+import enterpriseAndMobile.model.Answer;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.repository.TeamRepository;
@@ -43,6 +45,20 @@ public class TeamService {
                 team.get().setName(patch.getName());
             }
             team.get().setEnabled(patch.isEnabled());
+            return teamRepository.patchTeam(team.get());
+        }
+        throw new NotFoundException("The team you tried to patch wasn't found.");
+    }
+
+    @Transactional
+    public Team patchTeamAnswers(int id, TeamPatchAnswersDto patch) throws NotFoundException {
+        Optional<Team> team = teamRepository.getTeamById(id);
+        if (team.isPresent()) {
+            if (patch.getAnswers() != null){
+                List<Answer> answers = team.get().getAnswers();
+                answers.add(patch.getAnswers());
+                team.get().setAnswers(answers);
+            }
             return teamRepository.patchTeam(team.get());
         }
         throw new NotFoundException("The team you tried to patch wasn't found.");
