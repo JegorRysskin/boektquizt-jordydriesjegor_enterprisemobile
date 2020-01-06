@@ -14,8 +14,8 @@ public class Question {
 
     private String question;
 
-    @ElementCollection
-    private List<String> correctAnswerToQuestion;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CorrectAnswer> correctAnswerToQuestion;
 
     public int getId() {
         return id;
@@ -29,11 +29,11 @@ public class Question {
         this.question = question;
     }
 
-    public List<String> getCorrectAnswerToQuestion() {
+    public List<CorrectAnswer> getCorrectAnswerToQuestion() {
         return correctAnswerToQuestion;
     }
 
-    public void setCorrectAnswerToQuestion(List<String> correctAnswerToQuestion) {
+    public void setCorrectAnswerToQuestion(List<CorrectAnswer> correctAnswerToQuestion) {
         this.correctAnswerToQuestion = correctAnswerToQuestion;
     }
 

@@ -5,6 +5,7 @@ using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace JuryApp.ViewModels
@@ -41,7 +42,7 @@ namespace JuryApp.ViewModels
             var tenEmptyQuestions = new Questions();
             for (var i = 1; i <= 10; i++)
             {
-               tenEmptyQuestions.Add(new Question{ QuestionText = $"Vraag {i}", QuestionCorrectAnswers =  new List<string>{ "Correct Antwoord" } });
+               tenEmptyQuestions.Add(new Question{ QuestionText = $"Vraag {i}", QuestionCorrectAnswers =  new CorrectAnswers{ new CorrectAnswer{ CorrectAnswerText = "Correct Antwoord" } }});
             }
 
             NewQuiz.QuizRounds = new Rounds();
