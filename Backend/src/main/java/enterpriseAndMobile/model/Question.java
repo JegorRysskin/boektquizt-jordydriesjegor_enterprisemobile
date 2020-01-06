@@ -12,7 +12,7 @@ public class Question {
     @GeneratedValue
     private int id;
 
-    private String question;
+    private String questionString;
 
     @ElementCollection
     private List<String> correctAnswerToQuestion;
@@ -22,11 +22,11 @@ public class Question {
     }
 
     public String getQuestion() {
-        return question;
+        return questionString;
     }
 
     public void setQuestion(String question) {
-        this.question = question;
+        this.questionString = question;
     }
 
     public List<String> getCorrectAnswerToQuestion() {
