@@ -4,6 +4,7 @@ import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.annotation.LogExecutionTime;
 import enterpriseAndMobile.dto.TeamPatchAnswersDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
+import enterpriseAndMobile.dto.TeamPatchScoreDto;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.service.TeamService;
 import org.apache.commons.logging.Log;
@@ -83,6 +84,19 @@ public class TeamRestController {
     public ResponseEntity<Team> patchTeamAnswers(@PathVariable("id") int id, @RequestBody TeamPatchAnswersDto patchDto) {
         try {
             Team team = teamService.patchTeamAnswers(id, patchDto);
+             return new ResponseEntity<>(team, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error(e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @LogExecutionTime
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PatchMapping(value = "/score/{id}")
+    public ResponseEntity<Team> patchTeamScore(@PathVariable("id") int id, @RequestBody TeamPatchScoreDto patchDto) {
+        try {
+            Team team = teamService.patchScoreTeam(id, patchDto);
             return new ResponseEntity<>(team, HttpStatus.OK);
         } catch (NotFoundException e) {
             logger.error(e.getMessage(), e);

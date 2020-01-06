@@ -19,6 +19,10 @@ public class Team {
     public Team(List<Answer> answers) {
         this.answers = answers;
     }
+  
+    public Team(Double scores) {
+        this.scores = scores;
+    }
 
     public Team(String name, boolean enabled) {
         this.enabled = enabled;

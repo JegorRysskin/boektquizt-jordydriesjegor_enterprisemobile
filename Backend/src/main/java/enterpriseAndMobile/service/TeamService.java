@@ -5,6 +5,8 @@ import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.TeamPatchAnswersDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
 import enterpriseAndMobile.model.Answer;
+import enterpriseAndMobile.dto.TeamPatchScoreDto;
+
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.repository.TeamRepository;
@@ -58,6 +60,19 @@ public class TeamService {
                 List<Answer> answers = team.get().getAnswers();
                 answers.add(patch.getAnswers());
                 team.get().setAnswers(answers);
+            }
+            return teamRepository.patchTeam(team.get());
+        }
+        throw new NotFoundException("The team you tried to patch wasn't found.");
+    }
+  
+@Transactional
+    public Team patchScoreTeam(int id, TeamPatchScoreDto patch) throws NotFoundException {
+        Optional<Team> team = teamRepository.getTeamById(id);
+        if (team.isPresent()) {
+            if (patch.getScores() != null) {
+                double score = team.get().getScores();
+                team.get().setScores(score + patch.getScores());
             }
             return teamRepository.patchTeam(team.get());
         }

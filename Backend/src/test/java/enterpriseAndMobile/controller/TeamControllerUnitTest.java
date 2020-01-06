@@ -5,6 +5,7 @@ import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.TeamPatchAnswersDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
 import enterpriseAndMobile.model.Answer;
+import enterpriseAndMobile.dto.TeamPatchScoreDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.service.TeamService;
@@ -131,6 +132,22 @@ public class TeamControllerUnitTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+     }
+
+   @Test
+    public void patchTeamScoreById() throws Exception {
+        Team patchedTeam = new Team(20.0);
+        TeamPatchScoreDto patchScoreDto = new TeamPatchScoreDto(20.0);
+
+        given(teamService.patchScoreTeam(anyInt(), any())).willReturn(patchedTeam);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .patch("/team/score/1")
+                .content(JsonStringConverter.asJsonString(patchScoreDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.scores", is(20.0)));
     }
 }
 
