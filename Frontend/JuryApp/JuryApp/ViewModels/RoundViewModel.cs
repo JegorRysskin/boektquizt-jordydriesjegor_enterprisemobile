@@ -3,11 +3,13 @@ using GalaSoft.MvvmLight.Messaging;
 using JuryApp.Core.Models;
 using JuryApp.Core.Services;
 using JuryApp.Helpers;
+using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
     public class RoundViewModel
     {
+        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
         private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
         private readonly RoundService _roundService;
 
@@ -24,7 +26,12 @@ namespace JuryApp.ViewModels
 
         private async void SaveRound()
         {
-            await _roundService.EditRound(SelectedRound.RoundId, SelectedRound);
+            var result = await _roundService.EditRound(SelectedRound.RoundId, SelectedRound);
+
+            if (result)
+            {
+                NavigationService.GoBack();
+            }
         }
 
 
