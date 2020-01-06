@@ -78,7 +78,7 @@ public class TeamRestController {
     }
 
     @LogExecutionTime
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PatchMapping(value = "/score/{id}")
     public ResponseEntity<Team> patchTeamScore(@PathVariable("id") int id, @RequestBody TeamPatchScoreDto patchDto) {
         try {
