@@ -2,7 +2,9 @@ package enterpriseAndMobile.controller;
 
 import enterpriseAndMobile.converter.JsonStringConverter;
 import enterpriseAndMobile.dto.QuizPatchDto;
+import enterpriseAndMobile.dto.TeamPatchAnswersDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
+import enterpriseAndMobile.model.Answer;
 import enterpriseAndMobile.dto.TeamPatchScoreDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
@@ -114,6 +116,25 @@ public class TeamControllerUnitTest {
     }
 
     @Test
+    public void patchTeamAnswersById() throws Exception {
+        Answer answer = new Answer();
+        List<Answer> answers = new ArrayList<>();
+        answers.add(answer);
+        Team returnedTeam = new Team(answers);
+
+        TeamPatchAnswersDto teamPatchAnswersDto = new TeamPatchAnswersDto(answer);
+
+        given(teamService.patchTeamAnswers(anyInt(), any())).willReturn(returnedTeam);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .patch("/team/answer/1")
+                .content(JsonStringConverter.asJsonString(teamPatchAnswersDto))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+     }
+
+   @Test
     public void patchTeamScoreById() throws Exception {
         Team patchedTeam = new Team(20.0);
         TeamPatchScoreDto patchScoreDto = new TeamPatchScoreDto(20.0);
