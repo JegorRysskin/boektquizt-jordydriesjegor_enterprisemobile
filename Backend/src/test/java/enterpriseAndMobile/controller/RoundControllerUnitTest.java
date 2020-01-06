@@ -53,19 +53,6 @@ public class RoundControllerUnitTest {
     }
 
     @Test
-    public void GetRoundsByQuizId_FromRoundController() throws Exception {
-        Round round = new Round();
-        List<Round> list = new ArrayList<>();
-        list.add(round);
-
-        given(roundService.getListOfRoundsByQuizById(anyInt())).willReturn(list);
-
-        mockMvc.perform(get("/round/quizId/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     public void GetRoundsByEnabledQuiz_FromRoundController() throws Exception {
         Round round = new Round();
         List<Round> list = new ArrayList<>();

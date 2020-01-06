@@ -3,6 +3,7 @@ package enterpriseAndMobile.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,14 @@ public class Team {
 
     public Team(String name) {
         this.name = name;
+    }
+
+    public Team(List<Answer> answers) {
+        this.answers = answers;
+    }
+  
+    public Team(Double scores) {
+        this.scores = scores;
     }
 
     public Team(String name, boolean enabled) {
@@ -35,7 +44,7 @@ public class Team {
     private String name;
 
     @OneToMany
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();
 
     private Double scores = 0.0;
 
