@@ -142,7 +142,6 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Converters\BoolToColorConverter.cs" />
-    <Compile Include="Converters\StringToObjectConverter.cs" />
     <Compile Include="Helpers\MessengerCache.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />

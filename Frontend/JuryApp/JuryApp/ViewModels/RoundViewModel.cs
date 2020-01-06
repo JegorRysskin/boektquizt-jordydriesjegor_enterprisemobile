@@ -11,8 +11,6 @@ namespace JuryApp.ViewModels
         private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
         private readonly RoundService _roundService;
 
-        //TODO: OnPropertyChanged / Two way not throwing events in datatemplate
-        // Use ListView.Item ?
         public Round SelectedRound { get; set; }
         public RoundViewModel()
         {
@@ -34,8 +32,7 @@ namespace JuryApp.ViewModels
         {
             if (selectedQuestionIndex == -1) return;
 
-            SelectedRound.RoundQuestions[selectedQuestionIndex].QuestionCorrectAnswers.Add( new CorrectAnswer{CorrectAnswerText = "Correct Antwoord2"} );
-            //await _roundService.EditRound(SelectedRound.RoundId, SelectedRound);
+            SelectedRound.RoundQuestions[selectedQuestionIndex].QuestionCorrectAnswers.Add( new CorrectAnswer{CorrectAnswerText = "Nieuw Correct Antwoord"} );
         }
     }
 }

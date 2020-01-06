@@ -10,9 +10,6 @@
     xmlns:converters="using:JuryApp.Converters"
     mc:Ignorable="d"
     Style="{StaticResource PageStyle}">
-    <Page.Resources>
-        <converters:StringToObjectConverter x:Key="StringToObjectConverter"></converters:StringToObjectConverter>
-    </Page.Resources>
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
         <RelativePanel>
