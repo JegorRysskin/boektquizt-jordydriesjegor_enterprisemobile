@@ -3,6 +3,7 @@ package enterpriseAndMobile.service;
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
+import enterpriseAndMobile.dto.TeamPatchScoreDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.repository.TeamRepository;
@@ -73,6 +74,19 @@ public class TeamServiceUnitTest {
         given(teamRepository.patchTeam(any())).willReturn(returnedTeam);
         Team found = teamService.patchTeam(0, patchDto);
         Assertions.assertEquals(patchDto.getName(), found.getName());
+        Assertions.assertEquals(team.getId(), found.getId());
+    }
+
+    @Test
+    public void patchTeamScoreById() throws NotFoundException {
+        Team team = new Team();
+        Team returnedTeam = new Team(20.0);
+        TeamPatchScoreDto teamPatchScoreDto = new TeamPatchScoreDto(20.0);
+
+        given(teamRepository.getTeamById(anyInt())).willReturn(Optional.of(team));
+        given(teamRepository.patchTeam(any())).willReturn(returnedTeam);
+        Team found = teamService.patchScoreTeam(0, teamPatchScoreDto);
+        Assertions.assertEquals(teamPatchScoreDto.getScores(), found.getScores());
         Assertions.assertEquals(team.getId(), found.getId());
     }
 }
