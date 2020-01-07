@@ -21,11 +21,11 @@ public class Question {
         return id;
     }
 
-    public String getQuestion() {
+    public String getQuestionString() {
         return questionString;
     }
 
-    public void setQuestion(String question) {
+    public void setQuestionString(String question) {
         this.questionString = question;
     }
 

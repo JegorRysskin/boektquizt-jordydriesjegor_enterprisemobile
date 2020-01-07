@@ -9,7 +9,7 @@ public class Answer {
     @GeneratedValue
     private int id;
 
-    private String answer;
+    private String answerString;
 
     @OneToOne
     private Question question;
@@ -18,12 +18,12 @@ public class Answer {
         return id;
     }
 
-    public String getAnswer() {
-        return answer;
+    public String getAnswerString() {
+        return answerString;
     }
 
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public void setAnswerString(String answer) {
+        this.answerString = answer;
     }
 
     public void setId(int id) {
