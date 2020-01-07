@@ -21,8 +21,6 @@ namespace BoektQuiz.Repositories
         {
             var roundList = await _context.Rounds
                                   .Include(r => r.Questions)
-                                  .ThenInclude(q => q.Answer)
-                                  .ThenInclude(a => a.Team)
                                   .ToListAsync();
             var round = roundList.Find(r => r.Id == roundId);
             

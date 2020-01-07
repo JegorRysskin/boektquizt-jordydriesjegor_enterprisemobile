@@ -12,7 +12,7 @@ namespace BoektQuiz.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int RoundId { get; set; }
-        public string Text { get; set; }
+        public string QuestionString { get; set; }
         public Answer Answer { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;

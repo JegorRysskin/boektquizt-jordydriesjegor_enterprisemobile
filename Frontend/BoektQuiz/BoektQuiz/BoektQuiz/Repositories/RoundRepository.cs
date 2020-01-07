@@ -23,7 +23,6 @@ namespace BoektQuiz.Repositories
             return await _context.Rounds
                         .Include(r => r.Questions)
                         .ThenInclude(q => q.Answer)
-                        .ThenInclude(a => a.Team)
                         .ToListAsync();
         }
 
@@ -41,24 +40,6 @@ namespace BoektQuiz.Repositories
             } 
             else
             {
-                //TO DO: Fetch team from JWT token and insert into Answer
-                
-                Team team = await _context.Teams.FindAsync(1000);
-                
-                if (team == null)
-                {
-                    team = new Team() { Id = 1000, TeamName = "Team 1" };
-
-                    await _context.Teams.AddAsync(team);
-                    await _context.SaveChangesAsync();
-                }
-
-                List<Answer> answers = round.Questions.ConvertAll<Answer>(q => q.Answer);
-                answers.ForEach(a => a.Team = team);
-                answers.ForEach(a => a.TeamId = team.Id);
-
-                //TO DO: Fetch team from JWT token and insert into Answer
-
                 await _context.Rounds.AddAsync(round);
             }
 

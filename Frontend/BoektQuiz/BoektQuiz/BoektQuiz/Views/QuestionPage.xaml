@@ -9,7 +9,7 @@
              xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
              xmlns:converter="clr-namespace:BoektQuiz.Converters"
              Util:ViewModelLocator.AutoWireViewModel="True"
-             Title="{Binding Question.Text}"
+             Title="{Binding Question.QuestionString}"
              BackgroundColor="Black"
              NavigationPage.HasBackButton="False">
     <ContentPage.Resources>

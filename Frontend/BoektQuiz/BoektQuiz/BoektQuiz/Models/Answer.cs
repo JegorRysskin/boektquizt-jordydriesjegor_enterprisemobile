@@ -17,8 +17,7 @@ namespace BoektQuiz.Models
 
         private string _answer;
         public string AnswerString { get => _answer; set { if (_answer == value) return; _answer = value; OnPropertyChanged(); } }
-        public int TeamId { get; set; }
-        public Team Team { get; set; }
+
         public int QuestionId { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
