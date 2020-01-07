@@ -5,6 +5,7 @@ using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace JuryApp.ViewModels
@@ -12,7 +13,7 @@ namespace JuryApp.ViewModels
     public class CreateQuizViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        public readonly List<int> ListOfTen = Enumerable.Range(1, 10).ToList();
+        public readonly List<int> ListOfTenForComboBox = Enumerable.Range(1, 10).ToList();
 
         public Quiz NewQuiz { get; set; } = new Quiz();
 
@@ -41,7 +42,7 @@ namespace JuryApp.ViewModels
             var tenEmptyQuestions = new Questions();
             for (var i = 1; i <= 10; i++)
             {
-               tenEmptyQuestions.Add(new Question{ QuestionText = $"Vraag {i}" });
+               tenEmptyQuestions.Add(new Question{ QuestionText = $"Vraag {i}", QuestionCorrectAnswers =  new CorrectAnswers{ new CorrectAnswer{ CorrectAnswerText = "" } }});
             }
 
             NewQuiz.QuizRounds = new Rounds();

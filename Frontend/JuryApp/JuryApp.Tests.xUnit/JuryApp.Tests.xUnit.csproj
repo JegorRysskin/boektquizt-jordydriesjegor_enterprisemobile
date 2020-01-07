@@ -144,9 +144,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="JuryApp.Tests.xUnit_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\JuryApp\JuryApp.csproj">
       <Project>{31007415-24D5-4D50-B72D-176162345512}</Project>
       <Name>JuryApp</Name>
