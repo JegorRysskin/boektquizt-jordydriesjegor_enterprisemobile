@@ -1,10 +1,8 @@
 ﻿using BoektQuiz.Models;
 using BoektQuiz.Repositories;
-using BoektQuiz.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 

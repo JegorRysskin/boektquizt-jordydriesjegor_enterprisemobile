@@ -1,8 +1,6 @@
 ﻿using BoektQuiz.Models;
 using BoektQuiz.Services;
 using BoektQuiz.Util;
-using BoektQuiz.Views;
-using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
 using Xamarin.Forms;
 
@@ -12,6 +10,8 @@ namespace BoektQuiz.ViewModels
     {
         private INavigationService _navigationService;
         public Round Round { get; set; }
+
+        public Team Team { get; set; }
 
         private string _token;
 
@@ -27,6 +27,8 @@ namespace BoektQuiz.ViewModels
                 if (Application.Current.Properties.ContainsKey("token"))
                 {
                     _token = Application.Current.Properties["token"].ToString();
+
+                    Team = backendService.GetTeamByName(_token).Result;
                 } 
             }
             Round = backendService.GetRoundById(id, _token).Result;

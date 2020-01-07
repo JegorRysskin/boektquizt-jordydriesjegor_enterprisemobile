@@ -1,4 +1,6 @@
 ﻿using BoektQuiz.Models;
+using JWT;
+using JWT.Serializers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -106,6 +108,36 @@ namespace BoektQuiz.Services
 
                 return response.StatusCode;
             }
+        }
+
+        public async Task<Team> GetTeamByName(string token)
+        {
+            var serializer = new JsonNetSerializer();
+            var provider = new UtcDateTimeProvider();
+            var validator = new JwtValidator(serializer, provider);
+            var urlEncoder = new JwtBase64UrlEncoder();
+            var decoder = new JwtDecoder(serializer, validator, urlEncoder);
+
+            var result = decoder.Decode(token);
+
+            var jwtToken = JsonConvert.DeserializeObject<JWTToken>(result);
+
+            string teamName = jwtToken.Sub;
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var response = await client.GetAsync(baseUrl + "team/name/" + teamName).ConfigureAwait(false); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var team = JsonConvert.DeserializeObject<Team>(await response.Content.ReadAsStringAsync());
+                    return team;
+                }
+            }
+
+            return null;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace BoektQuiz.Context
 
             modelBuilder.Entity<Question>().HasOne(q => q.Answer);
 
-            modelBuilder.Entity<Team>().HasData(new Team() { Id = -1, TeamName = "Dummy Team" });
+            modelBuilder.Entity<Team>().HasData(new Team() { Id = -1, Name = "Dummy Team" });
 
             modelBuilder.Entity<Answer>().HasData(new List<Answer>()
                 {

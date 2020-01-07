@@ -1,5 +1,4 @@
-﻿using BoektQuiz.Models;
-using BoektQuiz.Repositories;
+﻿using BoektQuiz.Repositories;
 using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;

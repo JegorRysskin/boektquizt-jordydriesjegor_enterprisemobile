@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using BoektQuiz.Models;
+﻿using BoektQuiz.Models;
 using BoektQuiz.Services;
 using BoektQuiz.Util;
-using BoektQuiz.Views;
 using Xamarin.Forms;
 
 namespace BoektQuiz.ViewModels

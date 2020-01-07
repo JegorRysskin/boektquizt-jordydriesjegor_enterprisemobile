@@ -1,10 +1,8 @@
 ﻿using System.ComponentModel;
 using Xamarin.Forms;
-using BoektQuiz.Models;
 using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
-using Plugin.Connectivity;
 using Plugin.Connectivity.Abstractions;
 
 namespace BoektQuiz.Views

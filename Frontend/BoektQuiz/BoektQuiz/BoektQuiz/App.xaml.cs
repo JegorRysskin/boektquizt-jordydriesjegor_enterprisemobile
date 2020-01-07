@@ -1,12 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using BoektQuiz.Context;
+﻿using BoektQuiz.Context;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using BoektQuiz.Services;
 using BoektQuiz.Util;
-using BoektQuiz.Views;
 using Microsoft.EntityFrameworkCore;
 
 namespace BoektQuiz

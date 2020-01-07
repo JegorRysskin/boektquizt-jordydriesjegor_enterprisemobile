@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BoektQuiz.Services
@@ -14,5 +13,6 @@ namespace BoektQuiz.Services
         Task<List<Round>> GetAllRounds(String token);
         Task<Round> GetRoundById(int id, String token);
         Task<HttpStatusCode> PatchRound(Round round, String token);
+        Task<Team> GetTeamByName(string teamName);
     }
 }

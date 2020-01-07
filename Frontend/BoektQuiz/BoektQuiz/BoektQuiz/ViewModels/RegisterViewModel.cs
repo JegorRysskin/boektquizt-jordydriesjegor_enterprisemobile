@@ -1,12 +1,7 @@
-﻿using BoektQuiz.Models;
-using BoektQuiz.Services;
+﻿using BoektQuiz.Services;
 using BoektQuiz.Util;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Text;
 using Xamarin.Forms;
 
 namespace BoektQuiz.ViewModels

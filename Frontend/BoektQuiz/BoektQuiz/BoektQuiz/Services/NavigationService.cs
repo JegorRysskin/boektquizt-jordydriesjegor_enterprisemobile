@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using BoektQuiz.Util;
-using BoektQuiz.ViewModels;
 using BoektQuiz.Views;
 using Xamarin.Forms;
 

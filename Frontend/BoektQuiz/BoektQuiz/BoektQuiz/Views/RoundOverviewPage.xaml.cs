@@ -2,7 +2,6 @@
 using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
