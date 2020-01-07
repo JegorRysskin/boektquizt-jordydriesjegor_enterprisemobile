@@ -5,11 +5,27 @@
     xmlns:local="using:JuryApp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:converters="using:JuryApp.Converters"
     mc:Ignorable="d"
     Style="{StaticResource PageStyle}">
+
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
         <RelativePanel>
             <TextBlock x:Name="SelectedRoundTextBlock" Text="{x:Bind ViewModel.SelectedRound.RoundName}" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
+
+            <Button x:Name="AddNewAnswerButton" Style="{StaticResource AccentButtonStyle}" Margin="10" RelativePanel.AlignLeftWithPanel="True"
+                    Command="{x:Bind ViewModel.AddNewAnswerCommand}" CommandParameter="{Binding SelectedIndex, ElementName=QuestionsGridView}">
+                <Button.Content>
+                    <StackPanel>
+                        <TextBlock>Nieuw antwoord bij</TextBlock>
+                        <TextBlock Text="{x:Bind ViewModel.SelectedRound.RoundQuestions[5]}"></TextBlock>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button x:Name="SaveRoundButton" Style="{StaticResource AccentButtonStyle}" Content="Wijzigingen opslaan" Margin="10" RelativePanel.AlignRightWithPanel="True"
+                    Command="{x:Bind ViewModel.SaveRoundCommand}"/>
 
             <GridView x:Name="QuestionsGridView" ItemsSource="{x:Bind ViewModel.SelectedRound.RoundQuestions, Mode=TwoWay}"
                       IsItemClickEnabled="False"
@@ -21,7 +37,23 @@
 
                 <GridView.ItemTemplate>
                     <DataTemplate>
-                            <TextBox Text="{Binding QuestionText}" TextAlignment="Center"/>
+                        <RelativePanel BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}" BorderThickness="1">
+                            <TextBlock x:Name="QuestionTextTextBlock" Text="{Binding QuestionText}"/>
+
+                            <TextBlock x:Name="CorrectAnswersTextBlock" Text="Correcte antwoord(en):" HorizontalAlignment="Center" Margin="10" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+                            <ListView x:Name="CorrectAnswersListView" ItemsSource="{Binding QuestionCorrectAnswers, Mode=TwoWay}" Width="400" SelectionMode="None" RelativePanel.Below="CorrectAnswersTextBlock">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Path=CorrectAnswerText, Mode=TwoWay}" TextAlignment="Center"/>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </RelativePanel>
                     </DataTemplate>
                 </GridView.ItemTemplate>
                 <GridView.ItemsPanel>

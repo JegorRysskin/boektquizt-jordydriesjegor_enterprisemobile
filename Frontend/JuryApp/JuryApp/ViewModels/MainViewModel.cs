@@ -17,6 +17,7 @@ namespace JuryApp.ViewModels
         private readonly RoundService _roundService;
 
         public Rounds Rounds { get; set; } = new Rounds();
+        public string SelectionMode { get; set; } = "Single";
 
         public MainViewModel()
         {
@@ -27,6 +28,24 @@ namespace JuryApp.ViewModels
         }
 
         public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRounds);
+        public RelayCommand DisableAllRoundsCommand => new RelayCommand(DisableAllRounds);
+
+        private void DisableAllRounds()
+        {
+            if (!Rounds.Any(r => r.RoundEnabled)) return;
+            
+            SelectionMode = "None";
+            RaisePropertyChanged(() => SelectionMode);
+
+            Rounds.ToList().ForEach(async r =>
+            {
+                r.RoundEnabled = false;
+                await _roundService.EditRound(r.RoundId, r);
+            });
+
+            SelectionMode = "Single";
+            RaisePropertyChanged(() => SelectionMode);
+        }
 
         private void EnableRounds(Round selectedRound)
         {
