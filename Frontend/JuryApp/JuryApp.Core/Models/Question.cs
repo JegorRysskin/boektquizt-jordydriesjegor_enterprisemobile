@@ -19,7 +19,7 @@ namespace JuryApp.Core.Models
             set => Set(() => QuestionId, ref _questionId, value);
         }
 
-        [JsonProperty("question")]
+        [JsonProperty("questionString")]
         public string QuestionText
         {
             get => _questionText;
