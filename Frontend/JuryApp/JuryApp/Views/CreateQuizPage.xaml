@@ -14,7 +14,7 @@
             <TextBox x:Name="QuizTextBox" Text="{x:Bind ViewModel.NewQuiz.QuizName, Mode=TwoWay}" MaxLength="200" RelativePanel.Below="QuizTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
 
             <TextBlock x:Name="RoundsTextBlock" Text="Aantal rondes:" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" Margin="6"/>
-            <ComboBox x:Name="RoundsComboBox" ItemsSource="{x:Bind ViewModel.ListOfTen}" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="RoundsTextBlock">
+            <ComboBox x:Name="RoundsComboBox" ItemsSource="{x:Bind ViewModel.ListOfTenForComboBox}" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.Below="RoundsTextBlock">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="SelectionChanged">
                         <core:InvokeCommandAction Command="{x:Bind ViewModel.CreateRoundsCommand}" CommandParameter="{Binding SelectedItem, ElementName=RoundsComboBox}"/>
@@ -22,7 +22,7 @@
                 </interactivity:Interaction.Behaviors>
             </ComboBox>
 
-            <Button x:Name="CreateQuizButton" Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.CreateNewQuizCommand}"></Button>
+            <Button x:Name="CreateQuizButton" Style="{StaticResource AccentButtonStyle}" Content="Creëer quiz" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.CreateNewQuizCommand}"></Button>
         </RelativePanel>
     </Grid>
 </Page>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using JuryApp.Core.Models.Collections;
 using Newtonsoft.Json;
@@ -9,7 +10,7 @@ namespace JuryApp.Core.Models
     {
         private int _questionId;
         private string _questionText;
-        private List<string> _questionCorrectAnswers;
+        private CorrectAnswers _questionCorrectAnswers;
 
         [JsonProperty("id")]
         public int QuestionId
@@ -26,7 +27,7 @@ namespace JuryApp.Core.Models
         }
 
         [JsonProperty("correctAnswerToQuestion")]
-        public List<string> QuestionCorrectAnswers
+        public CorrectAnswers QuestionCorrectAnswers
         {
             get => _questionCorrectAnswers;
             set => Set(() => QuestionCorrectAnswers, ref _questionCorrectAnswers, value);

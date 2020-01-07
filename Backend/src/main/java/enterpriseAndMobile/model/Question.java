@@ -12,28 +12,28 @@ public class Question {
     @GeneratedValue
     private int id;
 
-    private String question;
+    private String questionString;
 
-    @ElementCollection
-    private List<String> correctAnswerToQuestion;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<CorrectAnswer> correctAnswerToQuestion;
 
     public int getId() {
         return id;
     }
 
     public String getQuestion() {
-        return question;
+        return questionString;
     }
 
     public void setQuestion(String question) {
-        this.question = question;
+        this.questionString = question;
     }
 
-    public List<String> getCorrectAnswerToQuestion() {
+    public List<CorrectAnswer> getCorrectAnswerToQuestion() {
         return correctAnswerToQuestion;
     }
 
-    public void setCorrectAnswerToQuestion(List<String> correctAnswerToQuestion) {
+    public void setCorrectAnswerToQuestion(List<CorrectAnswer> correctAnswerToQuestion) {
         this.correctAnswerToQuestion = correctAnswerToQuestion;
     }
 

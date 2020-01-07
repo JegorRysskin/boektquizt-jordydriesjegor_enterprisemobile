@@ -11,7 +11,7 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
         <RelativePanel>
             <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" Margin="20" Command="{x:Bind ViewModel.DeleteQuizCommand}"/>
-            <Button Content="Quiz aanpassen" RelativePanel.AlignRightWithPanel="True" Margin="20" Command="{x:Bind ViewModel.EditQuizCommand}"></Button>
+            <Button Content="Quiz aanpassen" Style="{StaticResource AccentButtonStyle}" RelativePanel.AlignRightWithPanel="True" Margin="20" Command="{x:Bind ViewModel.EditQuizCommand}"></Button>
         </RelativePanel>
 
         <RelativePanel>

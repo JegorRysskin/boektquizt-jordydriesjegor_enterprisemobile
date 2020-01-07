@@ -5,7 +5,7 @@
             <TextBlock x:Name="TeamTextBlock" Text="Teamnaam:" RelativePanel.AlignHorizontalCenterWithPanel="True"  Margin="6"/>
             <TextBox x:Name="TeamTextBox" Text="{x:Bind ViewModel.SelectedTeam.TeamName, Mode=TwoWay}" MaxLength="200" RelativePanel.Below="TeamTextBlock" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBox>
             <CheckBox x:Name="EnableTeamCheckBox" Content="Heeft team betaald?" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True" IsChecked="{x:Bind ViewModel.SelectedTeam.TeamEnabled, Mode=TwoWay}"></CheckBox>
-            <Button Content="Team aanpassen" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.EditTeamCommand}"></Button>
+            <Button Content="Team aanpassen" Style="{StaticResource AccentButtonStyle}" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignBottomWithPanel="True" Command="{x:Bind ViewModel.EditTeamCommand}"></Button>
         </RelativePanel>
     </Grid>
 </Page>
