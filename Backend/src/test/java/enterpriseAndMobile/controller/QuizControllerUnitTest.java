@@ -4,7 +4,9 @@ import enterpriseAndMobile.converter.JsonStringConverter;
 import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.model.Quiz;
+import enterpriseAndMobile.service.AnswerService;
 import enterpriseAndMobile.service.QuizService;
+import enterpriseAndMobile.service.TeamService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,6 +49,9 @@ public class QuizControllerUnitTest {
 
     @MockBean
     private QuizService quizService;
+
+    @MockBean
+    private TeamService teamService;
 
     @Test
     public void getAllQuizes_FromQuizController() throws Exception {
