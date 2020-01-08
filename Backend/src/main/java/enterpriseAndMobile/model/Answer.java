@@ -14,13 +14,6 @@ public class Answer {
     @OneToOne
     private Question question;
 
-    public Answer() {
-    }
-
-    public Answer(String answerString) {
-        this.answerString = answerString;
-    }
-
     public int getId() {
         return id;
     }
