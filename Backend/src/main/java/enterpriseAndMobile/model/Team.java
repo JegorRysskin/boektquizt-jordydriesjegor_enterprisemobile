@@ -1,5 +1,6 @@
 package enterpriseAndMobile.model;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -44,6 +45,7 @@ public class Team {
     private String name;
 
     @OneToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
 
     private Double scores = 0.0;
