@@ -1,10 +1,13 @@
 package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.Exception.NotFoundException;
+import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.TeamPatchAnswersDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
-import enterpriseAndMobile.dto.TeamPatchScoreDto;
 import enterpriseAndMobile.model.Answer;
+import enterpriseAndMobile.dto.TeamPatchScoreDto;
+
+import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.repository.TeamRepository;
 import org.springframework.stereotype.Service;
@@ -53,17 +56,18 @@ public class TeamService {
     public Team patchTeamAnswers(int id, TeamPatchAnswersDto patch) throws NotFoundException {
         Optional<Team> team = teamRepository.getTeamById(id);
         if (team.isPresent()) {
-            if (patch.getAnswers() != null) {
+            if (patch.getAnswers() != null){
                 List<Answer> answers = team.get().getAnswers();
                 answers.add(patch.getAnswers());
                 team.get().setAnswers(answers);
             }
-            return teamRepository.patchTeam(team.get());
+            Team team1 = teamRepository.patchTeam(team.get());
+            return team1;
         }
         throw new NotFoundException("The team you tried to patch wasn't found.");
     }
-
-    @Transactional
+  
+@Transactional
     public Team patchScoreTeam(int id, TeamPatchScoreDto patch) throws NotFoundException {
         Optional<Team> team = teamRepository.getTeamById(id);
         if (team.isPresent()) {

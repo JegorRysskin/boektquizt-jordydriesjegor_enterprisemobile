@@ -29,7 +29,7 @@ public class User {
     @JsonIgnore
     private String password;
 
-    @OneToOne
+    @OneToOne()
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private Team team;
 
