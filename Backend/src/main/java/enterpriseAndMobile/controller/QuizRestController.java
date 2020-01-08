@@ -4,8 +4,12 @@ import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.annotation.LogExecutionTime;
 import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.dto.QuizPatchDto;
+import enterpriseAndMobile.dto.TeamPatchAnswersDto;
+import enterpriseAndMobile.model.Answer;
 import enterpriseAndMobile.model.Quiz;
+import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.service.QuizService;
+import enterpriseAndMobile.service.TeamService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +32,9 @@ public class QuizRestController {
 
     @Autowired
     private QuizService quizService;
+
+    @Autowired
+    private TeamService teamService;
 
     @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
