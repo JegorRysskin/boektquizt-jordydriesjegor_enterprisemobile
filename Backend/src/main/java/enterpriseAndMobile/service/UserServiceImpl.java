@@ -3,6 +3,7 @@ package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.dao.UserDao;
 import enterpriseAndMobile.dto.UserDto;
+import enterpriseAndMobile.model.Answer;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.model.User;
 import enterpriseAndMobile.repository.TeamRepository;
@@ -86,7 +87,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
         user.setRole(user.getRole());
         newUser.setRoles(roleService.findRoleByName(user.getRole()));
-        newUser.setTeam(new Team(user.getUsername()));
+        Team team = new Team(user.getUsername());
+        List<Answer> answers = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            answers.add(new Answer());
+        }
+        team.setAnswers(answers);
+        newUser.setTeam(team);
         return userDao.save(newUser);
     }
 
