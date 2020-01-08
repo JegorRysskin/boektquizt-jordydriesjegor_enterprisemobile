@@ -66,12 +66,14 @@ namespace JuryApp.ViewModels
 
         private void DisableOtherQuizzes()
         {
-            var otherQuizzes = AllQuizzes.Where(q => q.QuizId != SelectedQuiz.QuizId);
+            AllQuizzes.Where(q => q.QuizId != SelectedQuiz.QuizId).ToList().ForEach(q => q.QuizEnabled = false);
 
-            otherQuizzes.ToList().ForEach(async q =>
+            AllQuizzes.ToList().ForEach(async q =>
             {
-                q.QuizEnabled = false;
-                await _quizService.EditQuiz(q.QuizId, q);
+                if (q.QuizId != SelectedQuiz.QuizId)
+                {
+                    await _quizService.EditQuiz(q.QuizId, q);
+                }
             });
         }
 
