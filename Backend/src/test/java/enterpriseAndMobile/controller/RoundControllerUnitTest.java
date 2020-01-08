@@ -1,11 +1,8 @@
 package enterpriseAndMobile.controller;
 
 import enterpriseAndMobile.converter.JsonStringConverter;
-import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.RoundPatchDto;
-import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Round;
-import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.service.RoundService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +17,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;

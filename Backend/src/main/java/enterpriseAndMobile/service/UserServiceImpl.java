@@ -3,6 +3,7 @@ package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.dao.UserDao;
 import enterpriseAndMobile.dto.UserDto;
+import enterpriseAndMobile.model.Answer;
 import enterpriseAndMobile.model.Team;
 import enterpriseAndMobile.model.User;
 import enterpriseAndMobile.repository.TeamRepository;
@@ -87,6 +88,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         user.setRole(user.getRole());
         newUser.setRoles(roleService.findRoleByName(user.getRole()));
         newUser.setTeam(new Team(user.getUsername()));
+        List<Answer> answer = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            answer.add(new Answer());
+        }
+        newUser.getTeam().setAnswers(answer);
         return userDao.save(newUser);
     }
 
