@@ -61,7 +61,8 @@ public class TeamService {
                 answers.add(patch.getAnswers());
                 team.get().setAnswers(answers);
             }
-            return teamRepository.patchTeam(team.get());
+            Team team1 = teamRepository.patchTeam(team.get());
+            return team1;
         }
         throw new NotFoundException("The team you tried to patch wasn't found.");
     }

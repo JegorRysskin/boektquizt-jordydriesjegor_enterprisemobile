@@ -53,6 +53,22 @@ public class QuizRestController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto) {
+        if(quizDto.getRounds() != null && quizDto.getRounds().get(0) != null && quizDto.getRounds().get(0).getQuestions() != null) {
+            int quizzes = quizDto.getRounds().get(0).getQuestions().size();
+            Answer answer = new Answer();
+            answer.setAnswerString("test");
+            TeamPatchAnswersDto patch = new TeamPatchAnswersDto(answer);
+        while(quizzes > 0 && teamService.getAllTeams() != null){
+            for (Team team: teamService.getAllTeams()) {
+                try {
+                    teamService.patchTeamAnswers(team.getId(), patch);
+                } catch (NotFoundException e) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+
+           }
+            quizzes--;
+        }}
         Quiz quiz = quizService.addQuiz(quizDto);
         return new ResponseEntity<>(quiz, HttpStatus.CREATED);
     }
