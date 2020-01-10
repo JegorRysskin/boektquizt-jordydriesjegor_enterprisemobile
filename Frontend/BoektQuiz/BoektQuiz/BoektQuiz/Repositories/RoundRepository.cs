@@ -20,28 +20,17 @@ namespace BoektQuiz.Repositories
         {
             return await _context.Rounds
                         .Include(r => r.Questions)
-                        .ThenInclude(q => q.Answer)
                         .ToListAsync();
         }
 
         public async Task UpdateRoundAsync(Round round)
         {
-            Round existingRound = GetAllRoundsAsync().Result.FirstOrDefault(r => r.Id == round.Id);
-            if (existingRound != null)
-            {
-                List<Answer> existingAnswers = existingRound.Questions.ConvertAll<Answer>(q => q.Answer);
-                List<Answer> answers = round.Questions.ConvertAll<Answer>(q => q.Answer);
-
-                existingAnswers.ForEach(a1 => a1.AnswerString = answers.Find(a2 => a1.Id == a2.Id).AnswerString);
-
-                _context.Answers.UpdateRange(existingAnswers);
-            } 
-            else
+            if (!_context.Rounds.Contains(round))
             {
                 await _context.Rounds.AddAsync(round);
-            }
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
+            } 
         }
     }
 }

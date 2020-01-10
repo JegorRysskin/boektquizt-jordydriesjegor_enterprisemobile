@@ -6,14 +6,17 @@
              mc:Ignorable="d"
              x:Class="BoektQuiz.Views.HomePage"
              xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
+             xmlns:pulltorefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
              Util:ViewModelLocator.AutoWireViewModel="True"
              BackgroundColor="Black"
-             Title="Home">
+             Title="Home" Appearing="HomePage_Appearing">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Selecteer een ronde uit het hamburgermenu!"
+        <pulltorefresh:PullToRefreshLayout RefreshCommand="{Binding UpdateStatusCommand}" IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <StackLayout>
+                <Label Text="{Binding Status}"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" TextColor="White"/>
-        </StackLayout>
+                HorizontalOptions="CenterAndExpand" TextColor="{Binding StatusColor}"/>
+            </StackLayout>
+        </pulltorefresh:PullToRefreshLayout>
     </ContentPage.Content>
 </ContentPage>

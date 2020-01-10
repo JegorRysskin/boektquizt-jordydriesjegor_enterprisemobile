@@ -10,7 +10,7 @@
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="RoundsListView"
-                ItemsSource="{Binding Questions}"
+                ItemsSource="{Binding QuestionAnswers}"
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
                 RefreshCommand="{Binding LoadItemsCommand}"
@@ -21,7 +21,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Label Text="{Binding Text}"
+                                <Label Text="{Binding Question.QuestionString}"
                                 d:Text="{Binding .}"
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 

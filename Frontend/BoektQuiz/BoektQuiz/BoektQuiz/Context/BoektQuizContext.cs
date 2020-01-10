@@ -41,11 +41,11 @@ namespace BoektQuiz.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Answer>().HasKey(a => new { a.Id, a.QuestionId });
+
             modelBuilder.Entity<Round>().HasMany(r => r.Questions);
 
-            modelBuilder.Entity<Question>().HasOne(q => q.Answer);
-
-            modelBuilder.Entity<Team>().HasData(new Team() { Id = -1, Name = "Dummy Team" });
+            modelBuilder.Entity<Team>().HasMany(t => t.Answers);
 
             modelBuilder.Entity<Answer>().HasData(new List<Answer>()
                 {
@@ -61,6 +61,8 @@ namespace BoektQuiz.Context
                     new Answer() { Id = -10, AnswerString = "Dummy Antwoord 10", QuestionId = -10 }
                 });
 
+            modelBuilder.Entity<Team>().HasData(new Team() { Id = -1, Name = "Dummy Team", Enabled = true, Scores = 0 });
+
             modelBuilder.Entity<Round>().HasData(new Round() { Id = -1, Name = "Ronde 0" });
 
             modelBuilder.Entity<Question>().HasData(new List<Question>()
@@ -68,7 +70,7 @@ namespace BoektQuiz.Context
                     new Question() { Id = -1, RoundId = -1, QuestionString = "Vraag 1"  },
                     new Question() { Id = -2, RoundId = -1, QuestionString = "Vraag 2"  },
                     new Question() { Id = -3, RoundId = -1, QuestionString = "Vraag 3"  },
-                    new Question() { Id = -4, RoundId = -1, QuestionString = "Vraag 4" },
+                    new Question() { Id = -4, RoundId = -1, QuestionString = "Vraag 4"  },
                     new Question() { Id = -5, RoundId = -1, QuestionString = "Vraag 5"  },
                     new Question() { Id = -6, RoundId = -1, QuestionString = "Vraag 6"  },
                     new Question() { Id = -7, RoundId = -1, QuestionString = "Vraag 7"  },

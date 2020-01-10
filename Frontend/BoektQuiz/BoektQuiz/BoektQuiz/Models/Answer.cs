@@ -1,4 +1,6 @@
 ﻿using BoektQuiz.Annotations;
+using BoektQuiz.Util;
+using Newtonsoft.Json;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,6 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace BoektQuiz.Models
 {
+    [JsonObject(NamingStrategyType = typeof(LowercaseNamingStrategy))]
     public class Answer : INotifyPropertyChanged
     {
         [Key]

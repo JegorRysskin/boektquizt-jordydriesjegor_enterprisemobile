@@ -6,16 +6,19 @@
              mc:Ignorable="d"
              x:Class="BoektQuiz.Views.RoundStartPage"
              xmlns:Util="clr-namespace:BoektQuiz.Util;assembly=BoektQuiz"
+             xmlns:pulltorefresh="clr-namespace:Refractored.XamForms.PullToRefresh;assembly=Refractored.XamForms.PullToRefresh"
              Util:ViewModelLocator.AutoWireViewModel="True"
              Title="{Binding Round.Name}"
              BackgroundColor="Black"
              NavigationPage.HasBackButton="False">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Om de ronde te starten, dien je eerst de WiFi uit te zetten."
+        <pulltorefresh:PullToRefreshLayout RefreshCommand="{Binding ReloadRoundCommand}" IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <StackLayout>
+                <Label Text="{Binding Status}"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" TextColor="White"/>
-            <Button Text="Ronde Starten" Command="{Binding StartRoundCommand}" BackgroundColor="Accent" TextColor="White"/>
-        </StackLayout>
+                HorizontalOptions="CenterAndExpand" TextColor="{Binding StatusColor}"/>
+                <Button Text="Ronde Starten" Command="{Binding StartRoundCommand}" BackgroundColor="Accent" TextColor="White"/>
+            </StackLayout>
+        </pulltorefresh:PullToRefreshLayout>
     </ContentPage.Content>
 </ContentPage>

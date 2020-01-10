@@ -72,16 +72,16 @@ namespace BoektQuiz.Tests
         {
             return new List<Question>()
             {
-                new Question { Id = 1 + (index * 10), QuestionString = "Vraag 1", Answer = new Answer() { Id = 1 + (index * 10), AnswerString = "", QuestionId = 1 + (index * 10) }  },
-                new Question { Id = 2 + (index * 10), QuestionString = "Vraag 2", Answer = new Answer() { Id = 2 + (index * 10), AnswerString = "", QuestionId = 2 + (index * 10) }  },
-                new Question { Id = 3 + (index * 10), QuestionString = "Vraag 3", Answer = new Answer() { Id = 3 + (index * 10), AnswerString = "", QuestionId = 3 + (index * 10) }  },
-                new Question { Id = 4 + (index * 10), QuestionString = "Vraag 4", Answer = new Answer() { Id = 4 + (index * 10), AnswerString = "", QuestionId = 4 + (index * 10) }  },
-                new Question { Id = 5 + (index * 10), QuestionString = "Vraag 5", Answer = new Answer() { Id = 5 + (index * 10), AnswerString = "", QuestionId = 5 + (index * 10) }  },
-                new Question { Id = 6 + (index * 10), QuestionString = "Vraag 6", Answer = new Answer() { Id = 6 + (index * 10), AnswerString = "", QuestionId = 6 + (index * 10) }  },
-                new Question { Id = 7 + (index * 10), QuestionString = "Vraag 7", Answer = new Answer() { Id = 7 + (index * 10), AnswerString = "", QuestionId = 7 + (index * 10) }  },
-                new Question { Id = 8 + (index * 10), QuestionString = "Vraag 8", Answer = new Answer() { Id = 8 + (index * 10), AnswerString = "", QuestionId = 8 + (index * 10) }  },
-                new Question { Id = 9 + (index * 10), QuestionString = "Vraag 9", Answer = new Answer() { Id = 9 + (index * 10), AnswerString = "", QuestionId = 9 + (index * 10) } },
-                new Question { Id = 10 + (index * 10), QuestionString = "Vraag 10", Answer = new Answer() { Id = 10 + (index * 10), AnswerString = "", QuestionId = 10 + (index * 10) } },
+                new Question { Id = 1 + (index * 10), QuestionString = "Vraag 1"  },
+                new Question { Id = 2 + (index * 10), QuestionString = "Vraag 2"  },
+                new Question { Id = 3 + (index * 10), QuestionString = "Vraag 3"  },
+                new Question { Id = 4 + (index * 10), QuestionString = "Vraag 4"  },
+                new Question { Id = 5 + (index * 10), QuestionString = "Vraag 5"  },
+                new Question { Id = 6 + (index * 10), QuestionString = "Vraag 6"  },
+                new Question { Id = 7 + (index * 10), QuestionString = "Vraag 7"  },
+                new Question { Id = 8 + (index * 10), QuestionString = "Vraag 8"  },
+                new Question { Id = 9 + (index * 10), QuestionString = "Vraag 9" },
+                new Question { Id = 10 + (index * 10), QuestionString = "Vraag 10" },
             };
         }
     }

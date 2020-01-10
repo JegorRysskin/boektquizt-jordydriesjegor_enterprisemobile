@@ -17,9 +17,9 @@
     </ContentPage.Resources>
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="{Binding Question.Text}" d:Text="Item name" FontSize="Medium" TextColor="White"/>
+        <Label Text="{Binding Question.QuestionString}" d:Text="Item name" FontSize="Medium" TextColor="White"/>
         <Label Text="Antwoord:" FontSize="Medium" TextColor="White"/>
-        <Entry Text="{Binding Question.Answer, Mode=TwoWay, Converter={StaticResource AnswerToStringConverter}}" Placeholder="Vul hier je antwoord in" TextColor="White" PlaceholderColor="GhostWhite">
+        <Entry Text="{Binding Answer, Mode=TwoWay, Converter={StaticResource AnswerToStringConverter}}" Placeholder="Vul hier je antwoord in" TextColor="White" PlaceholderColor="GhostWhite">
             <Entry.Behaviors>
                 <behavior:EntryValidationBehavior/>
             </Entry.Behaviors>

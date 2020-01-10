@@ -28,6 +28,8 @@ namespace BoektQuiz.Converters
                     answer.AnswerString = answerString;
                     return answer;
                 }
+
+                return answer;
             }
 
             return null;

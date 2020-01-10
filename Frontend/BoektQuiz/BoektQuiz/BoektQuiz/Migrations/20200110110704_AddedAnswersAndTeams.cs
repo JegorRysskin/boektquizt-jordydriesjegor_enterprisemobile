@@ -61,9 +61,35 @@ namespace BoektQuiz.Migrations
                 keyColumn: "Id",
                 keyValue: 1);
 
+            //SQLite doesn't support the DropColumn operation
+
             /*migrationBuilder.DropColumn(
+                name: "Text",
+                table: "Rounds");
+
+            migrationBuilder.DropColumn(
                 name: "Answer",
+                table: "Questions");
+
+            migrationBuilder.DropColumn(
+                name: "Text",
                 table: "Questions");*/
+
+            migrationBuilder.AddColumn<bool>(
+                name: "Enabled",
+                table: "Rounds",
+                nullable: false,
+                defaultValue: false);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "Rounds",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "QuestionString",
+                table: "Questions",
+                nullable: true);
 
             migrationBuilder.CreateTable(
                 name: "Teams",
@@ -71,7 +97,9 @@ namespace BoektQuiz.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TeamName = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Scores = table.Column<double>(nullable: false),
+                    Enabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,142 +112,130 @@ namespace BoektQuiz.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    TeamId = table.Column<int>(nullable: false),
+                    QuestionId = table.Column<int>(nullable: false),
                     AnswerString = table.Column<string>(nullable: true),
-                    QuestionId = table.Column<int>(nullable: false)
+                    TeamId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answers", x => new { x.Id, x.TeamId });
-                    table.ForeignKey(
-                        name: "FK_Answers_Questions_QuestionId",
-                        column: x => x.QuestionId,
-                        principalTable: "Questions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Answers", x => new { x.Id, x.QuestionId });
                     table.ForeignKey(
                         name: "FK_Answers_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -1, -1, "Dummy Antwoord 1", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -2, -2, "Dummy Antwoord 2", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -3, -3, "Dummy Antwoord 3", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -4, -4, "Dummy Antwoord 4", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -5, -5, "Dummy Antwoord 5", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -6, -6, "Dummy Antwoord 6", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -7, -7, "Dummy Antwoord 7", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -8, -8, "Dummy Antwoord 8", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -9, -9, "Dummy Antwoord 9", null });
+
+            migrationBuilder.InsertData(
+                table: "Answers",
+                columns: new[] { "Id", "QuestionId", "AnswerString", "TeamId" },
+                values: new object[] { -10, -10, "Dummy Antwoord 10", null });
+
+            migrationBuilder.InsertData(
                 table: "Rounds",
-                columns: new[] { "Id", "Text" },
-                values: new object[] { -1, "Ronde 0" });
+                columns: new[] { "Id", "Enabled", "Name" },
+                values: new object[] { -1, false, "Ronde 0" });
 
             migrationBuilder.InsertData(
                 table: "Teams",
-                columns: new[] { "Id", "TeamName" },
-                values: new object[] { -1, "Dummy Team" });
+                columns: new[] { "Id", "Enabled", "Name", "Scores" },
+                values: new object[] { -1, true, "Dummy Team", 0.0 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -1, -1, "Vraag 1" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -1, "Vraag 1", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -2, -1, "Vraag 2" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -2, "Vraag 2", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -3, -1, "Vraag 3" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -3, "Vraag 3", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -4, -1, "Vraag 4" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -4, "Vraag 4", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -5, -1, "Vraag 5" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -5, "Vraag 5", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -6, -1, "Vraag 6" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -6, "Vraag 6", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -7, -1, "Vraag 7" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -7, "Vraag 7", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -8, -1, "Vraag 8" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -8, "Vraag 8", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -9, -1, "Vraag 9" });
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -9, "Vraag 9", -1 });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "RoundId", "Text" },
-                values: new object[] { -10, -1, "Vraag 10" });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -1, -1, "Dummy Antwoord 1", -1 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -2, -1, "Dummy Antwoord 2", -2 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -3, -1, "Dummy Antwoord 3", -3 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -4, -1, "Dummy Antwoord 4", -4 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -5, -1, "Dummy Antwoord 5", -5 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -6, -1, "Dummy Antwoord 6", -6 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -7, -1, "Dummy Antwoord 7", -7 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -8, -1, "Dummy Antwoord 8", -8 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -9, -1, "Dummy Antwoord 9", -9 });
-
-            migrationBuilder.InsertData(
-                table: "Answers",
-                columns: new[] { "Id", "TeamId", "AnswerString", "QuestionId" },
-                values: new object[] { -10, -1, "Dummy Antwoord 10", -10 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Answers_QuestionId",
-                table: "Answers",
-                column: "QuestionId",
-                unique: true);
+                columns: new[] { "Id", "QuestionString", "RoundId" },
+                values: new object[] { -10, "Vraag 10", -1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_TeamId",
@@ -290,8 +306,32 @@ namespace BoektQuiz.Migrations
                 keyColumn: "Id",
                 keyValue: -1);
 
+            migrationBuilder.DropColumn(
+                name: "Enabled",
+                table: "Rounds");
+
+            migrationBuilder.DropColumn(
+                name: "Name",
+                table: "Rounds");
+
+            migrationBuilder.DropColumn(
+                name: "QuestionString",
+                table: "Questions");
+
+            migrationBuilder.AddColumn<string>(
+                name: "Text",
+                table: "Rounds",
+                type: "TEXT",
+                nullable: true);
+
             migrationBuilder.AddColumn<string>(
                 name: "Answer",
+                table: "Questions",
+                type: "TEXT",
+                nullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "Text",
                 table: "Questions",
                 type: "TEXT",
                 nullable: true);

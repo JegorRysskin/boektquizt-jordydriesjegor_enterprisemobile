@@ -4,6 +4,7 @@ using JWT.Serializers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -14,7 +15,7 @@ namespace BoektQuiz.Services
 {
     public class BackendService : IBackendService
     {
-        private static readonly string baseUrl = "http://10.0.2.2:8080/";
+        private static readonly string baseUrl = "http://10.0.2.2:8080/"; //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
 
         public async Task<List<Round>> GetAllRounds(string token)
         {
@@ -22,7 +23,7 @@ namespace BoektQuiz.Services
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
-                var response = await client.GetAsync(baseUrl + "round").ConfigureAwait(false); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+                var response = await client.GetAsync(baseUrl + "round").ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -40,7 +41,7 @@ namespace BoektQuiz.Services
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
-                var response = await client.GetAsync(baseUrl + "round/" + id).ConfigureAwait(false); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+                var response = await client.GetAsync(baseUrl + "round/" + id).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -59,7 +60,15 @@ namespace BoektQuiz.Services
 
             using (var client = new HttpClient())
             {
-                var response = await client.PutAsync(baseUrl + "round", data); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var method = new HttpMethod("PATCH");
+                var request = new HttpRequestMessage(method, baseUrl + "round")
+                {
+                    Content = data
+                };
+
+                var response = await client.SendAsync(request);
 
                 return response.StatusCode;
             }
@@ -74,7 +83,7 @@ namespace BoektQuiz.Services
 
             using (var client = new HttpClient())
             {
-                var response = await client.PostAsync(baseUrl + "signin", data); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+                var response = await client.PostAsync(baseUrl + "signin", data);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -110,7 +119,7 @@ namespace BoektQuiz.Services
             }
         }
 
-        public async Task<Team> GetTeamByName(string token)
+        public async Task<Team> GetTeamByToken(string token)
         {
             var serializer = new JsonNetSerializer();
             var provider = new UtcDateTimeProvider();
@@ -128,7 +137,7 @@ namespace BoektQuiz.Services
             {
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
-                var response = await client.GetAsync(baseUrl + "team/name/" + teamName).ConfigureAwait(false); //10.0.2.2 is a magic IP address which points to the emulating localhost (127.0.0.1)
+                var response = await client.GetAsync(baseUrl + "team/name/" + teamName).ConfigureAwait(false);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -138,6 +147,30 @@ namespace BoektQuiz.Services
             }
 
             return null;
+        }
+
+        public async Task<HttpStatusCode> PatchTeamAnswer(Answer answer, Round round, Team team, string token)
+        {
+            var question = round.Questions.Where(q => q.Id == answer.QuestionId).FirstOrDefault();
+            var answerModel = new AnswerModel() { Id = 0, AnswerString = answer.AnswerString, Question = question};
+
+            var json = JsonConvert.SerializeObject(answerModel);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var method = new HttpMethod("PATCH");
+                var request = new HttpRequestMessage(method, baseUrl + "team/answer/" + team.Id)
+                {
+                    Content = data
+                };
+
+                var response = await client.SendAsync(request);
+
+                return response.StatusCode;
+            }
         }
     }
 }

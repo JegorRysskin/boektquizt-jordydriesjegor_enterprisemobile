@@ -1,6 +1,7 @@
 ﻿using BoektQuiz.Models;
 using BoektQuiz.Services;
 using BoektQuiz.Util;
+using System;
 using Xamarin.Forms;
 
 namespace BoektQuiz.ViewModels
@@ -15,6 +16,29 @@ namespace BoektQuiz.ViewModels
                 _question = value;
                 OnPropertyChanged();
             }
+        }
+
+        private Answer _answer;
+
+        public Answer Answer { 
+            get => _answer;
+            set {
+                if (_answer == value) return;
+                _answer = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private Team _team;
+
+        public Team Team { 
+            get => _team; 
+            set
+            {
+                if (_team == value) return;
+                _team = value;
+                OnPropertyChanged();
+            } 
         }
 
         public int Index { get; set; }
@@ -40,20 +64,33 @@ namespace BoektQuiz.ViewModels
         public QuestionViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            if (Round != null)
+            if (Round != null && Team != null)
             {
                 MessagingCenter.Instance.Unsubscribe<QuestionViewModel, Round>(this, "Round");
+                MessagingCenter.Instance.Unsubscribe<QuestionViewModel, Team>(this, "Team");
                 Question = Round.Questions[Index];
-            } 
+                Answer = Team.Answers[Index];
+                Answer.AnswerString = String.Empty;
+                Answer.QuestionId = Question.Id;
+            }
             else
             {
-                MessagingCenter.Instance.Subscribe<RoundStartViewModel, Round>(this, "Round", (sender, round) => {
+                MessagingCenter.Instance.Subscribe<RoundStartViewModel, Round>(this, "Round", (sender, round) =>
+                {
                     this.Index = 0;
-                    Round = round; 
-                    Question = Round.Questions[Index]; 
+                    Round = round;
+                    Question = Round.Questions[Index];
+                });
+                MessagingCenter.Instance.Subscribe<RoundStartViewModel, Team>(this, "Team", (sender, team) =>
+                {
+                    Team = team;
+                    Answer = Team.Answers[Index];
+                    Answer.AnswerString = String.Empty;
+                    Answer.QuestionId = Question.Id;
                 });
             }
         }
+        
 
         private Command _sendAnswerCommand;
 
@@ -66,12 +103,16 @@ namespace BoektQuiz.ViewModels
             if (Index < Round.Questions.Count)
             {
                 Question = Round.Questions[Index];
+                Answer = Team.Answers[Index];
+                Answer.AnswerString = String.Empty;
+                Answer.QuestionId = Question.Id;
             } 
             else
             {
                 await _navigationService.NavigateToAsync(RoutingConstants.RoundEndRoute);
                 MessagingCenter.Instance.Send(this, "IsACEnabled", false);
                 MessagingCenter.Instance.Send(this, "Round", Round);
+                MessagingCenter.Instance.Send(this, "Team", Team);
             }
         }
 
@@ -79,7 +120,13 @@ namespace BoektQuiz.ViewModels
         {
             if (Question != null)
             {
-                return Question.Answer.AnswerString.Length > 0;
+                if (Answer != null)
+                {
+                    if (Answer.AnswerString != null)
+                    {
+                        return Answer.AnswerString.Length > 0;
+                    }
+                }
             }
 
             return false;

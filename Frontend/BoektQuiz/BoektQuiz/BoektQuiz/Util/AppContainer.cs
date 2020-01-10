@@ -27,6 +27,8 @@ namespace BoektQuiz.Util
             builder.RegisterInstance(BoektQuizContextFactory.Create()).As<BoektQuizContext>();
             builder.RegisterType<RoundRepository>().As<IRoundRepository>();
             builder.RegisterType<QuestionRepository>().As<IQuestionRepository>();
+            builder.RegisterType<TeamRepository>().As<ITeamRepository>();
+            builder.RegisterType<AnswerRepository>().As<IAnswerRepository>();
             _container = builder.Build();
         }
         public static object Resolve(Type typeName)

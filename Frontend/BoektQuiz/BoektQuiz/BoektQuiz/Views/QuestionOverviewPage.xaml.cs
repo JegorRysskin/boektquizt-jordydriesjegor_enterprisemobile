@@ -1,4 +1,5 @@
 ﻿using BoektQuiz.Repositories;
+using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
 using Xamarin.Forms;
@@ -15,7 +16,7 @@ namespace BoektQuiz.Views
         {
             InitializeComponent();
 
-            viewModel = new QuestionOverviewViewModel(AppContainer.Resolve<IQuestionRepository>());
+            viewModel = new QuestionOverviewViewModel(AppContainer.Resolve<IQuestionRepository>(), AppContainer.Resolve<IAnswerRepository>(), AppContainer.Resolve<IBackendService>());
 
             BindingContext = viewModel;
         }
