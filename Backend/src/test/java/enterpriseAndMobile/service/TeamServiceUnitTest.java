@@ -1,13 +1,12 @@
 package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.Exception.NotFoundException;
-import enterpriseAndMobile.dto.QuizPatchDto;
-import enterpriseAndMobile.dto.TeamPatchAnswersDto;
-import enterpriseAndMobile.dto.TeamPatchDto;
+import enterpriseAndMobile.dto.*;
 import enterpriseAndMobile.model.Answer;
-import enterpriseAndMobile.dto.TeamPatchScoreDto;
+import enterpriseAndMobile.model.Question;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Team;
+import enterpriseAndMobile.repository.QuestionRepository;
 import enterpriseAndMobile.repository.TeamRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,6 +29,9 @@ public class TeamServiceUnitTest {
 
     @MockBean
     private TeamRepository teamRepository;
+
+    @MockBean
+    private QuestionRepository questionRepository;
 
     @Autowired
     private TeamService teamService;
@@ -87,11 +89,13 @@ public class TeamServiceUnitTest {
         Team team = new Team();
         Team returnedTeam = new Team(answers);
 
-        TeamPatchAnswersDto patchDto = new TeamPatchAnswersDto(answer);
+        AnswerDto answerDto = new AnswerDto("");
+        Question question = new Question();
 
         given(teamRepository.getTeamById(anyInt())).willReturn(Optional.of(team));
         given(teamRepository.patchTeam(any())).willReturn(returnedTeam);
-        Team found = teamService.patchTeamAnswers(0, patchDto);
+        given(questionRepository.findById(anyInt())).willReturn(Optional.of(question));
+        Team found = teamService.patchTeamAnswers(0, answerDto);
         Assertions.assertEquals(1, found.getAnswers().size());
         Assertions.assertEquals(team.getId(), found.getId());
     }
