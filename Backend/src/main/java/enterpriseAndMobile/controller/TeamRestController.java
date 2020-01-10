@@ -2,6 +2,7 @@ package enterpriseAndMobile.controller;
 
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.annotation.LogExecutionTime;
+import enterpriseAndMobile.dto.AnswerDto;
 import enterpriseAndMobile.dto.TeamPatchAnswersDto;
 import enterpriseAndMobile.dto.TeamPatchDto;
 import enterpriseAndMobile.dto.TeamPatchScoreDto;
@@ -81,7 +82,7 @@ public class TeamRestController {
     @LogExecutionTime
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping(value = "/answer/{id}")
-    public ResponseEntity<Team> patchTeamAnswers(@PathVariable("id") int id, @RequestBody TeamPatchAnswersDto patchDto) {
+    public ResponseEntity<Team> patchTeamAnswers(@PathVariable("id") int id, @RequestBody AnswerDto patchDto) {
         try {
             Team team = teamService.patchTeamAnswers(id, patchDto);
              return new ResponseEntity<>(team, HttpStatus.OK);
