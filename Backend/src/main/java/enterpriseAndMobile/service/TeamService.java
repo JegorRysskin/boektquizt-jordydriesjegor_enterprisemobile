@@ -45,7 +45,7 @@ public class TeamService {
     public Team patchTeam(int id, TeamPatchDto patch) throws NotFoundException {
         Optional<Team> team = teamRepository.getTeamById(id);
         if (team.isPresent()) {
-            if (patch.getName() != "" || !patch.getName().equals(team.get().getName())) {
+            if (patch.getName() != null || !patch.getName().equals(team.get().getName())) {
                 team.get().setName(patch.getName());
             }
             team.get().setEnabled(patch.isEnabled());
@@ -69,6 +69,7 @@ public class TeamService {
                 throw new NotFoundException("The question you tried to find wasn't found.");
             }
             List<Answer> answers = team.get().getAnswers();
+            answers.add(answer);
             team.get().setAnswers(answers);
             Team team1 = teamRepository.patchTeam(team.get());
             return team1;

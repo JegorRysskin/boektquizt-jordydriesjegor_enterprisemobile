@@ -6,9 +6,7 @@ import enterpriseAndMobile.dto.AnswerDto;
 import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.TeamPatchAnswersDto;
-import enterpriseAndMobile.model.Answer;
-import enterpriseAndMobile.model.Quiz;
-import enterpriseAndMobile.model.Team;
+import enterpriseAndMobile.model.*;
 import enterpriseAndMobile.service.QuizService;
 import enterpriseAndMobile.service.TeamService;
 import org.apache.commons.logging.Log;
@@ -21,6 +19,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static enterpriseAndMobile.util.HttpStatusUtils.notFound;
 import static enterpriseAndMobile.util.HttpStatusUtils.ok;
@@ -36,6 +36,8 @@ public class QuizRestController {
 
     @Autowired
     private TeamService teamService;
+
+    private final ExecutorService service = Executors.newCachedThreadPool();
 
     @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
@@ -61,23 +63,30 @@ public class QuizRestController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto) {
-        if(quizDto.getRounds() != null && quizDto.getRounds().get(0) != null && quizDto.getRounds().get(0).getQuestions() != null) {
-            int quizzes = quizDto.getRounds().get(0).getQuestions().size();
-            AnswerDto answerDto = new AnswerDto();
-            answerDto.setAnswerString("");
-        while(quizzes > 0 && teamService.getAllTeams() != null){
-            for (Team team: teamService.getAllTeams()) {
-                try {
-                    teamService.patchTeamAnswers(team.getId(), answerDto);
-                } catch (NotFoundException e) {
-                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-                }
-
-           }
-            quizzes--;
-        }}
         Quiz quiz = quizService.addQuiz(quizDto);
-        return new ResponseEntity<>(quiz, HttpStatus.CREATED);
+        if (quizDto.getRounds() != null && quizDto.getRounds().get(0) != null && quizDto.getRounds().get(0).getQuestions() != null) {
+
+            service.execute(() -> {
+                AnswerDto answerDto = new AnswerDto();
+                answerDto.setAnswerString("");
+
+                for (Team team : teamService.getAllTeams()) {
+                    try {
+                        for (Round round : quiz.getRounds()) {
+                            for (Question question : quiz.getRounds().get(0).getQuestions()) {
+                                answerDto.setQuestionId(question.getId());
+                                teamService.patchTeamAnswers(team.getId(), answerDto);
+                            }
+                        }
+                    } catch (NotFoundException e) {
+                    }
+                }
+            });
+
+            return new ResponseEntity<>(quiz, HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @LogExecutionTime
