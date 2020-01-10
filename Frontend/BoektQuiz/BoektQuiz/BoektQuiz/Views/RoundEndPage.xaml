@@ -10,7 +10,7 @@
              Util:ViewModelLocator.AutoWireViewModel="True"
              Title="{Binding Round.Name}"
              BackgroundColor="Black"
-             NavigationPage.HasBackButton="False">
+             NavigationPage.HasBackButton="False" Appearing="RoundEndPage_Appearing">
     <ContentPage.Content>
         <pulltorefresh:PullToRefreshLayout RefreshCommand="{Binding ReloadRoundCommand}" IsPullToRefreshEnabled="True" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <StackLayout>

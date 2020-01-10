@@ -20,5 +20,11 @@ namespace BoektQuiz.Views
             
             BindingContext = viewModel;
         }
+
+        private void RoundEndPage_Appearing(object sender, System.EventArgs e)
+        {
+            viewModel.ReloadRoundCommand.Execute(null);
+            viewModel.EndRoundCommand.ChangeCanExecute();
+        }
     }
 }
