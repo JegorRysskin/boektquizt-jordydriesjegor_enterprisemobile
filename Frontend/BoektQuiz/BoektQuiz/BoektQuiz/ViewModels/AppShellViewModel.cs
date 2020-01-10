@@ -41,21 +41,25 @@ namespace BoektQuiz.ViewModels
             {
                 if (Rounds != null)
                 {
-                    foreach (Round round in Rounds)
+                    if (Application.Current.MainPage != null)
                     {
-                        ShellSection shell_section = new ShellSection
+                        if (Application.Current.MainPage is AppShell shell)
                         {
-                            Title = round.Name,
-                            Icon = "tab_round_" + round.Id + ".png"
-                        };
-
-                        shell_section.Items.Add(new ShellContent() { Content = new RoundStartPage(round.Id) });
-
-                        if (Application.Current.MainPage != null)
-                        {
-                            if (Application.Current.MainPage is AppShell shell)
+                            if (shell.Items.Count == 1)
                             {
-                                shell.Items.Add(shell_section);
+                                foreach (Round round in Rounds)
+                                {
+                                    ShellSection shell_section = new ShellSection
+                                    {
+                                        Title = round.Name,
+                                        Icon = "tab_round_" + round.Id + ".png"
+                                    };
+
+                                    shell_section.Items.Add(new ShellContent() { Content = new RoundStartPage(round.Id) });
+
+
+                                    shell.Items.Add(shell_section);
+                                }
                             }
                         }
                     }

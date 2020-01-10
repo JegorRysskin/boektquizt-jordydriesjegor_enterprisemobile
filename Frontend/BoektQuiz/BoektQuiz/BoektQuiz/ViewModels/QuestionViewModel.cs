@@ -70,8 +70,6 @@ namespace BoektQuiz.ViewModels
                 MessagingCenter.Instance.Unsubscribe<QuestionViewModel, Team>(this, "Team");
                 Question = Round.Questions[Index];
                 Answer = Team.Answers[Index];
-                Answer.AnswerString = String.Empty;
-                Answer.QuestionId = Question.Id;
             }
             else
             {
@@ -85,8 +83,6 @@ namespace BoektQuiz.ViewModels
                 {
                     Team = team;
                     Answer = Team.Answers[Index];
-                    Answer.AnswerString = String.Empty;
-                    Answer.QuestionId = Question.Id;
                 });
             }
         }
@@ -104,8 +100,6 @@ namespace BoektQuiz.ViewModels
             {
                 Question = Round.Questions[Index];
                 Answer = Team.Answers[Index];
-                Answer.AnswerString = String.Empty;
-                Answer.QuestionId = Question.Id;
             } 
             else
             {

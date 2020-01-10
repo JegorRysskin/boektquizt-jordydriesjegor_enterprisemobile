@@ -3,6 +3,7 @@ using BoektQuiz.Services;
 using BoektQuiz.Util;
 using Plugin.Connectivity.Abstractions;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -47,8 +48,9 @@ namespace BoektQuiz.ViewModels
 
             if (_token != String.Empty)
             {
-                Team = _backendService.GetTeamByToken(_token).Result;
                 Round = _backendService.GetRoundById(id, _token).Result;
+                Team = _backendService.GetTeamByToken(_token).Result;
+                Team.Answers = GenerateEmptyAnswerList();
             }
             _navigationService = navigationService;
             Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
@@ -133,6 +135,18 @@ namespace BoektQuiz.ViewModels
                     Status = "Kan de status van de ronde niet ophalen. Zet de WiFi aan.";
                 }
             }
+        }
+
+        private List<Answer> GenerateEmptyAnswerList()
+        {
+            var answerList = new List<Answer>();
+
+            foreach(Question question in Round.Questions)
+            {
+                answerList.Add(new Answer() { Id = question.Id, AnswerString = String.Empty, QuestionId = question.Id });
+            }
+
+            return answerList;
         }
     }
 }
