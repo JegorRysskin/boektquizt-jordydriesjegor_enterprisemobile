@@ -1,6 +1,4 @@
 ﻿using BoektQuiz.Annotations;
-using BoektQuiz.Util;
-using Newtonsoft.Json;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +6,6 @@ using System.Runtime.CompilerServices;
 
 namespace BoektQuiz.Models
 {
-    [JsonObject(NamingStrategyType = typeof(LowercaseNamingStrategy))]
     public class Answer : INotifyPropertyChanged
     {
         [Key]
@@ -26,6 +23,13 @@ namespace BoektQuiz.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Answer answer &&
+                   Id == answer.Id &&
+                   QuestionId == answer.QuestionId;
         }
     }
 }

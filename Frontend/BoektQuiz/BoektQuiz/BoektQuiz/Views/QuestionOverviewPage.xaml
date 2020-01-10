@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              x:Class="BoektQuiz.Views.QuestionOverviewPage"
              BackgroundColor="Black"
-             Title="Vragen overzicht">
+             Title="Vragen overzicht"
+             Appearing="QuestionOverviewPage_Appearing">
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="RoundsListView"

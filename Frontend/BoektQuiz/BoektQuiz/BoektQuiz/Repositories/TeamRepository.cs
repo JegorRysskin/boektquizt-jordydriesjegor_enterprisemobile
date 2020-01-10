@@ -17,14 +17,13 @@ namespace BoektQuiz.Repositories
 
         public async Task UpdateTeamAsync(Team team)
         {
-            if (!team.Answers.Except(_context.Answers).Any()) //Check if the answers are not already in the database
-            {
-                await _context.Answers.AddRangeAsync(team.Answers);
-            }
-
             if (!_context.Teams.Contains(team))
             {
                 await _context.Teams.AddAsync(team);
+            } 
+            else
+            {
+                await _context.Answers.AddRangeAsync(team.Answers.Except(_context.Answers));
             }
 
             await _context.SaveChangesAsync();

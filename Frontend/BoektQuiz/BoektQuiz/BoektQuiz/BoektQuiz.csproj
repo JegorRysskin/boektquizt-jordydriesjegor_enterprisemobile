@@ -20,6 +20,8 @@
     <Compile Remove="Migrations\20200110014111_AddedAnswersAndTeams.Designer.cs" />
     <Compile Remove="Migrations\20200110015500_AddedAnswersAndTeams.cs" />
     <Compile Remove="Migrations\20200110015500_AddedAnswersAndTeams.Designer.cs" />
+    <Compile Remove="Migrations\20200110110704_AddedAnswersAndTeams.cs" />
+    <Compile Remove="Migrations\20200110110704_AddedAnswersAndTeams.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

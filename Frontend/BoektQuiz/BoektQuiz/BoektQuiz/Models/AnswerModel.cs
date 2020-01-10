@@ -4,11 +4,11 @@ using System;
 
 namespace BoektQuiz.Models
 {
-    [JsonObject(NamingStrategyType = typeof(LowercaseNamingStrategy))]
     public class AnswerModel
     {
-        public int Id { get; set; }
+        [JsonProperty("answerString")]
         public String AnswerString { get; set; }
-        public Question Question { get; set; }
+        [JsonProperty("questionId")]
+        public int questionId { get; set; }
     }
 }

@@ -151,7 +151,9 @@ namespace BoektQuiz.Services
 
         public async Task<HttpStatusCode> PatchTeamAnswer(Answer answer, Team team, string token)
         {
-            var json = JsonConvert.SerializeObject(answer);
+            var answerModel = new AnswerModel() { AnswerString = answer.AnswerString, questionId = answer.QuestionId };
+
+            var json = JsonConvert.SerializeObject(answerModel);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
             using (var client = new HttpClient())

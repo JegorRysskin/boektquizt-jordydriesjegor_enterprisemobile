@@ -110,19 +110,28 @@ namespace BoektQuiz.ViewModels
         {
             StatusColor = Color.FromHex("ED028C");
 
-            if (Round.Enabled)
+            if (Connectivity.Instance.IsConnected)
             {
-                Status = "Om de ronde te starten, dient u eerst de WiFi uit te zetten.";
-                
-                if (!Connectivity.Instance.IsConnected)
+                if (Round.Enabled)
                 {
-                    Status = "U kan de ronde starten.";
-                    StatusColor = Color.Accent;
+                    Status = "Om de ronde te starten, dient u eerst de WiFi uit te zetten.";
+                }
+                else
+                {
+                    Status = "Deze ronde is nog niet opengezet door de jury. Swipe naar beneden om de status van de ronde opnieuw op te halen.";
                 }
             } 
             else
             {
-                Status = "Deze ronde is nog niet opengezet door de jury.";
+                if (Round.Enabled)
+                {
+                    Status = "U kan de ronde starten.";
+                    StatusColor = Color.Accent;
+                }
+                else
+                {
+                    Status = "Kan de status van de ronde niet ophalen. Zet de WiFi aan.";
+                }
             }
         }
     }

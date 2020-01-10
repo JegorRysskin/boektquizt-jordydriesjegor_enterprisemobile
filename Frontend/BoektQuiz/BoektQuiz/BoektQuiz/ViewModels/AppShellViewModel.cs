@@ -17,8 +17,6 @@ namespace BoektQuiz.ViewModels
         public AppShellViewModel(IBackendService backendService)
         {
             _backendService = backendService;
-            
-            LoadRounds();
         }
 
         public void LoadRounds()
@@ -53,9 +51,12 @@ namespace BoektQuiz.ViewModels
 
                         shell_section.Items.Add(new ShellContent() { Content = new RoundStartPage(round.Id) });
 
-                        if (Application.Current.MainPage is AppShell shell)
+                        if (Application.Current.MainPage != null)
                         {
-                            shell.Items.Add(shell_section);
+                            if (Application.Current.MainPage is AppShell shell)
+                            {
+                                shell.Items.Add(shell_section);
+                            }
                         }
                     }
                 }

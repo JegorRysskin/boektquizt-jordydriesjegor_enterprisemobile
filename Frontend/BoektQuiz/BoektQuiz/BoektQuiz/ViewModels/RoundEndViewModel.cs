@@ -139,19 +139,21 @@ namespace BoektQuiz.ViewModels
         {
             StatusColor = Color.FromHex("ED028C");
 
-            if (!Round.Enabled)
+            if (Connectivity.Instance.IsConnected)
             {
-                Status = "Nu mag u de WiFi terug aanzetten om de antwoorden te versturen.";
-
-                if (Connectivity.Instance.IsConnected)
+                if (!Round.Enabled)
                 {
                     Status = "Verbinding gemaakt. U kan nu de antwoorden versturen.";
                     StatusColor = Color.Accent;
                 }
-            }
+                else
+                {
+                    Status = "Deze ronde is nog niet afgesloten door de jury. Swipe naar beneden om de status van de ronde opnieuw op te halen.";
+                }
+            } 
             else
             {
-                Status = "Deze ronde is nog niet afgesloten door de jury.";
+                Status = "Nu mag u de WiFi terug aanzetten om de antwoorden te versturen.";
             }
         }
     }

@@ -6,6 +6,10 @@ namespace BoektQuiz.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            /*migrationBuilder.DropPrimaryKey(
+                name: "PK_Questions",
+                table: "Questions");*/
+
             migrationBuilder.DeleteData(
                 table: "Questions",
                 keyColumn: "Id",
@@ -61,8 +65,6 @@ namespace BoektQuiz.Migrations
                 keyColumn: "Id",
                 keyValue: 1);
 
-            //SQLite doesn't support the DropColumn operation
-
             /*migrationBuilder.DropColumn(
                 name: "Text",
                 table: "Rounds");
@@ -90,6 +92,11 @@ namespace BoektQuiz.Migrations
                 name: "QuestionString",
                 table: "Questions",
                 nullable: true);
+
+            /*migrationBuilder.AddPrimaryKey(
+                name: "PK_Questions",
+                table: "Questions",
+                columns: new[] { "Id", "RoundId" });*/
 
             migrationBuilder.CreateTable(
                 name: "Teams",
@@ -189,53 +196,53 @@ namespace BoektQuiz.Migrations
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -1, "Vraag 1", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -1, -1, "Vraag 1" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -2, "Vraag 2", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -2, -1, "Vraag 2" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -3, "Vraag 3", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -3, -1, "Vraag 3" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -4, "Vraag 4", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -4, -1, "Vraag 4" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -5, "Vraag 5", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -5, -1, "Vraag 5" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -6, "Vraag 6", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -6, -1, "Vraag 6" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -7, "Vraag 7", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -7, -1, "Vraag 7" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -8, "Vraag 8", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -8, -1, "Vraag 8" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -9, "Vraag 9", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -9, -1, "Vraag 9" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
-                columns: new[] { "Id", "QuestionString", "RoundId" },
-                values: new object[] { -10, "Vraag 10", -1 });
+                columns: new[] { "Id", "RoundId", "QuestionString" },
+                values: new object[] { -10, -1, "Vraag 10" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Answers_TeamId",
@@ -251,55 +258,59 @@ namespace BoektQuiz.Migrations
             migrationBuilder.DropTable(
                 name: "Teams");
 
-            migrationBuilder.DeleteData(
-                table: "Questions",
-                keyColumn: "Id",
-                keyValue: -10);
+            migrationBuilder.DropPrimaryKey(
+                name: "PK_Questions",
+                table: "Questions");
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -9);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -10, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -8);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -9, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -7);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -8, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -6);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -7, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -5);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -6, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -4);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -5, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -3);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -4, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -2);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -3, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Questions",
-                keyColumn: "Id",
-                keyValue: -1);
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -2, -1 });
+
+            migrationBuilder.DeleteData(
+                table: "Questions",
+                keyColumns: new[] { "Id", "RoundId" },
+                keyValues: new object[] { -1, -1 });
 
             migrationBuilder.DeleteData(
                 table: "Rounds",
@@ -335,6 +346,11 @@ namespace BoektQuiz.Migrations
                 table: "Questions",
                 type: "TEXT",
                 nullable: true);
+
+            migrationBuilder.AddPrimaryKey(
+                name: "PK_Questions",
+                table: "Questions",
+                column: "Id");
 
             migrationBuilder.InsertData(
                 table: "Rounds",

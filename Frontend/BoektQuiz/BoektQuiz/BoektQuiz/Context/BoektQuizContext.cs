@@ -43,6 +43,8 @@ namespace BoektQuiz.Context
         {
             modelBuilder.Entity<Answer>().HasKey(a => new { a.Id, a.QuestionId });
 
+            modelBuilder.Entity<Question>().HasKey(q => new { q.Id, q.RoundId });
+
             modelBuilder.Entity<Round>().HasMany(r => r.Questions);
 
             modelBuilder.Entity<Team>().HasMany(t => t.Answers);

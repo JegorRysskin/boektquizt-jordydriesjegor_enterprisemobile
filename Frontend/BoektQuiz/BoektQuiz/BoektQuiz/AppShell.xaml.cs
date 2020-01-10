@@ -20,5 +20,10 @@ namespace BoektQuiz
             viewModel = new AppShellViewModel(AppContainer.Resolve<IBackendService>());
             BindingContext = viewModel;
         }
+
+        private void Shell_Navigated(object sender, ShellNavigatedEventArgs e)
+        {
+            viewModel.LoadRounds();
+        }
     }
 }

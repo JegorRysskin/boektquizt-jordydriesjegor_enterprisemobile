@@ -20,5 +20,10 @@ namespace BoektQuiz.Views
 
             BindingContext = viewModel;
         }
+
+        private void RoundOverviewPage_Appearing(object sender, System.EventArgs e)
+        {
+            viewModel.LoadItemsCommand.Execute(null);
+        }
     }
 }

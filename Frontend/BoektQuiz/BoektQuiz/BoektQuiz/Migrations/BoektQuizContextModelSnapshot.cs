@@ -106,13 +106,13 @@ namespace BoektQuiz.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("QuestionString")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("RoundId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.Property<string>("QuestionString")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id", "RoundId");
 
                     b.HasIndex("RoundId");
 
@@ -122,62 +122,62 @@ namespace BoektQuiz.Migrations
                         new
                         {
                             Id = -1,
-                            QuestionString = "Vraag 1",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 1"
                         },
                         new
                         {
                             Id = -2,
-                            QuestionString = "Vraag 2",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 2"
                         },
                         new
                         {
                             Id = -3,
-                            QuestionString = "Vraag 3",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 3"
                         },
                         new
                         {
                             Id = -4,
-                            QuestionString = "Vraag 4",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 4"
                         },
                         new
                         {
                             Id = -5,
-                            QuestionString = "Vraag 5",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 5"
                         },
                         new
                         {
                             Id = -6,
-                            QuestionString = "Vraag 6",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 6"
                         },
                         new
                         {
                             Id = -7,
-                            QuestionString = "Vraag 7",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 7"
                         },
                         new
                         {
                             Id = -8,
-                            QuestionString = "Vraag 8",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 8"
                         },
                         new
                         {
                             Id = -9,
-                            QuestionString = "Vraag 9",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 9"
                         },
                         new
                         {
                             Id = -10,
-                            QuestionString = "Vraag 10",
-                            RoundId = -1
+                            RoundId = -1,
+                            QuestionString = "Vraag 10"
                         });
                 });
 

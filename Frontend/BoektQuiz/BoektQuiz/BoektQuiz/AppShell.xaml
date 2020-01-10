@@ -6,7 +6,8 @@
        mc:Ignorable="d"
        xmlns:local="clr-namespace:BoektQuiz.Views"
        Title="BoektQuiz"
-       x:Class="BoektQuiz.AppShell">
+       x:Class="BoektQuiz.AppShell"
+       Navigated="Shell_Navigated">
 
     <!-- 
         Styles and Resources 
