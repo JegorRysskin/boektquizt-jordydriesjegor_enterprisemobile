@@ -14,6 +14,6 @@ namespace BoektQuiz.Services
         Task<Round> GetRoundById(int id, String token);
         Task<HttpStatusCode> PatchRound(Round round, String token);
         Task<Team> GetTeamByToken(string token);
-        Task<HttpStatusCode> PatchTeamAnswer(Answer answer, Round round, Team team, string token);
+        Task<HttpStatusCode> PatchTeamAnswer(Answer answer, Team team, string token);
     }
 }

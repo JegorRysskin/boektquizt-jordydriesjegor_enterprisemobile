@@ -88,7 +88,7 @@ namespace BoektQuiz.ViewModels
 
                 foreach (Answer answer in Team.Answers)
                 {
-                    await _backendService.PatchTeamAnswer(answer, Round, Team, _token);
+                    await _backendService.PatchTeamAnswer(answer, Team, _token);
                 }
             }
         }

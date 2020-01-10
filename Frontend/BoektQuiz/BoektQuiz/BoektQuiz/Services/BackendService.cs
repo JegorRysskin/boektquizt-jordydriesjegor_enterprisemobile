@@ -149,12 +149,9 @@ namespace BoektQuiz.Services
             return null;
         }
 
-        public async Task<HttpStatusCode> PatchTeamAnswer(Answer answer, Round round, Team team, string token)
+        public async Task<HttpStatusCode> PatchTeamAnswer(Answer answer, Team team, string token)
         {
-            var question = round.Questions.Where(q => q.Id == answer.QuestionId).FirstOrDefault();
-            var answerModel = new AnswerModel() { Id = 0, AnswerString = answer.AnswerString, Question = question};
-
-            var json = JsonConvert.SerializeObject(answerModel);
+            var json = JsonConvert.SerializeObject(answer);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
             using (var client = new HttpClient())
