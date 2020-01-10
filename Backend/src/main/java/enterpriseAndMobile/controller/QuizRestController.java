@@ -2,6 +2,7 @@ package enterpriseAndMobile.controller;
 
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.annotation.LogExecutionTime;
+import enterpriseAndMobile.dto.AnswerDto;
 import enterpriseAndMobile.dto.QuizDto;
 import enterpriseAndMobile.dto.QuizPatchDto;
 import enterpriseAndMobile.dto.TeamPatchAnswersDto;
@@ -62,13 +63,12 @@ public class QuizRestController {
     public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto) {
         if(quizDto.getRounds() != null && quizDto.getRounds().get(0) != null && quizDto.getRounds().get(0).getQuestions() != null) {
             int quizzes = quizDto.getRounds().get(0).getQuestions().size();
-            Answer answer = new Answer();
-            answer.setAnswerString("test");
-            TeamPatchAnswersDto patch = new TeamPatchAnswersDto(answer);
+            AnswerDto answerDto = new AnswerDto();
+            answerDto.setAnswerString("");
         while(quizzes > 0 && teamService.getAllTeams() != null){
             for (Team team: teamService.getAllTeams()) {
                 try {
-                    teamService.patchTeamAnswers(team.getId(), patch);
+                    teamService.patchTeamAnswers(team.getId(), answerDto);
                 } catch (NotFoundException e) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
