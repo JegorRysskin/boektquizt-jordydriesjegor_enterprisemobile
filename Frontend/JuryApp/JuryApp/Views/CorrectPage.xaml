@@ -5,9 +5,37 @@
     xmlns:local="using:JuryApp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-        
+        <GridView x:Name="EnabledTeamsGridView" ItemsSource="{x:Bind ViewModel.EnabledTeams, Mode=OneWay}"
+                  IsItemClickEnabled="False"
+                  IsSwipeEnabled="False"
+                  CanDragItems="False"
+                  SelectionMode="Single"
+                  HorizontalAlignment="Center"
+                  RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+
+            <!-- <interactivity:Interaction.Behaviors> -->
+            <!--     <core:EventTriggerBehavior EventName="SelectionChanged"> -->
+            <!--         <core:InvokeCommandAction Command="{x:Bind ViewModel.NavigateToRoundCommand}" CommandParameter="{Binding SelectedItem, ElementName=RoundsGridView}"/> -->
+            <!--     </core:EventTriggerBehavior> -->
+            <!-- </interactivity:Interaction.Behaviors> -->
+
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Padding="50" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                        <TextBlock Text="{Binding TeamName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
     </Grid>
 </Page>
