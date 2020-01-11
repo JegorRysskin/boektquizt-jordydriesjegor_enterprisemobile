@@ -5,8 +5,9 @@
     xmlns:local="using:JuryApp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                   IsItemClickEnabled="False"
                   IsSwipeEnabled="False"
@@ -16,7 +17,7 @@
 
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Padding="100, 40" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                    <StackPanel Padding="100, 40" Margin="10" Background="{ThemeResource SystemAccentColor}">
                         <TextBlock Text="{Binding TeamName}" HorizontalTextAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Padding="0,0,5,0" Text="Score:"/>

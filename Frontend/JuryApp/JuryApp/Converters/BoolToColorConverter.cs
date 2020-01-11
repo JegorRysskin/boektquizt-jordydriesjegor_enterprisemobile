@@ -8,14 +8,14 @@ namespace JuryApp.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if ((bool)value)
-                return "DarkGreen";
+                return "#89C543";
 
-            return "DarkRed";
+            return "#EC008C";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            return value.ToString() == "DarkGreen";
+            return value.ToString() == "#89C543";
         }
     }
 }
