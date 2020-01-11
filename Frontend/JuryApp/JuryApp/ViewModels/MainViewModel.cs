@@ -16,6 +16,7 @@ namespace JuryApp.ViewModels
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
         private readonly RoundService _roundService;
 
+        public bool RoundsAvailable { get; set; } = true;
         public Rounds Rounds { get; set; } = new Rounds();
         public string SelectionMode { get; set; } = "Single";
 
@@ -67,6 +68,10 @@ namespace JuryApp.ViewModels
         {
             Rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
             RaisePropertyChanged(() => Rounds);
+
+            if (Rounds.Count != 0)
+                RoundsAvailable = false;
+            
         }
     }
 }
