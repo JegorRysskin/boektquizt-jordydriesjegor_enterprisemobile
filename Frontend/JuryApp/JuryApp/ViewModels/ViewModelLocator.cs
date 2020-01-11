@@ -28,7 +28,10 @@ namespace JuryApp.ViewModels
             Register<EditTeamViewModel, EditTeamPage>();
             Register<ScoresViewModel, ScoresPage>();
             Register<RoundViewModel, RoundPage>();
+            Register<CorrectViewModel, CorrectPage>();
         }
+
+        public CorrectViewModel CorrectViewModel => SimpleIoc.Default.GetInstance<CorrectViewModel>();
 
         public RoundViewModel RoundViewModel => SimpleIoc.Default.GetInstance<RoundViewModel>();
 

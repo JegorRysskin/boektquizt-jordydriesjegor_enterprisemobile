@@ -148,6 +148,7 @@
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
+    <Compile Include="ViewModels\CorrectViewModel.cs" />
     <Compile Include="ViewModels\CreateQuizViewModel.cs" />
     <Compile Include="ViewModels\EditQuizViewModel.cs" />
     <Compile Include="ViewModels\EditTeamViewModel.cs" />
@@ -158,6 +159,9 @@
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\TeamsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="Views\CorrectPage.xaml.cs">
+      <DependentUpon>CorrectPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateQuizPage.xaml.cs">
       <DependentUpon>CreateQuizPage.xaml</DependentUpon>
     </Compile>
@@ -210,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\TextBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CorrectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
