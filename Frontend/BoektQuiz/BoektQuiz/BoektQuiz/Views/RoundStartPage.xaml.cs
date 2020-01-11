@@ -1,6 +1,4 @@
-﻿using System;
-using BoektQuiz.Models;
-using BoektQuiz.Services;
+﻿using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
 using Xamarin.Forms;
@@ -17,9 +15,15 @@ namespace BoektQuiz.Views
         {
             InitializeComponent();
 
-            viewModel = new RoundStartViewModel(AppContainer.Resolve<INavigationService>(), AppContainer.Resolve<IDataStore<Round>>(), id);
+            viewModel = new RoundStartViewModel(AppContainer.Resolve<INavigationService>(), AppContainer.Resolve<IBackendService>(), id);
 
             BindingContext = viewModel;
+        }
+
+        private void RoundStartPage_Appearing(object sender, System.EventArgs e)
+        {
+            viewModel.ReloadRoundCommand.Execute(null);
+            viewModel.StartRoundCommand.ChangeCanExecute();
         }
     }
 }

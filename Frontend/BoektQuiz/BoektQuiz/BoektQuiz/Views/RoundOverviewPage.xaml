@@ -7,7 +7,8 @@
              mc:Ignorable="d"
              x:Class="BoektQuiz.Views.RoundOverviewPage"
              BackgroundColor="Black"
-             Title="Ronde overzicht">
+             Title="Ronde overzicht"
+             Appearing="RoundOverviewPage_Appearing">
     <ContentPage.Content>
         <StackLayout>
             <ListView x:Name="RoundsListView"
@@ -25,7 +26,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Padding="10">
-                                <Label Text="{Binding Text}" 
+                                <Label Text="{Binding Name}" 
                                 d:Text="{Binding .}"
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 

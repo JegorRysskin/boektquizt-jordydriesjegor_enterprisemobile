@@ -1,8 +1,6 @@
 ﻿using BoektQuiz.Models;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using Xamarin.Forms;
 
 namespace BoektQuiz.Converters
@@ -30,6 +28,8 @@ namespace BoektQuiz.Converters
                     answer.AnswerString = answerString;
                     return answer;
                 }
+
+                return answer;
             }
 
             return null;

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Autofac;
 using BoektQuiz.Context;
-using BoektQuiz.Models;
 using BoektQuiz.Repositories;
 using BoektQuiz.Services;
 using BoektQuiz.ViewModels;
@@ -25,11 +22,13 @@ namespace BoektQuiz.Util
             builder.RegisterType<RoundStartViewModel>().SingleInstance();
             //Services
             builder.RegisterType<NavigationService>().As<INavigationService>();
+            builder.RegisterType<BackendService>().As<IBackendService>();
             //General
             builder.RegisterInstance(BoektQuizContextFactory.Create()).As<BoektQuizContext>();
-            builder.RegisterType<MockDataStore>().As<IDataStore<Round>>();
             builder.RegisterType<RoundRepository>().As<IRoundRepository>();
             builder.RegisterType<QuestionRepository>().As<IQuestionRepository>();
+            builder.RegisterType<TeamRepository>().As<ITeamRepository>();
+            builder.RegisterType<AnswerRepository>().As<IAnswerRepository>();
             _container = builder.Build();
         }
         public static object Resolve(Type typeName)

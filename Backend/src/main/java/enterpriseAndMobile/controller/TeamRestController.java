@@ -80,7 +80,7 @@ public class TeamRestController {
     }
 
     @LogExecutionTime
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PatchMapping(value = "/answer/{id}")
     public ResponseEntity<Team> patchTeamAnswers(@PathVariable("id") int id, @RequestBody AnswerDto patchDto) {
         try {

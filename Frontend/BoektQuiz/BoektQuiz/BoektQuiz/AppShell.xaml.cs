@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using BoektQuiz.Models;
-using BoektQuiz.Services;
+﻿using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
-using BoektQuiz.Views;
 using Xamarin.Forms;
 
 namespace BoektQuiz
@@ -22,8 +17,13 @@ namespace BoektQuiz
             Shell.SetForegroundColor(this, Color.White);
             Shell.SetTabBarIsVisible(this, false);
 
-            viewModel = new AppShellViewModel(this, AppContainer.Resolve<IDataStore<Round>>());
+            viewModel = new AppShellViewModel(AppContainer.Resolve<IBackendService>());
             BindingContext = viewModel;
+        }
+
+        private void Shell_Navigated(object sender, ShellNavigatedEventArgs e)
+        {
+            viewModel.LoadRounds();
         }
     }
 }

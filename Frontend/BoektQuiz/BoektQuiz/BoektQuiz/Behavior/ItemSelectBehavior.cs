@@ -1,10 +1,5 @@
 ﻿using BoektQuiz.Models;
-using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
-using BoektQuiz.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace BoektQuiz.Behavior

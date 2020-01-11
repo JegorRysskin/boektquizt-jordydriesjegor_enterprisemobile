@@ -9,7 +9,8 @@ namespace BoektQuiz.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Text { get; set; }
+        public string Name { get; set; }
+        public bool Enabled { get; set; }
         public List<Question> Questions { get; set; }
     }
 }

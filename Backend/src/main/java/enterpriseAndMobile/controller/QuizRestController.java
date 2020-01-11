@@ -63,8 +63,14 @@ public class QuizRestController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto) {
-        Quiz quiz = quizService.addQuiz(quizDto);
-        if (quizDto.getRounds() != null && quizDto.getRounds().get(0) != null && quizDto.getRounds().get(0).getQuestions() != null) {
+        try {
+            Quiz quiz = quizService.addQuiz(quizDto);
+            return  new ResponseEntity<>(quiz, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        /*if (quizDto.getRounds() != null && quizDto.getRounds().get(0) != null && quizDto.getRounds().get(0).getQuestions() != null) {
 
             service.execute(() -> {
                 AnswerDto answerDto = new AnswerDto();
@@ -86,7 +92,7 @@ public class QuizRestController {
             return new ResponseEntity<>(quiz, HttpStatus.CREATED);
         }
 
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);*/
     }
 
     @LogExecutionTime

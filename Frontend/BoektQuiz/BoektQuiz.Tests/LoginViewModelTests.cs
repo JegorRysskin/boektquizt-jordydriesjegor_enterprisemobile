@@ -1,4 +1,6 @@
-﻿using BoektQuiz.ViewModels;
+﻿using BoektQuiz.Services;
+using BoektQuiz.ViewModels;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,12 +11,14 @@ namespace BoektQuiz.Tests
     [TestFixture]
     public class LoginViewModelTests
     {
+        private Mock<IBackendService> _backendServiceMock;
         private LoginViewModel _sut;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new LoginViewModel();
+            _backendServiceMock = new Mock<IBackendService>();
+            _sut = new LoginViewModel(_backendServiceMock.Object);
         }
 
         [Test]

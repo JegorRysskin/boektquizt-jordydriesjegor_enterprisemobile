@@ -6,7 +6,6 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BoektQuiz.Tests
 {
@@ -14,7 +13,10 @@ namespace BoektQuiz.Tests
     public class QuestionOverviewViewModelTests
     {
         private Mock<IQuestionRepository> _questionRepositoryMock;
+        private Mock<IAnswerRepository> _teamRepositoryMock;
         private Mock<IRoundRepository> _roundRepositoryMock;
+        private Mock<IBackendService> _backendServiceMock;
+        private Team _team;
         private Mock<INavigationService> _navigationServiceMock;
         private QuestionOverviewViewModel _sut;
         private RoundOverviewViewModel _sender;
@@ -24,7 +26,11 @@ namespace BoektQuiz.Tests
         public void SetUp()
         {
             _questionRepositoryMock = new Mock<IQuestionRepository>();
-            _sut = new QuestionOverviewViewModel(_questionRepositoryMock.Object);
+            _teamRepositoryMock = new Mock<IAnswerRepository>();
+            _backendServiceMock = new Mock<IBackendService>();
+            _team = GenerateTeam();
+            _backendServiceMock.Setup(backend => backend.GetTeamByToken(It.IsAny<String>())).ReturnsAsync(_team);
+            _sut = new QuestionOverviewViewModel(_questionRepositoryMock.Object, _teamRepositoryMock.Object, _backendServiceMock.Object);
             _roundRepositoryMock = new Mock<IRoundRepository>();
             _navigationServiceMock = new Mock<INavigationService>();
             _sender = new RoundOverviewViewModel(_navigationServiceMock.Object, _roundRepositoryMock.Object);
@@ -37,7 +43,7 @@ namespace BoektQuiz.Tests
             var round = GenerateRound();
 
             //Act
-            var sut = new QuestionOverviewViewModel(_questionRepositoryMock.Object);
+            var sut = new QuestionOverviewViewModel(_questionRepositoryMock.Object, _teamRepositoryMock.Object, _backendServiceMock.Object);
             _sender.ItemSelectCommand.Execute(round);
 
             //Assert
@@ -55,7 +61,7 @@ namespace BoektQuiz.Tests
             //Act
             var questionsBeforeReload = new List<Question>(_sut.Questions);
             var questionsModified = new List<Question>(_sut.Questions);
-            questionsModified.Add(new Question() { Id = 11, Text = "Vraag 11", Answer = new Answer() { Id = 11, AnswerString = "", QuestionId = 11, TeamId = 1 } });
+            questionsModified.Add(new Question() { Id = 11, QuestionString = "Vraag 11" });
             _questionRepositoryMock.Setup(repo => repo.GetQuestionsFromRound(It.IsAny<Int32>())).ReturnsAsync(questionsModified);
             _sut.LoadItemsCommand.Execute(null);
             var questionsAfterReload = _sut.Questions;
@@ -72,23 +78,47 @@ namespace BoektQuiz.Tests
         {
             var questions = GenerateQuestionsList();
 
-            return new Round() { Id = 1, Text = "Ronde 1", Questions = questions };
+            return new Round() { Id = 1, Name = "Ronde 1", Questions = questions };
+        }
+
+        private Team GenerateTeam()
+        {
+            var answers = GenerateAnswersList();
+
+            return new Team() { Id = 1, Name = "Team 1", Answers = answers, Enabled = true, Scores = 0 };
         }
 
         private List<Question> GenerateQuestionsList()
         {
             return new List<Question>()
             {
-                new Question { Id = 1, Text = "Vraag 1", Answer = new Answer() { Id = 1, AnswerString = "", QuestionId = 1, TeamId = 1 }  },
-                new Question { Id = 2, Text = "Vraag 2", Answer = new Answer() { Id = 2, AnswerString = "", QuestionId = 2, TeamId = 1 }  },
-                new Question { Id = 3, Text = "Vraag 3", Answer = new Answer() { Id = 3, AnswerString = "", QuestionId = 3, TeamId = 1 }  },
-                new Question { Id = 4, Text = "Vraag 4", Answer = new Answer() { Id = 4, AnswerString = "", QuestionId = 4, TeamId = 1 }  },
-                new Question { Id = 5, Text = "Vraag 5", Answer = new Answer() { Id = 5, AnswerString = "", QuestionId = 5, TeamId = 1 }  },
-                new Question { Id = 6, Text = "Vraag 6", Answer = new Answer() { Id = 6, AnswerString = "", QuestionId = 6, TeamId = 1 }  },
-                new Question { Id = 7, Text = "Vraag 7", Answer = new Answer() { Id = 7, AnswerString = "", QuestionId = 7, TeamId = 1 }  },
-                new Question { Id = 8, Text = "Vraag 8", Answer = new Answer() { Id = 8, AnswerString = "", QuestionId = 8, TeamId = 1 }  },
-                new Question { Id = 9, Text = "Vraag 9", Answer = new Answer() { Id = 9, AnswerString = "", QuestionId = 9, TeamId = 1 } },
-                new Question { Id = 10, Text = "Vraag 10", Answer = new Answer() { Id = 10, AnswerString = "", QuestionId = 10, TeamId = 1 } },
+                new Question { Id = 1, QuestionString = "Vraag 1"  },
+                new Question { Id = 2, QuestionString = "Vraag 2"  },
+                new Question { Id = 3, QuestionString = "Vraag 3"  },
+                new Question { Id = 4, QuestionString = "Vraag 4"  },
+                new Question { Id = 5, QuestionString = "Vraag 5"  },
+                new Question { Id = 6, QuestionString = "Vraag 6"  },
+                new Question { Id = 7, QuestionString = "Vraag 7"  },
+                new Question { Id = 8, QuestionString = "Vraag 8"  },
+                new Question { Id = 9, QuestionString = "Vraag 9" },
+                new Question { Id = 10, QuestionString = "Vraag 10" },
+            };
+        }
+
+        private List<Answer> GenerateAnswersList()
+        {
+            return new List<Answer>()
+            {
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 1 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 2 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 3 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 4 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 5 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 6 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 7 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 8 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 9 },
+                new Answer { Id = 1, AnswerString = String.Empty, QuestionId = 10 }
             };
         }
     }

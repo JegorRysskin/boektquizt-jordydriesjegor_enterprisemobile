@@ -1,4 +1,6 @@
-﻿using BoektQuiz.ViewModels;
+﻿using BoektQuiz.Services;
+using BoektQuiz.ViewModels;
+using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -9,12 +11,14 @@ namespace BoektQuiz.Tests
     [TestFixture]
     public class RegisterViewModelTests
     {
+        private Mock<IBackendService> _backendServiceMock;
         private RegisterViewModel _sut;
 
         [SetUp]
         public void SetUp()
         {
-            _sut = new RegisterViewModel();
+            _backendServiceMock = new Mock<IBackendService>();
+            _sut = new RegisterViewModel(_backendServiceMock.Object);
         }
 
         [Test]

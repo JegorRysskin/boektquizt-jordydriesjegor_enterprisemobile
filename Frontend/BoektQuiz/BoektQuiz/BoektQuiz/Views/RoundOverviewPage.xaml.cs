@@ -2,7 +2,6 @@
 using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,6 +19,11 @@ namespace BoektQuiz.Views
             viewModel = new RoundOverviewViewModel(AppContainer.Resolve<INavigationService>(), AppContainer.Resolve<IRoundRepository>());
 
             BindingContext = viewModel;
+        }
+
+        private void RoundOverviewPage_Appearing(object sender, System.EventArgs e)
+        {
+            viewModel.LoadItemsCommand.Execute(null);
         }
     }
 }

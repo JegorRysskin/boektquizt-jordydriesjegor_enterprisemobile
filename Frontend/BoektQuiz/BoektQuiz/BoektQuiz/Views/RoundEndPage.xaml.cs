@@ -1,5 +1,4 @@
-﻿using BoektQuiz.Models;
-using BoektQuiz.Repositories;
+﻿using BoektQuiz.Repositories;
 using BoektQuiz.Services;
 using BoektQuiz.Util;
 using BoektQuiz.ViewModels;
@@ -17,9 +16,15 @@ namespace BoektQuiz.Views
         {
             InitializeComponent();
 
-            viewModel = new RoundEndViewModel(AppContainer.Resolve<INavigationService>(), AppContainer.Resolve<IRoundRepository>());
+            viewModel = new RoundEndViewModel(AppContainer.Resolve<INavigationService>(), AppContainer.Resolve<IRoundRepository>(), AppContainer.Resolve<ITeamRepository>(), AppContainer.Resolve<IBackendService>());
             
             BindingContext = viewModel;
+        }
+
+        private void RoundEndPage_Appearing(object sender, System.EventArgs e)
+        {
+            viewModel.ReloadRoundCommand.Execute(null);
+            viewModel.EndRoundCommand.ChangeCanExecute();
         }
     }
 }

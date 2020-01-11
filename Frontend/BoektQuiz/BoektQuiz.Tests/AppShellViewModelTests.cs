@@ -14,33 +14,30 @@ namespace BoektQuiz.Tests
     [TestFixture]
     public class AppShellViewModelTests
     {
-        private Mock<IDataStore<Round>> _dataStoreMock;
+        private Mock<IBackendService> _backendServiceMock;
+        private List<Round> _allRounds;
         private AppShell _shell;
 
         [SetUp]
         public void SetUp()
         {
-            AppContainer.RegisterDependencies();
-            _dataStoreMock = new Mock<IDataStore<Round>>();
-            _shell = new AppShell();
+            _backendServiceMock = new Mock<IBackendService>();
+            _allRounds = GenerateRoundsList();
+            _backendServiceMock.Setup(backend => backend.GetAllRounds(It.IsAny<String>())).ReturnsAsync(_allRounds);
         }
 
         [Test]
         public void Constructor_ShouldLoadAllRounds()
         {
-            //Arrange
-            IList<Round> allRounds = GenerateRoundsList();
-            _dataStoreMock.Setup(ds => ds.GetItemsAsync()).ReturnsAsync(allRounds);
-
             //Act
-            var sut = new AppShellViewModel(_shell, _dataStoreMock.Object);
+            var sut = new AppShellViewModel(_backendServiceMock.Object);
 
             //Assert
-            Assert.That(sut.Rounds, Is.EqualTo(allRounds));
-            _dataStoreMock.Verify(ds => ds.GetItemsAsync(), Times.Once);
+            Assert.That(sut.Rounds, Is.EqualTo(_allRounds));
+            _backendServiceMock.Verify(backend => backend.GetAllRounds(It.IsAny<String>()), Times.Once);
         }
 
-        private IList<Round> GenerateRoundsList()
+        private List<Round> GenerateRoundsList()
         {
             var questions1 = GenerateQuestionsList(0);
 
@@ -60,14 +57,14 @@ namespace BoektQuiz.Tests
 
             return new List<Round>()
             {
-                new Round { Id = 1, Text = "Ronde 1", Questions = questions1 },
-                new Round { Id = 2, Text = "Ronde 2", Questions = questions2 },
-                new Round { Id = 3, Text = "Ronde 3", Questions = questions3 },
-                new Round { Id = 4, Text = "Ronde 4", Questions = questions4 },
-                new Round { Id = 5, Text = "Ronde 5", Questions = questions5 },
-                new Round { Id = 6, Text = "Ronde 6", Questions = questions6 },
-                new Round { Id = 7, Text = "Ronde 7", Questions = questions7 },
-                new Round { Id = 8, Text = "Ronde 8", Questions = questions8 },
+                new Round { Id = 1, Name = "Ronde 1", Questions = questions1 },
+                new Round { Id = 2, Name = "Ronde 2", Questions = questions2 },
+                new Round { Id = 3, Name = "Ronde 3", Questions = questions3 },
+                new Round { Id = 4, Name = "Ronde 4", Questions = questions4 },
+                new Round { Id = 5, Name = "Ronde 5", Questions = questions5 },
+                new Round { Id = 6, Name = "Ronde 6", Questions = questions6 },
+                new Round { Id = 7, Name = "Ronde 7", Questions = questions7 },
+                new Round { Id = 8, Name = "Ronde 8", Questions = questions8 },
             };
         }
         
@@ -75,16 +72,16 @@ namespace BoektQuiz.Tests
         {
             return new List<Question>()
             {
-                new Question { Id = 1 + (index * 10), Text = "Vraag 1", Answer = new Answer() { Id = 1 + (index * 10), AnswerString = "", QuestionId = 1 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 2 + (index * 10), Text = "Vraag 2", Answer = new Answer() { Id = 2 + (index * 10), AnswerString = "", QuestionId = 2 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 3 + (index * 10), Text = "Vraag 3", Answer = new Answer() { Id = 3 + (index * 10), AnswerString = "", QuestionId = 3 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 4 + (index * 10), Text = "Vraag 4", Answer = new Answer() { Id = 4 + (index * 10), AnswerString = "", QuestionId = 4 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 5 + (index * 10), Text = "Vraag 5", Answer = new Answer() { Id = 5 + (index * 10), AnswerString = "", QuestionId = 5 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 6 + (index * 10), Text = "Vraag 6", Answer = new Answer() { Id = 6 + (index * 10), AnswerString = "", QuestionId = 6 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 7 + (index * 10), Text = "Vraag 7", Answer = new Answer() { Id = 7 + (index * 10), AnswerString = "", QuestionId = 7 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 8 + (index * 10), Text = "Vraag 8", Answer = new Answer() { Id = 8 + (index * 10), AnswerString = "", QuestionId = 8 + (index * 10), TeamId = 1 }  },
-                new Question { Id = 9 + (index * 10), Text = "Vraag 9", Answer = new Answer() { Id = 9 + (index * 10), AnswerString = "", QuestionId = 9 + (index * 10), TeamId = 1 } },
-                new Question { Id = 10 + (index * 10), Text = "Vraag 10", Answer = new Answer() { Id = 10 + (index * 10), AnswerString = "", QuestionId = 10 + (index * 10), TeamId = 1 } },
+                new Question { Id = 1 + (index * 10), QuestionString = "Vraag 1"  },
+                new Question { Id = 2 + (index * 10), QuestionString = "Vraag 2"  },
+                new Question { Id = 3 + (index * 10), QuestionString = "Vraag 3"  },
+                new Question { Id = 4 + (index * 10), QuestionString = "Vraag 4"  },
+                new Question { Id = 5 + (index * 10), QuestionString = "Vraag 5"  },
+                new Question { Id = 6 + (index * 10), QuestionString = "Vraag 6"  },
+                new Question { Id = 7 + (index * 10), QuestionString = "Vraag 7"  },
+                new Question { Id = 8 + (index * 10), QuestionString = "Vraag 8"  },
+                new Question { Id = 9 + (index * 10), QuestionString = "Vraag 9" },
+                new Question { Id = 10 + (index * 10), QuestionString = "Vraag 10" },
             };
         }
     }
