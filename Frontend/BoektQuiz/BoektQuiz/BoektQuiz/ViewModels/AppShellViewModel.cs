@@ -47,15 +47,15 @@ namespace BoektQuiz.ViewModels
                         {
                             if (shell.Items.Count == 1)
                             {
-                                foreach (Round round in Rounds)
+                                for (int i = 0; i < Rounds.Count; i++)
                                 {
                                     ShellSection shell_section = new ShellSection
                                     {
-                                        Title = round.Name,
-                                        Icon = "tab_round_" + round.Id + ".png"
+                                        Title = Rounds[i].Name,
+                                        Icon = "tab_round_" + (i + 1) + ".png"
                                     };
 
-                                    shell_section.Items.Add(new ShellContent() { Content = new RoundStartPage(round.Id) });
+                                    shell_section.Items.Add(new ShellContent() { Content = new RoundStartPage(Rounds[i].Id) });
 
 
                                     shell.Items.Add(shell_section);

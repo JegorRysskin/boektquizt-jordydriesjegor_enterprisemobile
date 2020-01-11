@@ -9,9 +9,10 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:converters="using:JuryApp.Converters"
     mc:Ignorable="d"
-    Style="{StaticResource PageStyle}">
+    Style="{StaticResource PageStyle}"
+    Background="Black">
 
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="Black">
         <RelativePanel>
             <TextBlock x:Name="SelectedRoundTextBlock" Text="{x:Bind ViewModel.SelectedRound.RoundName}" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
 
