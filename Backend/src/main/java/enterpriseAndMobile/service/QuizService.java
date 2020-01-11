@@ -58,4 +58,16 @@ public class QuizService {
         }
         throw new NotFoundException("The quiz you tried to patch wasn't found.");
     }
+
+    public Quiz getEnabledQuiz() throws NotFoundException {
+        List<Quiz> quiz = quizRepository.getAllQuizzes();
+        int count = 0;
+        while(!quiz.get(count).isEnabled() && quiz.size() -1 > count){
+            count++;
+        }
+        if(quiz.size() < count){
+            throw new NotFoundException("No quiz is enabled.");
+        }
+        return quiz.get(count);
+    }
 }

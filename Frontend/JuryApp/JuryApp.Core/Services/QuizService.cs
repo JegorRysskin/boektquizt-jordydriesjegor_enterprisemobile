@@ -27,6 +27,13 @@ namespace JuryApp.Core.Services
             return result;
         }
 
+        public async Task<Quiz> GetEnabledQuiz()
+        {
+            var result = await _httpDataService.GetAsync<Quiz>($"quiz/getEnabledQuiz");
+
+            return result;
+        }
+
         public async Task<bool> AddQuiz(Quiz newQuiz)
         {
             var result = await _httpDataService.PostAsJsonAsync("quiz", newQuiz, await LoginService.Login());

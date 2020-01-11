@@ -19,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,11 +32,8 @@ import static enterpriseAndMobile.util.HttpStatusUtils.ok;
 public class QuizRestController {
     protected final Log logger = LogFactory.getLog(getClass());
 
-    @Autowired
-    private QuizService quizService;
-
-    @Autowired
-    private TeamService teamService;
+    private final QuizService quizService;
+    public QuizRestController(QuizService quizService) { this.quizService = quizService; }
 
     private final ExecutorService service = Executors.newCachedThreadPool();
 
@@ -57,6 +55,19 @@ public class QuizRestController {
         return quizService.getQuizById(id)
                 .map(ok())
                 .orElseGet(notFound());
+    }
+
+    @LogExecutionTime
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+    @GetMapping(value = "getEnabledQuiz", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Quiz> getEnabledQuiz() {
+        try {
+            Quiz quiz = quizService.getEnabledQuiz();
+            return new ResponseEntity<>(quiz, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            logger.error(e.getMessage(), e);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @LogExecutionTime

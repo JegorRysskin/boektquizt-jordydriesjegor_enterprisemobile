@@ -22,7 +22,8 @@ namespace JuryApp.ViewModels
             Teams.Clear();
             foreach (var team in teams.OrderByDescending(team => team.TeamScore))
             {
-                Teams.Add(team);
+                if (team.TeamEnabled)
+                    Teams.Add(team);
             }
         }
 
