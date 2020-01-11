@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                   IsItemClickEnabled="False"
                   IsSwipeEnabled="False"

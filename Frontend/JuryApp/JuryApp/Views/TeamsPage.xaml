@@ -9,13 +9,13 @@
     xmlns:converters="using:JuryApp.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
     <Page.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"></converters:BoolToColorConverter>
     </Page.Resources>
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
             <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
                       IsItemClickEnabled="False"
                       IsSwipeEnabled="False"

@@ -23,7 +23,7 @@
         IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
         IsSettingsVisible="False"
-        Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <winui:NavigationView.MenuItems>
             <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Home" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.MainViewModel" />
             <winui:NavigationViewItem x:Uid="Shell_Quizzen" Icon="Library" helpers:NavHelper.NavigateTo="JuryApp.ViewModels.QuizzenViewModel" />

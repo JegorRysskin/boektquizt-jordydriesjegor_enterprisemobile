@@ -8,8 +8,8 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
-    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+    <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <RelativePanel>
             <Button x:Name="DeleteButton" Style="{StaticResource AccentButtonStyle}" Content="Verwijder" Margin="20" Command="{x:Bind ViewModel.DeleteQuizCommand}"/>
             <Button Content="Quiz aanpassen" Style="{StaticResource AccentButtonStyle}" RelativePanel.AlignRightWithPanel="True" Margin="20" Command="{x:Bind ViewModel.EditQuizCommand}"></Button>

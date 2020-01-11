@@ -9,13 +9,13 @@
     xmlns:converters="using:JuryApp.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+    Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
     <Page.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"></converters:BoolToColorConverter>
     </Page.Resources>
 
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
+        <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
             <Button x:Name="CreateButton" Style="{StaticResource AccentButtonStyle}" Content="Nieuwe quiz" VerticalAlignment="Top" Margin="20" Command="{x:Bind ViewModel.CreateQuizCommand}"/>
 
             <GridView x:Name="QuizzesGridView" ItemsSource="{x:Bind ViewModel.Quizzes, Mode=OneWay}"
