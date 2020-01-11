@@ -9,12 +9,12 @@
     xmlns:converters="using:JuryApp.Converters"
     Style="{StaticResource PageStyle}"
     mc:Ignorable="d"
-    Background="Black">
+    Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
     <Page.Resources>
         <converters:BoolToColorConverter x:Key="BoolToColorConverter"></converters:BoolToColorConverter>
     </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
-        <Grid Background="Black">
+        <Grid Background="{ThemeResource SystemControlPageBackgroundChromeLowBrush}">
             <RelativePanel>
                 <Button x:Name="DisableAllRoundsButton" Style="{StaticResource AccentButtonStyle}" Content="Sluit alle rondes" Margin="10" Command="{x:Bind ViewModel.DisableAllRoundsCommand}"/>
                 <TextBlock x:Name="ActiveQuizTextBlock" Text="Actieve quiz" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
