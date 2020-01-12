@@ -2,29 +2,29 @@
 using GalaSoft.MvvmLight.Command;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
-using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using JuryApp.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace JuryApp.ViewModels
 {
     public class CreateQuizViewModel : ViewModelBase
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private INavigationServiceEx _navigationService;
         public readonly List<int> ListOfTenForComboBox = Enumerable.Range(1, 10).ToList();
 
         public Quiz NewQuiz { get; set; } = new Quiz();
 
-        private readonly QuizService _quizService;
+        private readonly IQuizService _quizService;
 
         public RelayCommand CreateNewQuizCommand => new RelayCommand(CreateNewQuiz);
         public RelayCommand<int> CreateRoundsCommand => new RelayCommand<int>(CreateRounds);
 
-        public CreateQuizViewModel()
+        public CreateQuizViewModel(IQuizService quizService, INavigationServiceEx navigationServiceEx)
         {
-            _quizService = new QuizService();
+            _quizService = quizService;
+            _navigationService = navigationServiceEx;
         }
 
         private async void CreateNewQuiz()
@@ -33,7 +33,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.Navigate(typeof(QuizzenViewModel).FullName);
+                _navigationService.Navigate(typeof(QuizzenViewModel).FullName);
             }
         }
 

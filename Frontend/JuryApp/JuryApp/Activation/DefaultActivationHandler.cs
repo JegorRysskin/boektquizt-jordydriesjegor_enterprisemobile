@@ -10,7 +10,7 @@ namespace JuryApp.Activation
     {
         private readonly string _navElement;
 
-        public NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        public INavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
 
         public DefaultActivationHandler(Type navElement)
         {

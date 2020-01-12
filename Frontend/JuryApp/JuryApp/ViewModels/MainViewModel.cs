@@ -1,30 +1,28 @@
-﻿
-using System;
-using System.Linq;
+﻿using System.Linq;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
-using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        private readonly RoundService _roundService;
+        private readonly INavigationServiceEx _navigationService;
+        private readonly IRoundService _roundService;
 
-        public Rounds Rounds { get; set; } = new Rounds();
+        public Rounds Rounds { get; set; }
         public string SelectionMode { get; set; } = "Single";
 
-        public MainViewModel()
+        public MainViewModel(IRoundService roundService, INavigationServiceEx navigationService)
         {
-            _roundService = new RoundService();
+            _roundService = roundService;
+            _navigationService = navigationService;
             GetRoundsFromEnabledQuiz(true);
 
-            NavigationService.Navigated += NavigationService_Navigated;
+            _navigationService.Navigated += NavigationService_Navigated;
         }
 
         public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRounds);
@@ -67,6 +65,7 @@ namespace JuryApp.ViewModels
         {
             Rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
             RaisePropertyChanged(() => Rounds);
+
         }
     }
 }

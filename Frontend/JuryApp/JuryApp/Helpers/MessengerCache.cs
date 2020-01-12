@@ -4,7 +4,7 @@ using JuryApp.Core.Models.Collections;
 
 namespace JuryApp.Helpers
 {
-    public class MessengerCache
+    public class MessengerCache : IMessengerCache
     {
         public Quiz CachedSelectedQuiz { get; set; }
         public Team CachedSelectedTeam { get; set; }

@@ -3,26 +3,28 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
     public class TeamsViewModel : ViewModelBase
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private INavigationServiceEx _navigationService;
 
-        private readonly TeamService _teamService;
+        private readonly ITeamService _teamService;
 
         public Teams Teams { get; set; } = new Teams();
 
         public RelayCommand<int> EditTeamCommand => new RelayCommand<int>(NavigateToEditTeamPage);
 
-        public TeamsViewModel()
+        public TeamsViewModel(ITeamService teamService, INavigationServiceEx navigationService)
         {
-            _teamService = new TeamService();
+            _teamService = teamService;
+            _navigationService = navigationService;
             FetchListOfTeams(false);
 
-            NavigationService.Navigated += NavigationService_Navigated;
+            _navigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -35,7 +37,7 @@ namespace JuryApp.ViewModels
             if (selectedIndex != -1)
             {
                 Messenger.Default.Send(Teams[selectedIndex]);
-                NavigationService.Navigate(typeof(EditTeamViewModel).FullName);
+                _navigationService.Navigate(typeof(EditTeamViewModel).FullName);
             }
 
         }

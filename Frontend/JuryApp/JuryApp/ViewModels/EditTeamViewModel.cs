@@ -2,26 +2,28 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using JuryApp.Core.Models;
-using JuryApp.Core.Services;
 using JuryApp.Services;
 using System;
 using JuryApp.Helpers;
+using JuryApp.Core.Services.Interfaces;
 
 namespace JuryApp.ViewModels
 {
     public class EditTeamViewModel : ViewModelBase
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
+        private readonly INavigationServiceEx _navigationService;
+        private readonly IMessengerCache _messengerCache;
+        private readonly ITeamService _teamService;
 
         public Team SelectedTeam { get; set; }
-        private readonly TeamService _teamService;
 
-        public EditTeamViewModel()
+        public EditTeamViewModel(ITeamService teamService, INavigationServiceEx navigationService, IMessengerCache messengerCache)
         {
-            _teamService = new TeamService();
+            _teamService = teamService;
+            _navigationService = navigationService;
+            _messengerCache = messengerCache;
 
-            SelectedTeam = MessengerCache.CachedSelectedTeam;
+            SelectedTeam = _messengerCache.CachedSelectedTeam;
             Messenger.Default.Register<Team>(this, (team) => { SelectedTeam = team; });
         }
 
@@ -34,7 +36,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.GoBack();
+                _navigationService.GoBack();
             }
         }
 
@@ -44,7 +46,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.GoBack();
+                _navigationService.GoBack();
             }
         }
     }

@@ -88,11 +88,11 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         user.setRole(user.getRole());
         newUser.setRoles(roleService.findRoleByName(user.getRole()));
         Team team = new Team(user.getUsername());
-        List<Answer> answers = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-            answers.add(new Answer());
-        }
-        team.setAnswers(answers);
+//        List<Answer> answers = new ArrayList<>();
+//        for(int i = 0; i < 10; i++){
+//            answers.add(new Answer());
+//        }
+//        team.setAnswers(answers);
         newUser.setTeam(team);
         return userDao.save(newUser);
     }

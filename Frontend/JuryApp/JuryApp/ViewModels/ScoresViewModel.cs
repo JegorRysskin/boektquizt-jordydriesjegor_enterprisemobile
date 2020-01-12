@@ -1,17 +1,29 @@
 ﻿using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using System.Linq;
+using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
     public class ScoresViewModel
     {
-        public Teams Teams { get; set; } = new Teams();
-        private readonly TeamService _teamService;
+        private readonly INavigationServiceEx _navigationService;
 
-        public ScoresViewModel()
+        public Teams Teams { get; set; } = new Teams();
+        private readonly ITeamService _teamService;
+
+        public ScoresViewModel(ITeamService teamService, INavigationServiceEx navigationService)
         {
-            _teamService = new TeamService();
+            _navigationService = navigationService;
+            _teamService = teamService;
+            FetchListOfTeams(true);
+
+            _navigationService.Navigated += NavigationService_Navigated;
+        }
+
+        private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        {
             FetchListOfTeams(true);
         }
 
@@ -22,7 +34,8 @@ namespace JuryApp.ViewModels
             Teams.Clear();
             foreach (var team in teams.OrderByDescending(team => team.TeamScore))
             {
-                Teams.Add(team);
+                if (team.TeamEnabled)
+                    Teams.Add(team);
             }
         }
 

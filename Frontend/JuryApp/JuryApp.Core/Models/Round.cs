@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System.Collections.Generic;
+using GalaSoft.MvvmLight;
 using JuryApp.Core.Models.Collections;
 using Newtonsoft.Json;
 
@@ -10,6 +11,7 @@ namespace JuryApp.Core.Models
         private Questions _roundQuestions;
         private bool _roundEnabled;
         private string _roundName;
+        private List<int> _roundTeamsIndication;
 
         [JsonProperty("id")]
         public int RoundId
@@ -37,6 +39,13 @@ namespace JuryApp.Core.Models
         {
             get => _roundName;
             set => Set(() => RoundName, ref _roundName, value);
+        }
+
+        [JsonProperty("teamIdOpenedRound")]
+        public List<int> RoundTeamsIndication
+        {
+            get => _roundTeamsIndication;
+            set => Set(() => RoundTeamsIndication, ref _roundTeamsIndication, value);
         }
     }
 }

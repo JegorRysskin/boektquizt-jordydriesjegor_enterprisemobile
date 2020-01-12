@@ -17,7 +17,7 @@
 
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Padding="100, 40" Margin="10" Background="{ThemeResource SystemAccentColor}">
+                    <StackPanel Padding="100, 40" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
                         <TextBlock Text="{Binding TeamName}" HorizontalTextAlignment="Center"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Padding="0,0,5,0" Text="Score:"/>
