@@ -28,7 +28,7 @@ namespace JuryApp.Core.Services
 
         public async Task<bool> PatchTeamScore(int id, int score)
         {
-            var result = await _httpDataService.PatchAsJsonAsync($"team/score/{id}", new Team{ TeamScore = score}, await LoginService.Login());
+            var result = await _httpDataService.PatchAsJsonAsync($"team/score/{id}", new Team{ TeamScore = score }, await LoginService.Login());
             return result;
         }
 

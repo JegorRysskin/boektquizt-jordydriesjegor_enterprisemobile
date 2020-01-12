@@ -49,6 +49,35 @@
                     </GridView.ItemsPanel>
                 </GridView>
             </RelativePanel>
+
+            <GridView x:Name="TeamsGridView" ItemsSource="{x:Bind ViewModel.Teams, Mode=OneWay}"
+                      IsItemClickEnabled="False"
+                      IsSwipeEnabled="False"
+                      CanDragItems="False"
+                      SelectionMode="Single"
+                      HorizontalAlignment="Center">
+
+
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.EditTeamCommand}" CommandParameter="{Binding SelectedIndex, ElementName=TeamsGridView}"/>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Padding="100" Margin="10" Background="{Binding TeamEnabled, Converter={StaticResource BoolToColorConverter}}">
+                            <TextBlock Text="{Binding TeamId}" TextAlignment="Center"/>
+                            <TextBlock Text="{Binding TeamName}" MinWidth="60" HorizontalTextAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="2" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
         </Grid>
     </Grid>
 </Page>
