@@ -20,9 +20,6 @@
             <RelativePanel>
                 <Button x:Name="DisableAllRoundsButton" Style="{StaticResource AccentButtonStyle}" Content="Sluit alle rondes" Margin="10" Command="{x:Bind ViewModel.DisableAllRoundsCommand}"/>
                 <TextBlock x:Name="ActiveQuizTextBlock" Text="Actieve quiz" FontWeight="Bold" FontSize="36" RelativePanel.AlignHorizontalCenterWithPanel="True"></TextBlock>
-
-                <TextBlock Text="Geen actieve quiz beschikbaar! Zet eerst een quiz actief!" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True"
-                           Visibility="{x:Bind ViewModel.RoundsNotAvailable}"></TextBlock>
     
                 <GridView x:Name="RoundsGridView" ItemsSource="{x:Bind ViewModel.Rounds, Mode=OneWay}"
                           IsItemClickEnabled="False"
