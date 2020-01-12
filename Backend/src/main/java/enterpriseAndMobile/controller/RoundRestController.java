@@ -3,7 +3,6 @@ package enterpriseAndMobile.controller;
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.annotation.LogExecutionTime;
 import enterpriseAndMobile.dto.RoundPatchDto;
-import enterpriseAndMobile.dto.RoundPatchTeamIdDto;
 import enterpriseAndMobile.model.Round;
 import enterpriseAndMobile.service.RoundService;
 import org.apache.commons.logging.Log;
@@ -59,19 +58,6 @@ public class RoundRestController {
     public ResponseEntity<Round> patchRound(@PathVariable("id") int id, @RequestBody RoundPatchDto roundPatchDto) {
         try {
             Round round = roundService.patchRound(id, roundPatchDto);
-            return new ResponseEntity<>(round, HttpStatus.OK);
-        } catch (NotFoundException e) {
-            logger.error(e.getMessage(), e);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @LogExecutionTime
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @PatchMapping(value = "/teams/{id}")
-    public ResponseEntity<Round> patchTeamAnswers(@PathVariable("id") int id, @RequestBody RoundPatchTeamIdDto roundPatchTeamDto) {
-        try {
-            Round round = roundService.patchTeamIdRound(id, roundPatchTeamDto);
             return new ResponseEntity<>(round, HttpStatus.OK);
         } catch (NotFoundException e) {
             logger.error(e.getMessage(), e);

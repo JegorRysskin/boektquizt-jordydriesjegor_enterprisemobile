@@ -29,9 +29,6 @@ public class Round {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
 
-    @ElementCollection
-    private List<Integer> teamIdOpenedRound;
-
     public Round() {
     }
 
@@ -63,8 +60,4 @@ public class Round {
     public String getName() { return name; }
 
     public void setName(String name) { this.name = name; }
-
-    public List<Integer> getTeamIdOpenedRound() { return teamIdOpenedRound; }
-
-    public void setTeamIdOpenedRound(List<Integer> teamIdOpenedRound) { this.teamIdOpenedRound = teamIdOpenedRound; }
 }
