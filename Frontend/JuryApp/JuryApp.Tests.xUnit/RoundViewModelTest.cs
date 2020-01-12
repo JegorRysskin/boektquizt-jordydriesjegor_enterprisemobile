@@ -112,7 +112,7 @@ namespace JuryApp.Tests.XUnit
             _sut.SaveRoundCommand.Execute(null);
 
             //Assert
-            Assert.Equal(_intermediate.SelectedQuiz.QuizRounds[_selectedRoundIndex].RoundQuestions[selectedQuestionIndex].QuestionCorrectAnswers.Last().CorrectAnswerText, correctAnswer); //Check if the CorrectAnswerText is edited in the previous viewmodel (EditQuizViewModel)
+            Assert.Equal(correctAnswer, _intermediate.SelectedQuiz.QuizRounds[_selectedRoundIndex].RoundQuestions[selectedQuestionIndex].QuestionCorrectAnswers.Last().CorrectAnswerText); //Check if the CorrectAnswerText is edited in the previous viewmodel (EditQuizViewModel)
             _roundServiceMock.Verify(rS => rS.EditRound(_sut.SelectedRound.RoundId, _sut.SelectedRound), Times.Once);
         }
 
@@ -130,14 +130,14 @@ namespace JuryApp.Tests.XUnit
         {
             return new Rounds()
             {
-                new Round() { RoundId = 1 + (10 * multiplier), RoundName = "Ronde 1", RoundEnabled = true, RoundQuestions = GenerateQuestionsList(0 + (8 * multiplier)) },
-                new Round() { RoundId = 2 + (10 * multiplier), RoundName = "Ronde 2", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(1 + (8 * multiplier)) },
-                new Round() { RoundId = 3 + (10 * multiplier), RoundName = "Ronde 3", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(2 + (8 * multiplier)) },
-                new Round() { RoundId = 4 + (10 * multiplier), RoundName = "Ronde 4", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(3 + (8 * multiplier)) },
-                new Round() { RoundId = 5 + (10 * multiplier), RoundName = "Ronde 5", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(4 + (8 * multiplier)) },
-                new Round() { RoundId = 6 + (10 * multiplier), RoundName = "Ronde 6", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(5 + (8 * multiplier)) },
-                new Round() { RoundId = 7 + (10 * multiplier), RoundName = "Ronde 7", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(6 + (8 * multiplier)) },
-                new Round() { RoundId = 8 + (10 * multiplier), RoundName = "Ronde 8", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(7 + (8 * multiplier)) },
+                new Round() { RoundId = 1 + (8 * multiplier), RoundName = "Ronde 1", RoundEnabled = true, RoundQuestions = GenerateQuestionsList(0 + (8 * multiplier)) },
+                new Round() { RoundId = 2 + (8 * multiplier), RoundName = "Ronde 2", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(1 + (8 * multiplier)) },
+                new Round() { RoundId = 3 + (8 * multiplier), RoundName = "Ronde 3", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(2 + (8 * multiplier)) },
+                new Round() { RoundId = 4 + (8 * multiplier), RoundName = "Ronde 4", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(3 + (8 * multiplier)) },
+                new Round() { RoundId = 5 + (8 * multiplier), RoundName = "Ronde 5", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(4 + (8 * multiplier)) },
+                new Round() { RoundId = 6 + (8 * multiplier), RoundName = "Ronde 6", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(5 + (8 * multiplier)) },
+                new Round() { RoundId = 7 + (8 * multiplier), RoundName = "Ronde 7", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(6 + (8 * multiplier)) },
+                new Round() { RoundId = 8 + (8 * multiplier), RoundName = "Ronde 8", RoundEnabled = false, RoundQuestions = GenerateQuestionsList(7 + (8 * multiplier)) }
             };
         }
 
