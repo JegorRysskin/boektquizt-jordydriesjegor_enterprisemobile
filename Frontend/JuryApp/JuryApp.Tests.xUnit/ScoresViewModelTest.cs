@@ -1,6 +1,7 @@
 ﻿using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services.Interfaces;
+using JuryApp.Services;
 using JuryApp.ViewModels;
 using Moq;
 using Xunit;
@@ -11,6 +12,7 @@ namespace JuryApp.Tests.XUnit
     {
         private Teams _teams;
         private Mock<ITeamService> _teamServiceMock;
+        private Mock<INavigationServiceEx> _navigationServiceExMock;
 
         public ScoresViewModelTest()
         {
@@ -24,7 +26,7 @@ namespace JuryApp.Tests.XUnit
         public void Constructor_ShouldLoadTeams()
         {
             //Act
-            var sut = new ScoresViewModel(_teamServiceMock.Object);
+            var sut = new ScoresViewModel(_teamServiceMock.Object, _navigationServiceExMock.Object);
 
             //Assert
             Assert.Equal(_teams, sut.Teams);

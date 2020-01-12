@@ -8,17 +8,18 @@ namespace JuryApp.ViewModels
 {
     public class ScoresViewModel
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private readonly INavigationServiceEx _navigationService;
 
         public Teams Teams { get; set; } = new Teams();
         private readonly ITeamService _teamService;
 
-        public ScoresViewModel(ITeamService teamService)
+        public ScoresViewModel(ITeamService teamService, INavigationServiceEx navigationService)
         {
+            _navigationService = navigationService;
             _teamService = teamService;
             FetchListOfTeams(true);
 
-            NavigationService.Navigated += NavigationService_Navigated;
+            _navigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)

@@ -10,15 +10,16 @@ using GalaSoft.MvvmLight.Command;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
     public class CorrectViewModel : ViewModelBase
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        private readonly TeamService _teamService;
-        private readonly RoundService _roundService;
+        private readonly INavigationServiceEx _navigationService;
+        private readonly ITeamService _teamService;
+        private readonly IRoundService _roundService;
 
         public Teams EnabledTeams { get; set; } = new Teams();
         public Team SelectedTeam { get; set; } = new Team();
@@ -28,13 +29,14 @@ namespace JuryApp.ViewModels
         public Answers TeamAnswersPerRound { get; set; } = new Answers();
         public string RoundsSelectionMode { get; set; } = "Single";
 
-        public CorrectViewModel()
+        public CorrectViewModel(ITeamService teamService, IRoundService roundService, INavigationServiceEx navigationService)
         {
-            _teamService = new TeamService();
-            _roundService = new RoundService();
+            _teamService = teamService;
+            _roundService = roundService;
+            _navigationService = navigationService;
 
             FetchListOfEnabledTeams(false);
-            NavigationService.Navigated += NavigationService_Navigated;
+            _navigationService.Navigated += NavigationService_Navigated;
 
         }
 
