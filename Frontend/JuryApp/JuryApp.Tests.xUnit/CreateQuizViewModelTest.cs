@@ -9,6 +9,7 @@ using System.Linq;
 using Windows.UI.Xaml.Media.Animation;
 using Xunit;
 
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
 namespace JuryApp.Tests.XUnit
 {
     public class CreateQuizViewModelTest
