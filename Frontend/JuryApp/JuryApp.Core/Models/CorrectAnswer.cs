@@ -1,4 +1,7 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using GalaSoft.MvvmLight;
 using Newtonsoft.Json;
 
 namespace JuryApp.Core.Models

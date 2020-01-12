@@ -1,11 +1,17 @@
-﻿using GalaSoft.MvvmLight;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
+using JuryApp.Core.Services;
 using JuryApp.Core.Services.Interfaces;
 using JuryApp.Services;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace JuryApp.ViewModels
 {

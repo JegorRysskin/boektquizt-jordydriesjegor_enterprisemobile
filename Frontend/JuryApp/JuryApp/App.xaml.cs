@@ -2,6 +2,7 @@
 using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
+using JuryApp.Helpers;
 
 namespace JuryApp
 {
