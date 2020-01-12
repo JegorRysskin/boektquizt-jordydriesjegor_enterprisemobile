@@ -2,6 +2,7 @@ package enterpriseAndMobile.service;
 
 import enterpriseAndMobile.Exception.NotFoundException;
 import enterpriseAndMobile.dto.RoundPatchDto;
+import enterpriseAndMobile.dto.RoundPatchTeamIdDto;
 import enterpriseAndMobile.model.Quiz;
 import enterpriseAndMobile.model.Round;
 import enterpriseAndMobile.repository.QuizRepository;
@@ -70,5 +71,17 @@ public class RoundService {
         return quiz.get(count).getRounds();
     }
 
-
+    @Transactional
+    public Round patchTeamIdRound(int id, RoundPatchTeamIdDto patch) throws NotFoundException {
+        Optional<Round> round = roundRepository.findById(id);
+        if (round.isPresent()) {
+            if (patch.getTeamId() != 0) {
+                List<Integer> teamIdList = round.get().getTeamIdOpenedRound();
+                teamIdList.add(patch.getTeamId());
+                round.get().setTeamIdOpenedRound(teamIdList);
+            }
+            return roundRepository.patchRound(round.get());
+        }
+        throw new NotFoundException("The round you tried to patch wasn't found.");
+    }
 }
