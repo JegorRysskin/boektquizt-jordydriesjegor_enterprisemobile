@@ -18,6 +18,7 @@ namespace JuryApp.Tests.XUnit
         {
             _teams = GenerateTeamList();
 
+            _navigationServiceExMock = new Mock<INavigationServiceEx>();
             _teamServiceMock = new Mock<ITeamService>();
             _teamServiceMock.Setup(tS => tS.GetAllTeams(It.IsAny<bool>())).ReturnsAsync(_teams);
         }
