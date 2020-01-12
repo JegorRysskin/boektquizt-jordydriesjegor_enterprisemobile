@@ -58,19 +58,6 @@ public class QuizRestController {
     }
 
     @LogExecutionTime
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    @GetMapping(value = "getEnabledQuiz", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Quiz> getEnabledQuiz() {
-        try {
-            Quiz quiz = quizService.getEnabledQuiz();
-            return new ResponseEntity<>(quiz, HttpStatus.OK);
-        } catch (NotFoundException e) {
-            logger.error(e.getMessage(), e);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @LogExecutionTime
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Quiz> addQuiz(@RequestBody QuizDto quizDto) {
