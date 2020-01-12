@@ -1,19 +1,17 @@
-﻿using System.Linq;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
-using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
     public class QuizzenViewModel : ViewModelBase
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        private readonly INavigationServiceEx _navigationService;
 
-        private readonly QuizService _quizService;
+        private readonly IQuizService _quizService;
 
         public Quizzes Quizzes { get; set; } = new Quizzes();
 
@@ -21,12 +19,13 @@ namespace JuryApp.ViewModels
         public RelayCommand<int> EditQuizCommand => new RelayCommand<int>(NavigateToEditQuizPage);
 
 
-        public QuizzenViewModel()
+        public QuizzenViewModel(IQuizService quizService, INavigationServiceEx navigationService)
         {
-            _quizService = new QuizService();
+            _quizService = quizService;
+            _navigationService = navigationService;
             FetchListOfQuizzes(false);
 
-            NavigationService.Navigated += NavigationService_Navigated;
+            _navigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -36,7 +35,7 @@ namespace JuryApp.ViewModels
 
         private void NavigateToCreateQuizPage()
         {
-            NavigationService.Navigate(typeof(CreateQuizViewModel).FullName);
+            _navigationService.Navigate(typeof(CreateQuizViewModel).FullName);
         }
 
         private void NavigateToEditQuizPage(int selectedIndex)
@@ -45,7 +44,7 @@ namespace JuryApp.ViewModels
 
             Messenger.Default.Send(Quizzes[selectedIndex]);
             Messenger.Default.Send(Quizzes);
-            NavigationService.Navigate(typeof(EditQuizViewModel).FullName);
+            _navigationService.Navigate(typeof(EditQuizViewModel).FullName);
         }
 
         private async void FetchListOfQuizzes(bool forceRefresh)

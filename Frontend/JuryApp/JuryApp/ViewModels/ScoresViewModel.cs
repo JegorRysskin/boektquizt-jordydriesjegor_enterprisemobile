@@ -1,5 +1,6 @@
 ﻿using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using System.Linq;
 
 namespace JuryApp.ViewModels
@@ -7,11 +8,11 @@ namespace JuryApp.ViewModels
     public class ScoresViewModel
     {
         public Teams Teams { get; set; } = new Teams();
-        private readonly TeamService _teamService;
+        private readonly ITeamService _teamService;
 
-        public ScoresViewModel()
+        public ScoresViewModel(ITeamService teamService)
         {
-            _teamService = new TeamService();
+            _teamService = teamService;
             FetchListOfTeams(true);
         }
 

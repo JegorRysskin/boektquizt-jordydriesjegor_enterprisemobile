@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using JuryApp.Core.Models;
-using JuryApp.Core.Services;
+using JuryApp.Core.Services.Interfaces;
 using JuryApp.Helpers;
 using JuryApp.Services;
 
@@ -9,15 +9,17 @@ namespace JuryApp.ViewModels
 {
     public class RoundViewModel
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
-        private readonly RoundService _roundService;
+        private readonly INavigationServiceEx _navigationService;
+        private readonly IMessengerCache _messengerCache;
+        private readonly IRoundService _roundService;
 
         public Round SelectedRound { get; set; }
-        public RoundViewModel()
+        public RoundViewModel(IRoundService roundService, INavigationServiceEx navigationService, IMessengerCache messengerCache)
         {
-            _roundService = new RoundService();
-            SelectedRound = MessengerCache.CachedSelectedRound;
+            _roundService = roundService;
+            _navigationService = navigationService;
+            _messengerCache = messengerCache;
+            SelectedRound = _messengerCache.CachedSelectedRound;
             Messenger.Default.Register<Round>(this, (round) => { SelectedRound = round; });
         }
 
@@ -30,7 +32,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.GoBack();
+                _navigationService.GoBack();
             }
         }
 

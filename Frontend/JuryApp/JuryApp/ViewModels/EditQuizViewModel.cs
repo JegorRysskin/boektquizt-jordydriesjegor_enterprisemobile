@@ -6,26 +6,28 @@ using JuryApp.Core.Services;
 using JuryApp.Services;
 using System;
 using System.Linq;
-using Windows.UI.Xaml.Media;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Helpers;
+using JuryApp.Core.Services.Interfaces;
 
 namespace JuryApp.ViewModels
 {
     public class EditQuizViewModel : ViewModelBase
     {
-        private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
-        private MessengerCache MessengerCache => ViewModelLocator.Current.MessengerCache;
+        private INavigationServiceEx _navigationService;
+        private IMessengerCache _messengerCache;
 
         public Quiz SelectedQuiz { get; set; }
         public Quizzes AllQuizzes { get; set; } = new Quizzes();
-        private readonly QuizService _quizService;
+        private readonly IQuizService _quizService;
 
-        public EditQuizViewModel()
+        public EditQuizViewModel(IQuizService quizService, INavigationServiceEx navigationServiceEx, IMessengerCache messengerCache)
         {
-            _quizService = new QuizService();
+            _quizService = quizService;
+            _navigationService = navigationServiceEx;
+            _messengerCache = messengerCache;
 
-            SelectedQuiz = MessengerCache.CachedSelectedQuiz;
+            SelectedQuiz = _messengerCache.CachedSelectedQuiz;
             Messenger.Default.Register<Quiz>(this, (quiz) => { SelectedQuiz = quiz; });
             FetchListOfQuizzes(true);
         }
@@ -40,7 +42,7 @@ namespace JuryApp.ViewModels
             if (selectedRound == null) return;
 
             Messenger.Default.Send(selectedRound);
-            NavigationService.Navigate(typeof(RoundViewModel).FullName);
+            _navigationService.Navigate(typeof(RoundViewModel).FullName);
         }
 
         private async void EditQuiz()
@@ -50,7 +52,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.GoBack();
+                _navigationService.GoBack();
             }
         }
 
@@ -60,7 +62,7 @@ namespace JuryApp.ViewModels
 
             if (result)
             {
-                NavigationService.GoBack();
+                _navigationService.GoBack();
             }
         }
 

@@ -142,11 +142,13 @@
     <Compile Include="Behaviors\NavigationViewHeaderBehavior.cs" />
     <Compile Include="Behaviors\NavigationViewHeaderMode.cs" />
     <Compile Include="Converters\BoolToColorConverter.cs" />
+    <Compile Include="Helpers\IMessengerCache.cs" />
     <Compile Include="Helpers\MessengerCache.cs" />
     <Compile Include="Helpers\NavHelper.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\ActivationService.cs" />
     <Compile Include="Activation\DefaultActivationHandler.cs" />
+    <Compile Include="Services\INavigationServiceEx.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
     <Compile Include="ViewModels\CreateQuizViewModel.cs" />
     <Compile Include="ViewModels\EditQuizViewModel.cs" />

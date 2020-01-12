@@ -33,7 +33,7 @@ namespace JuryApp.ViewModels
             set { Set(ref _isBackEnabled, value); }
         }
 
-        public static NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
+        public static INavigationServiceEx _navigationService;
 
         public WinUI.NavigationViewItem Selected
         {
@@ -45,17 +45,18 @@ namespace JuryApp.ViewModels
 
         public ICommand ItemInvokedCommand => _itemInvokedCommand ?? (_itemInvokedCommand = new RelayCommand<WinUI.NavigationViewItemInvokedEventArgs>(OnItemInvoked));
 
-        public ShellViewModel()
+        public ShellViewModel(INavigationServiceEx navigationService)
         {
+            _navigationService = navigationService;
         }
 
         public void Initialize(Frame frame, WinUI.NavigationView navigationView, IList<KeyboardAccelerator> keyboardAccelerators)
         {
             _navigationView = navigationView;
             _keyboardAccelerators = keyboardAccelerators;
-            NavigationService.Frame = frame;
-            NavigationService.NavigationFailed += Frame_NavigationFailed;
-            NavigationService.Navigated += Frame_Navigated;
+            _navigationService.Frame = frame;
+            _navigationService.NavigationFailed += Frame_NavigationFailed;
+            _navigationService.Navigated += Frame_Navigated;
             _navigationView.BackRequested += OnBackRequested;
         }
 
@@ -74,12 +75,12 @@ namespace JuryApp.ViewModels
                             .OfType<WinUI.NavigationViewItem>()
                             .First(menuItem => (string)menuItem.Content == (string)args.InvokedItem);
             var pageKey = item.GetValue(NavHelper.NavigateToProperty) as string;
-            NavigationService.Navigate(pageKey);
+            _navigationService.Navigate(pageKey);
         }
 
         private void OnBackRequested(WinUI.NavigationView sender, WinUI.NavigationViewBackRequestedEventArgs args)
         {
-            NavigationService.GoBack();
+            _navigationService.GoBack();
         }
 
         private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e)
@@ -89,7 +90,7 @@ namespace JuryApp.ViewModels
 
         private void Frame_Navigated(object sender, NavigationEventArgs e)
         {
-            IsBackEnabled = NavigationService.CanGoBack;
+            IsBackEnabled = _navigationService.CanGoBack;
             Selected = _navigationView.MenuItems
                             .OfType<WinUI.NavigationViewItem>()
                             .FirstOrDefault(menuItem => IsMenuItemForPageType(menuItem, e.SourcePageType));
@@ -97,7 +98,7 @@ namespace JuryApp.ViewModels
 
         private bool IsMenuItemForPageType(WinUI.NavigationViewItem menuItem, Type sourcePageType)
         {
-            var navigatedPageKey = NavigationService.GetNameOfRegisteredPage(sourcePageType);
+            var navigatedPageKey = _navigationService.GetNameOfRegisteredPage(sourcePageType);
             var pageKey = menuItem.GetValue(NavHelper.NavigateToProperty) as string;
             return pageKey == navigatedPageKey;
         }
@@ -116,7 +117,7 @@ namespace JuryApp.ViewModels
 
         private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
         {
-            var result = NavigationService.GoBack();
+            var result = _navigationService.GoBack();
             args.Handled = result;
         }
     }

@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace JuryApp.Services
 {
-    public class NavigationServiceEx
+    public class NavigationServiceEx : INavigationServiceEx
     {
         public event NavigatedEventHandler Navigated;
 
