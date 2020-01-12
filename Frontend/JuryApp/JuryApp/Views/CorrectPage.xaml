@@ -7,35 +7,110 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:converters="using:JuryApp.Converters"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <converters:ListViewSelectedItemsConverter x:Key="ListViewSelectedItemsConverter"></converters:ListViewSelectedItemsConverter>
+    </Page.Resources>
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
-        <GridView x:Name="EnabledTeamsGridView" ItemsSource="{x:Bind ViewModel.EnabledTeams, Mode=OneWay}"
-                  IsItemClickEnabled="False"
-                  IsSwipeEnabled="False"
-                  CanDragItems="False"
-                  SelectionMode="Single"
-                  HorizontalAlignment="Center"
-                  RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+        <RelativePanel>
 
-            <!-- <interactivity:Interaction.Behaviors> -->
-            <!--     <core:EventTriggerBehavior EventName="SelectionChanged"> -->
-            <!--         <core:InvokeCommandAction Command="{x:Bind ViewModel.NavigateToRoundCommand}" CommandParameter="{Binding SelectedItem, ElementName=RoundsGridView}"/> -->
-            <!--     </core:EventTriggerBehavior> -->
-            <!-- </interactivity:Interaction.Behaviors> -->
+            <GridView x:Name="EnabledTeamsGridView" ItemsSource="{x:Bind ViewModel.EnabledTeams, Mode=OneWay}"
+                      IsItemClickEnabled="False"
+                      IsSwipeEnabled="False"
+                      CanDragItems="False"
+                      SelectionMode="Single"
+                      HorizontalAlignment="Center"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True">
 
-            <GridView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Padding="50" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
-                        <TextBlock Text="{Binding TeamName}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-            <GridView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <ItemsWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </GridView.ItemsPanel>
-        </GridView>
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.GetAnswersSelectedTeamCommand}" CommandParameter="{Binding SelectedItem, ElementName=EnabledTeamsGridView}"/>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Padding="50" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                            <TextBlock Text="{Binding TeamName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+
+            <GridView x:Name="QuizRoundsGridView" ItemsSource="{x:Bind ViewModel.QuizRounds}"
+                      IsItemClickEnabled="False"
+                      IsSwipeEnabled="False"
+                      CanDragItems="False"
+                      SelectionMode="{x:Bind ViewModel.RoundsSelectionMode, Mode=TwoWay}"
+                      HorizontalAlignment="Center"
+                      RelativePanel.AlignHorizontalCenterWithPanel="True"
+                      RelativePanel.Below="EnabledTeamsGridView">
+
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="SelectionChanged">
+                        <core:InvokeCommandAction Command="{x:Bind ViewModel.GetSelectedRoundCommand}" CommandParameter="{Binding SelectedItem, ElementName=QuizRoundsGridView}"/>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+
+                <GridView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Padding="10" Margin="10" Background="{ThemeResource SystemControlBackgroundBaseLowBrush}">
+                            <TextBlock Text="{Binding RoundName}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid MaximumRowsOrColumns="5" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+            </GridView>
+
+            <Button x:Name="SendAnswersButton" Style="{StaticResource AccentButtonStyle}" Content="Verzend score" Margin="10" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"
+                    Command="{x:Bind ViewModel.SendScoreCommand}" CommandParameter="{Binding ElementName=TeamAnswersListView, Converter={StaticResource ListViewSelectedItemsConverter}}"  />
+
+            <ListView x:Name="TeamAnswersListView" ItemsSource="{x:Bind ViewModel.TeamAnswersPerRound}" Width="400" SelectionMode="Multiple"
+                  RelativePanel.Below="QuizRoundsGridView"
+                  RelativePanel.AlignHorizontalCenterWithPanel="True"
+                   IsMultiSelectCheckBoxEnabled="True">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <RelativePanel BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}" BorderThickness="1" Width="400">
+                            <StackPanel x:Name="AnswersStackPanel" RelativePanel.AlignVerticalCenterWithPanel="True">
+                                <TextBlock Text="{Binding AnswerQuestion.QuestionText}" TextAlignment="Center" Margin="10"/>
+                                <TextBlock Text="{Binding AnswerText}" TextAlignment="Center" Margin="10"/>
+                            </StackPanel>
+
+                            <ListView x:Name="CorrectAnswersListView" ItemsSource="{Binding AnswerQuestion.QuestionCorrectAnswers}" SelectionMode="None"
+                                      IsItemClickEnabled="False"
+                                      RelativePanel.RightOf="AnswersStackPanel">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel x:Name="CorrectAnswersStackPanel">
+                                            <TextBlock Text="Correcte Antwoord" TextAlignment="Center" Margin="10"/>
+                                            <TextBlock Text="{Binding CorrectAnswerText}" TextAlignment="Center" Margin="10"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </RelativePanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RelativePanel>
     </Grid>
 </Page>

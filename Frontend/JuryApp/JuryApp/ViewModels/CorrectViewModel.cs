@@ -1,32 +1,101 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
 using JuryApp.Services;
 
 namespace JuryApp.ViewModels
 {
-    public class CorrectViewModel
+    public class CorrectViewModel : ViewModelBase
     {
         private NavigationServiceEx NavigationService => ViewModelLocator.Current.NavigationService;
         private readonly TeamService _teamService;
+        private readonly RoundService _roundService;
+
         public Teams EnabledTeams { get; set; } = new Teams();
+        public Team SelectedTeam { get; set; } = new Team();
+        public Answers TeamAnswers { get; set; } = new Answers();
+        public Rounds QuizRounds { get; set; } = new Rounds();
+
+        public Answers TeamAnswersPerRound { get; set; } = new Answers();
+        public string RoundsSelectionMode { get; set; } = "Single";
 
         public CorrectViewModel()
         {
             _teamService = new TeamService();
-            FetchListOfEnabledTeams(false);
+            _roundService = new RoundService();
 
+            FetchListOfEnabledTeams(false);
             NavigationService.Navigated += NavigationService_Navigated;
 
+        }
+
+        public RelayCommand<Team> GetAnswersSelectedTeamCommand => new RelayCommand<Team>(GetAnswersSelectedTeam);
+        public RelayCommand<Round> GetSelectedRoundCommand => new RelayCommand<Round>(GetSelectedRound);
+        public RelayCommand<IList<object>> SendScoreCommand => new RelayCommand<IList<object>>(SendScore);
+
+        private void SendScore(IList<object> listItems)
+        {
+            PatchScoreToSelectedTeam(listItems.Count);
+        }
+
+        private async void PatchScoreToSelectedTeam(int score)
+        {
+            var result = await _teamService.PatchTeamScore(SelectedTeam.TeamId, score);
+        }
+
+        private void GetAnswersSelectedTeam(Team selectedTeam)
+        {
+            if (selectedTeam == null) return;
+            SelectedTeam = selectedTeam;
+
+            RoundsSelectionMode = "None";
+            RaisePropertyChanged(() => RoundsSelectionMode);
+            TeamAnswersPerRound.Clear();
+
+            TeamAnswers.Clear();
+            selectedTeam.TeamAnswers.ToList().ForEach(a =>
+            {
+                TeamAnswers.Add(a);
+            });
+
+            RoundsSelectionMode = "Single";
+            RaisePropertyChanged(() => RoundsSelectionMode);
+
+        }
+
+        private void GetSelectedRound(Round selectedRound)
+        {
+            if (selectedRound == null) return;
+
+            var questions = QuizRounds.First(r => r == selectedRound).RoundQuestions;
+
+            TeamAnswersPerRound.Clear();
+            foreach (var answer in TeamAnswers)
+            {
+                foreach (var question in questions)
+                {
+                    if (answer.AnswerQuestion.QuestionId == question.QuestionId)
+                    {
+                        TeamAnswersPerRound.Add(answer);
+                    }
+                }
+            }
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
             FetchListOfEnabledTeams(true);
+            GetRoundsFromEnabledQuiz(true);
+            TeamAnswersPerRound.Clear();
         }
 
         private async void FetchListOfEnabledTeams(bool forceRefresh)
@@ -39,6 +108,19 @@ namespace JuryApp.ViewModels
                 if (team.TeamEnabled)
                     EnabledTeams.Add(team);
             }
+            GetRoundsFromEnabledQuiz(true);
+        }
+
+        private async void GetRoundsFromEnabledQuiz(bool forceRefresh)
+        {
+            var rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
+
+            QuizRounds.Clear();
+            foreach (var round in rounds)
+            {
+                QuizRounds.Add(round);
+            }
+
         }
     }
 }
