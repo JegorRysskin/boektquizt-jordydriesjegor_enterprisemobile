@@ -19,6 +19,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,11 +32,8 @@ import static enterpriseAndMobile.util.HttpStatusUtils.ok;
 public class QuizRestController {
     protected final Log logger = LogFactory.getLog(getClass());
 
-    @Autowired
-    private QuizService quizService;
-
-    @Autowired
-    private TeamService teamService;
+    private final QuizService quizService;
+    public QuizRestController(QuizService quizService) { this.quizService = quizService; }
 
     private final ExecutorService service = Executors.newCachedThreadPool();
 

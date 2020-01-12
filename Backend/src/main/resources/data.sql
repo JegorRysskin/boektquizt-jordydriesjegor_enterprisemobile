@@ -10,7 +10,7 @@ INSERT INTO `team` (`id`, `enabled`, `name`, `scores`) VALUES
 (3, b'0', 'Team3', 10);
 
 INSERT INTO `quiz` (`id`, `enabled`, `name`) VALUES
-(1, b'1', 'Quiz1'),
+(1, b'0', 'Quiz1'),
 (2, b'0', 'Quiz2'),
 (3, b'0', 'Quiz3');
 
