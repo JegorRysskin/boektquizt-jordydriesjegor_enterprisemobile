@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using JuryApp.Core.Models;
+﻿using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
+using System.Threading.Tasks;
 
 namespace JuryApp.Core.Services.Interfaces
 {

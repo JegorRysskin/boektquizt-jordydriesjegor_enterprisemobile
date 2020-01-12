@@ -1,8 +1,7 @@
 ﻿using JuryApp.Core.Models.Collections;
-using JuryApp.Core.Services;
 using JuryApp.Core.Services.Interfaces;
-using System.Linq;
 using JuryApp.Services;
+using System.Linq;
 
 namespace JuryApp.ViewModels
 {

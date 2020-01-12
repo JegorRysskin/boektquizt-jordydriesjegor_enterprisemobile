@@ -2,13 +2,12 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using JuryApp.Core.Models;
-using JuryApp.Core.Services;
+using JuryApp.Core.Models.Collections;
+using JuryApp.Core.Services.Interfaces;
+using JuryApp.Helpers;
 using JuryApp.Services;
 using System;
 using System.Linq;
-using JuryApp.Core.Models.Collections;
-using JuryApp.Helpers;
-using JuryApp.Core.Services.Interfaces;
 
 namespace JuryApp.ViewModels
 {

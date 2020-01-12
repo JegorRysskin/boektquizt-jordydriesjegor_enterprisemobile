@@ -1,7 +1,7 @@
-﻿using JuryApp.Core.Models.Collections;
+﻿using JuryApp.Core.Models;
+using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services.Interfaces;
 using System.Threading.Tasks;
-using JuryApp.Core.Models;
 
 namespace JuryApp.Core.Services
 {
@@ -28,7 +28,7 @@ namespace JuryApp.Core.Services
 
         public async Task<bool> PatchTeamScore(int id, int score)
         {
-            var result = await _httpDataService.PatchAsJsonAsync($"team/score/{id}", new Team{ TeamScore = score}, await LoginService.Login());
+            var result = await _httpDataService.PatchAsJsonAsync($"team/score/{id}", new Team { TeamScore = score }, await LoginService.Login());
             return result;
         }
 

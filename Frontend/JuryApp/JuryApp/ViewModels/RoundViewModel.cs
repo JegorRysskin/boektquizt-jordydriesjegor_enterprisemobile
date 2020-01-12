@@ -41,7 +41,7 @@ namespace JuryApp.ViewModels
         {
             if (selectedQuestionIndex == -1) return;
 
-            SelectedRound.RoundQuestions[selectedQuestionIndex].QuestionCorrectAnswers.Add( new CorrectAnswer{CorrectAnswerText = ""} );
+            SelectedRound.RoundQuestions[selectedQuestionIndex].QuestionCorrectAnswers.Add(new CorrectAnswer { CorrectAnswerText = "" });
         }
     }
 }

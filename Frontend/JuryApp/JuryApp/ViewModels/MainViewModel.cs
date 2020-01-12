@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services.Interfaces;
 using JuryApp.Services;
+using System.Linq;
 
 namespace JuryApp.ViewModels
 {
@@ -31,7 +31,7 @@ namespace JuryApp.ViewModels
         private void DisableAllRounds()
         {
             if (!Rounds.Any(r => r.RoundEnabled)) return;
-            
+
             SelectionMode = "None";
             RaisePropertyChanged(() => SelectionMode);
 
