@@ -13,7 +13,7 @@ namespace JuryApp.Converters
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             var listView = value as ListView;
-            return listView?.SelectedItems;
+            return listView?.SelectedItems.Count;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

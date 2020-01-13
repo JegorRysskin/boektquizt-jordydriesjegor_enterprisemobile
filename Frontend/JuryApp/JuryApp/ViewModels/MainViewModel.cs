@@ -63,10 +63,10 @@ namespace JuryApp.ViewModels
 
         }
 
-        private async void EnableSelectedRound(Round selectedRound)
-        {
-            await _roundService.EditRound(selectedRound.RoundId, selectedRound);
-        }
+        // private async void EnableSelectedRound(Round selectedRound)
+        // {
+        //     await _roundService.EditRound(selectedRound.RoundId, selectedRound);
+        // }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {

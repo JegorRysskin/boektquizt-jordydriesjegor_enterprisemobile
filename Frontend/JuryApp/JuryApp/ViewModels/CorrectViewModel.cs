@@ -42,19 +42,17 @@ namespace JuryApp.ViewModels
 
         public RelayCommand<Team> GetAnswersSelectedTeamCommand => new RelayCommand<Team>(GetAnswersSelectedTeam);
         public RelayCommand<Round> GetSelectedRoundCommand => new RelayCommand<Round>(GetSelectedRound);
-        public RelayCommand<IList<object>> SendScoreCommand => new RelayCommand<IList<object>>(SendScore);
+        public RelayCommand<int> SendScoreCommand => new RelayCommand<int>(SendScore);
 
-        private void SendScore(IList<object> listItems)
+        private void SendScore(int listItems)
         {
-            PatchScoreToSelectedTeam(listItems.Count);
+            PatchScoreToSelectedTeam(listItems);
         }
 
         private async void PatchScoreToSelectedTeam(int score)
         {
             var result = await _teamService.PatchTeamScore(SelectedTeam.TeamId, score);
-
-            SelectedTeam = await _teamService.GetTeamById(SelectedTeam.TeamId);
-            RaisePropertyChanged(() => SelectedTeam);
+            SelectedTeam.TeamScore += score;
         }
 
         private void GetAnswersSelectedTeam(Team selectedTeam)
