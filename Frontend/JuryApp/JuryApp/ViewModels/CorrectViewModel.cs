@@ -30,11 +30,15 @@ namespace JuryApp.ViewModels
         public Answers TeamAnswersPerRound { get; set; } = new Answers();
         public string RoundsSelectionMode { get; set; } = "Single";
 
+        private Dictionary<int, int> _teamRoundDictionary;
+
         public CorrectViewModel(ITeamService teamService, IRoundService roundService, INavigationServiceEx navigationService)
         {
             _teamService = teamService;
             _roundService = roundService;
             _navigationService = navigationService;
+
+            _teamRoundDictionary = new Dictionary<int, int>();
 
             FetchListOfEnabledTeams(false);
             _navigationService.Navigated += NavigationService_Navigated;
@@ -42,11 +46,11 @@ namespace JuryApp.ViewModels
 
         public RelayCommand<Team> GetAnswersSelectedTeamCommand => new RelayCommand<Team>(GetAnswersSelectedTeam);
         public RelayCommand<Round> GetSelectedRoundCommand => new RelayCommand<Round>(GetSelectedRound);
-        public RelayCommand<int> SendScoreCommand => new RelayCommand<int>(SendScore);
+        public RelayCommand<IList<object>> SendScoreCommand => new RelayCommand<IList<object>>(SendScore);
 
-        private void SendScore(int listItems)
+        private void SendScore(IList<object> listItems)
         {
-            PatchScoreToSelectedTeam(listItems);
+            PatchScoreToSelectedTeam(listItems.Count);
         }
 
         private async void PatchScoreToSelectedTeam(int score)
