@@ -67,30 +67,6 @@ public class QuizRestController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        /*if (quizDto.getRounds() != null && quizDto.getRounds().get(0) != null && quizDto.getRounds().get(0).getQuestions() != null) {
-
-            service.execute(() -> {
-                AnswerDto answerDto = new AnswerDto();
-                answerDto.setAnswerString("");
-
-                for (Team team : teamService.getAllTeams()) {
-                    try {
-                        for (Round round : quiz.getRounds()) {
-                            for (Question question : quiz.getRounds().get(0).getQuestions()) {
-                                answerDto.setQuestionId(question.getId());
-                                teamService.patchTeamAnswers(team.getId(), answerDto);
-                            }
-                        }
-                    } catch (NotFoundException e) {
-                    }
-                }
-            });
-
-            return new ResponseEntity<>(quiz, HttpStatus.CREATED);
-        }
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);*/
     }
 
     @LogExecutionTime
