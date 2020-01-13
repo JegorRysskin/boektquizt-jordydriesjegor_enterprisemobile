@@ -77,7 +77,7 @@
                     Command="{x:Bind ViewModel.SendScoreCommand}" CommandParameter="{Binding ElementName=TeamAnswersListView, Converter={StaticResource ListViewSelectedItemsConverter}}"
                     IsEnabled="{x:Bind ViewModel.IsNotCorrected, Mode=TwoWay}"/>
 
-            <ListView x:Name="TeamAnswersListView" ItemsSource="{x:Bind ViewModel.TeamAnswersPerRound}" Width="400" SelectionMode="Multiple"
+            <ListView x:Name="TeamAnswersListView" ItemsSource="{x:Bind ViewModel.TeamAnswersPerRound}" SelectionMode="Multiple"
                   RelativePanel.Below="QuizRoundsGridView"
                   RelativePanel.AlignHorizontalCenterWithPanel="True"
                    IsMultiSelectCheckBoxEnabled="True">
@@ -90,18 +90,18 @@
                 </ListView.ItemContainerStyle>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <RelativePanel BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}" BorderThickness="1" Width="400">
-                            <StackPanel x:Name="AnswersStackPanel" RelativePanel.AlignVerticalCenterWithPanel="True">
+                        <RelativePanel BorderBrush="{ThemeResource SystemControlBackgroundBaseLowBrush}" BorderThickness="1" Width="600">
+                            <StackPanel x:Name="AnswersStackPanel" RelativePanel.AlignVerticalCenterWithPanel="True" Width="250">
                                 <TextBlock Text="{Binding AnswerQuestion.QuestionText}" TextAlignment="Center" Margin="10"/>
                                 <TextBlock Text="{Binding AnswerText}" TextAlignment="Center" Margin="10"/>
                             </StackPanel>
 
                             <ListView x:Name="CorrectAnswersListView" ItemsSource="{Binding AnswerQuestion.QuestionCorrectAnswers}" SelectionMode="None"
                                       IsItemClickEnabled="False"
-                                      RelativePanel.RightOf="AnswersStackPanel">
+                                      RelativePanel.AlignRightWithPanel="true">
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel x:Name="CorrectAnswersStackPanel">
+                                        <StackPanel x:Name="CorrectAnswersStackPanel" Width="250">
                                             <TextBlock Text="Correcte Antwoord" TextAlignment="Center" Margin="10"/>
                                             <TextBlock Text="{Binding CorrectAnswerText}" TextAlignment="Center" Margin="10"/>
                                         </StackPanel>
