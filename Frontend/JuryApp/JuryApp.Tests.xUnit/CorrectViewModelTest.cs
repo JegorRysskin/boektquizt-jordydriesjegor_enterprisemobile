@@ -130,18 +130,13 @@ namespace JuryApp.Tests.XUnit
             var selectedRound = _rounds[_random.Next(_rounds.Count)];
             _sut.GetAnswersSelectedTeamCommand.Execute(selectedTeam);
             _sut.GetSelectedRoundCommand.Execute(selectedRound);
-            var listItems = new List<object>();
-
-            foreach(Answer answer in _sut.TeamAnswersPerRound)
-            {
-                listItems.Add(new ListItem(){ QuestionText = answer.AnswerQuestion.QuestionText, AnswerText = answer.AnswerText, CorrectAnswerText = answer.AnswerQuestion.QuestionCorrectAnswers.First().CorrectAnswerText });
-            }
+            var randomScore = _random.Next(50);
 
             //Act
-            _sut.SendScoreCommand.Execute(listItems);
+            _sut.SendScoreCommand.Execute(randomScore);
 
             //Assert
-            Assert.Equal(teamScoreBefore + listItems.Count, selectedTeam.TeamScore);
+            Assert.Equal(teamScoreBefore + randomScore, selectedTeam.TeamScore);
             _teamServiceMock.Verify(tS => tS.PatchTeamScore(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
 
@@ -284,17 +279,5 @@ namespace JuryApp.Tests.XUnit
                 new Question() { QuestionId = 10 + (10 * multiplier), QuestionText = "Vraag 10", QuestionCorrectAnswers = new CorrectAnswers { new CorrectAnswer() { CorrectAnswerId = 10 + (10 * multiplier), CorrectAnswerText = "Voorbeeldantwoord 10" } } }
             };
         }
-    }
-
-    internal class ListItem
-    {
-        public ListItem()
-        {
-        }
-
-        public string QuestionText { get; set; }
-        public string AnswerText { get; set; }
-        public string CorrectAnswerText { get; set; }
-        public bool IsChecked { get; set; }
     }
 }
