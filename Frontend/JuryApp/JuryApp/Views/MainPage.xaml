@@ -18,6 +18,9 @@
     <Grid x:Name="ContentArea" Margin="{StaticResource MediumLeftRightMargin}">
         <Grid Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
             <RelativePanel>
+                <Button x:Name="RefreshTeamsButton" Style="{StaticResource AccentButtonStyle}" Content="Haal teams opnieuw op" Margin="10" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignBottomWithPanel="True"
+                        CommandParameter="{Binding SelectedItem, ElementName=RoundsGridView}"
+                        Command="{x:Bind ViewModel.RefreshTeamsCommand}"/>
                 <Button x:Name="DisableAllRoundsButton" Style="{StaticResource AccentButtonStyle}" Content="Sluit alle rondes" Margin="10" Command="{x:Bind ViewModel.DisableAllRoundsCommand}"/>
                 <Button x:Name="EnableRoundButton" Style="{StaticResource AccentButtonStyle}" Content="Zet ronde aan" Margin="10" CommandParameter="{Binding SelectedItem, ElementName=RoundsGridView}"
                         Command="{x:Bind ViewModel.EnableRoundCommand}"

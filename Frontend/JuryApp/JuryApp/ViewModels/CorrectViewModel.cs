@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
@@ -23,11 +24,15 @@ namespace JuryApp.ViewModels
 
         public Teams EnabledTeams { get; set; } = new Teams();
         public Team SelectedTeam { get; set; } = new Team();
+        public Round SelectedRound { get; set; } = new Round();
         public Answers TeamAnswers { get; set; } = new Answers();
         public Rounds QuizRounds { get; set; } = new Rounds();
+        public bool IsNotCorrected { get; set; } = true;
 
         public Answers TeamAnswersPerRound { get; set; } = new Answers();
         public string RoundsSelectionMode { get; set; } = "Single";
+
+        private Dictionary<int, int> _teamRoundDictionary;
 
         public CorrectViewModel(ITeamService teamService, IRoundService roundService, INavigationServiceEx navigationService)
         {
@@ -35,9 +40,10 @@ namespace JuryApp.ViewModels
             _roundService = roundService;
             _navigationService = navigationService;
 
+            _teamRoundDictionary = new Dictionary<int, int>();
+
             FetchListOfEnabledTeams(false);
             _navigationService.Navigated += NavigationService_Navigated;
-
         }
 
         public RelayCommand<Team> GetAnswersSelectedTeamCommand => new RelayCommand<Team>(GetAnswersSelectedTeam);
@@ -52,9 +58,13 @@ namespace JuryApp.ViewModels
         private async void PatchScoreToSelectedTeam(int score)
         {
             var result = await _teamService.PatchTeamScore(SelectedTeam.TeamId, score);
+            SelectedTeam.TeamScore += score;
 
-            SelectedTeam = await _teamService.GetTeamById(SelectedTeam.TeamId);
-            RaisePropertyChanged(() => SelectedTeam);
+            if (!result) return;
+
+            _teamRoundDictionary.Add(SelectedTeam.TeamId, SelectedRound.RoundId);
+            IsNotCorrected = false;
+            RaisePropertyChanged(() => IsNotCorrected);
         }
 
         private void GetAnswersSelectedTeam(Team selectedTeam)
@@ -81,6 +91,10 @@ namespace JuryApp.ViewModels
         {
             if (selectedRound == null) return;
 
+            SelectedRound = selectedRound;
+
+            CheckIfCorrected();
+
             var questions = QuizRounds.First(r => r == selectedRound).RoundQuestions;
 
             TeamAnswersPerRound.Clear();
@@ -93,6 +107,22 @@ namespace JuryApp.ViewModels
                         TeamAnswersPerRound.Add(answer);
                     }
                 }
+            }
+        }
+
+        private void CheckIfCorrected()
+        {
+            _teamRoundDictionary.TryGetValue(SelectedTeam.TeamId, out var roundIdInDictionary);
+
+            if (roundIdInDictionary != SelectedRound.RoundId)
+            {
+                IsNotCorrected = true;
+                RaisePropertyChanged(() => IsNotCorrected);
+            }
+            else
+            {
+                IsNotCorrected = false;
+                RaisePropertyChanged(() => IsNotCorrected);
             }
         }
 

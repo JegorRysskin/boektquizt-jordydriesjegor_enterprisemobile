@@ -31,6 +31,12 @@ namespace JuryApp.ViewModels
         public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRound);
         public RelayCommand DisableAllRoundsCommand => new RelayCommand(DisableAllRounds);
         public RelayCommand<Round> GetTeamsOfSelectedRoundCommand => new RelayCommand<Round>(FetchListOfTeamsByRound);
+        public RelayCommand<Round> RefreshTeamsCommand => new RelayCommand<Round>(RefreshTeams);
+
+        private void RefreshTeams(Round selectedRound)
+        {
+            GetRoundsFromEnabledQuiz(true);
+        }
 
         private void DisableAllRounds()
         {
@@ -61,11 +67,6 @@ namespace JuryApp.ViewModels
                 await _roundService.EditRound(r.RoundId, r);
             });
 
-        }
-
-        private async void EnableSelectedRound(Round selectedRound)
-        {
-            await _roundService.EditRound(selectedRound.RoundId, selectedRound);
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)

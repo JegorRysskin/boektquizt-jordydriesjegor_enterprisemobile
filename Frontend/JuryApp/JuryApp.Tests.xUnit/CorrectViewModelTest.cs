@@ -131,18 +131,17 @@ namespace JuryApp.Tests.XUnit
             _sut.GetAnswersSelectedTeamCommand.Execute(selectedTeam);
             _sut.GetSelectedRoundCommand.Execute(selectedRound);
             var listItems = new List<object>();
-            var possibilities = new bool[] { true, false };
 
-            foreach(Answer answer in _sut.TeamAnswersPerRound)
+            for (int i = 0; i < _random.Next(10); i++)
             {
-                listItems.Add(new ListItem(){ QuestionText = answer.AnswerQuestion.QuestionText, AnswerText = answer.AnswerText, CorrectAnswerText = answer.AnswerQuestion.QuestionCorrectAnswers.First().CorrectAnswerText, IsChecked = possibilities[_random.Next(2)] });
+                listItems.Add(new ListItem() { QuestionText = _sut.TeamAnswersPerRound[i].AnswerQuestion.QuestionText, AnswerText = _sut.TeamAnswersPerRound[i].AnswerText, CorrectAnswerText = _sut.TeamAnswersPerRound[i].AnswerQuestion.QuestionCorrectAnswers.First().CorrectAnswerText });
             }
 
             //Act
             _sut.SendScoreCommand.Execute(listItems);
 
             //Assert
-            Assert.Equal(teamScoreBefore + listItems.Where(listItem => ((ListItem)listItem).IsChecked).Count(), selectedTeam.TeamScore);
+            Assert.Equal(teamScoreBefore + listItems.Count, selectedTeam.TeamScore);
             _teamServiceMock.Verify(tS => tS.PatchTeamScore(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
 

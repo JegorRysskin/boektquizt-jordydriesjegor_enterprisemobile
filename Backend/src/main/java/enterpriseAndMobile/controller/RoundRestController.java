@@ -69,7 +69,7 @@ public class RoundRestController {
     @LogExecutionTime
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     @PatchMapping(value = "/teams/{id}")
-    public ResponseEntity<Round> patchTeamAnswers(@PathVariable("id") int id, @RequestBody RoundPatchTeamIdDto roundPatchTeamDto) {
+    public ResponseEntity<Round> patchTeamIdRound(@PathVariable("id") int id, @RequestBody RoundPatchTeamIdDto roundPatchTeamDto) {
         try {
             Round round = roundService.patchTeamIdRound(id, roundPatchTeamDto);
             return new ResponseEntity<>(round, HttpStatus.OK);
