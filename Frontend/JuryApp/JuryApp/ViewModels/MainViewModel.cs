@@ -12,12 +12,15 @@ namespace JuryApp.ViewModels
     {
         private readonly INavigationServiceEx _navigationService;
         private readonly IRoundService _roundService;
+        private readonly ITeamService _teamService;
 
-        public Rounds Rounds { get; set; }
+        public Rounds Rounds { get; set; } = new Rounds();
         public string SelectionMode { get; set; } = "Single";
+        public Teams TeamsBySelectedRound { get; set; } = new Teams();
 
-        public MainViewModel(IRoundService roundService, INavigationServiceEx navigationService)
+        public MainViewModel(ITeamService teamService, IRoundService roundService, INavigationServiceEx navigationService)
         {
+            _teamService = teamService;
             _roundService = roundService;
             _navigationService = navigationService;
             GetRoundsFromEnabledQuiz(true);
@@ -25,13 +28,16 @@ namespace JuryApp.ViewModels
             _navigationService.Navigated += NavigationService_Navigated;
         }
 
-        public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRounds);
+        public RelayCommand<Round> EnableRoundCommand => new RelayCommand<Round>(EnableRound);
         public RelayCommand DisableAllRoundsCommand => new RelayCommand(DisableAllRounds);
+        public RelayCommand<Round> GetTeamsOfSelectedRoundCommand => new RelayCommand<Round>(FetchListOfTeamsByRound);
 
         private void DisableAllRounds()
         {
             if (!Rounds.Any(r => r.RoundEnabled)) return;
-            
+
+            TeamsBySelectedRound.Clear();
+
             SelectionMode = "None";
             RaisePropertyChanged(() => SelectionMode);
 
@@ -45,7 +51,7 @@ namespace JuryApp.ViewModels
             RaisePropertyChanged(() => SelectionMode);
         }
 
-        private void EnableRounds(Round selectedRound)
+        private void EnableRound(Round selectedRound)
         {
             if (selectedRound == null) return;
 
@@ -54,6 +60,12 @@ namespace JuryApp.ViewModels
                 r.RoundEnabled = r.RoundId == selectedRound.RoundId;
                 await _roundService.EditRound(r.RoundId, r);
             });
+
+        }
+
+        private async void EnableSelectedRound(Round selectedRound)
+        {
+            await _roundService.EditRound(selectedRound.RoundId, selectedRound);
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
@@ -65,6 +77,17 @@ namespace JuryApp.ViewModels
         {
             Rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
             RaisePropertyChanged(() => Rounds);
+        }
+
+        private async void FetchListOfTeamsByRound(Round selectedRound)
+        {
+            if (selectedRound == null) return;
+
+            var teams = await _teamService.GetAllTeams(true);
+
+            TeamsBySelectedRound.Clear();
+
+            teams.ToList().Where(t => selectedRound.RoundTeamsIndication.Contains(t.TeamId)).ToList().ForEach(t => TeamsBySelectedRound.Add(t));
 
         }
     }
