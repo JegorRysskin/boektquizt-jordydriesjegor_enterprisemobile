@@ -12,6 +12,8 @@ namespace JuryApp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            var valueObject = value;
+
             var listView = value as ListView;
             return listView?.SelectedItems;
         }

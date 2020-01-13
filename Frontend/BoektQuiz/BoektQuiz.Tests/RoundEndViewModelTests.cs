@@ -27,19 +27,23 @@ namespace BoektQuiz.Tests
         [SetUp]
         public void SetUp()
         {
+            _round = GenerateRound();
+            _team = GenerateTeam();
+
             _crossConnectivityFake = new CrossConnectivityFake();
             _navigationServiceMock = new Mock<INavigationService>();
             _roundRepositoryMock = new Mock<IRoundRepository>();
             _teamRepositoryMock = new Mock<ITeamRepository>();
             _backendServiceMock = new Mock<IBackendService>();
-            _sut = new RoundEndViewModel(_navigationServiceMock.Object, _roundRepositoryMock.Object, _teamRepositoryMock.Object, _backendServiceMock.Object);
-            _receiver = new QuestionViewModel(_navigationServiceMock.Object);
-            _round = GenerateRound();
-            _team = GenerateTeam();
             _backendServiceMock.Setup(backend => backend.GetTeamByToken(It.IsAny<String>())).ReturnsAsync(_team);
             _backendServiceMock.Setup(backend => backend.GetRoundById(It.IsAny<Int32>(), It.IsAny<String>())).ReturnsAsync(_round);
+
+            _receiver = new QuestionViewModel(_navigationServiceMock.Object);
             _sender = new RoundStartViewModel(_navigationServiceMock.Object, _backendServiceMock.Object, 1);
             _sender.StartRoundCommand.Execute(null);
+            _sut = new RoundEndViewModel(_navigationServiceMock.Object, _roundRepositoryMock.Object, _teamRepositoryMock.Object, _backendServiceMock.Object);
+
+            FillInAnswers();
             Connectivity.Instance = _crossConnectivityFake;
         }
 
@@ -56,29 +60,45 @@ namespace BoektQuiz.Tests
         }
 
         [Test]
-        public void EndRoundCommand_IfNoConnectionIsEstablishedShouldntBeAbleToExecute()
+        public void EndRoundCommand_IfNoConnectionIsEstablishedAndRoundDisabled_ShouldntBeAbleToExecute()
         {
             //Arrange
             _crossConnectivityFake.ConnectionValue = false;
+            _sut.Round.Enabled = false;
 
             //Act
-            var canExecuteStartRoundCommand = _sut.EndRoundCommand.CanExecute(null);
+            var canExecuteEndRoundCommand = _sut.EndRoundCommand.CanExecute(null);
 
             //Assert
-            Assert.That(canExecuteStartRoundCommand, Is.EqualTo(false));
+            Assert.That(canExecuteEndRoundCommand, Is.EqualTo(false));
         }
 
         [Test]
-        public void EndRoundCommand_IfConnectionIsEstablishedShouldBeAbleToExecute()
+        public void EndRoundCommand_IfConnectionIsEstablishedAndRoundEnabled_ShouldntBeAbleToExecute()
+        {
+            //Arrange
+            _crossConnectivityFake.ConnectionValue = false;
+            _sut.Round.Enabled = true;
+
+            //Act
+            var canExecuteEndRoundCommand = _sut.EndRoundCommand.CanExecute(null);
+
+            //Assert
+            Assert.That(canExecuteEndRoundCommand, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void EndRoundCommand_IfConnectionIsEstablishedAndRoundDisabled_ShouldBeAbleToExecute()
         {
             //Arrange
             _crossConnectivityFake.ConnectionValue = true;
+            _sut.Round.Enabled = false;
 
             //Act
-            var canExecuteStartRoundCommand = _sut.EndRoundCommand.CanExecute(null);
+            var canExecuteEndRoundCommand = _sut.EndRoundCommand.CanExecute(null);
 
             //Assert
-            Assert.That(canExecuteStartRoundCommand, Is.EqualTo(true));
+            Assert.That(canExecuteEndRoundCommand, Is.EqualTo(true));
         }
 
         [Test]
@@ -86,14 +106,15 @@ namespace BoektQuiz.Tests
         {
             //Arrange
             _crossConnectivityFake.ConnectionValue = false;
+            _sut.Round.Enabled = false;
 
             //Act
-            var canExecuteStartRoundCommandBeforeConnectionChange = _sut.EndRoundCommand.CanExecute(null);
+            var canExecuteEndRoundCommandBeforeConnectionChange = _sut.EndRoundCommand.CanExecute(null);
             _crossConnectivityFake.ConnectionValue = true;
-            var canExecuteStartRoundCommandAfterConnectionChange = _sut.EndRoundCommand.CanExecute(null);
+            var canExecuteEndRoundCommandAfterConnectionChange = _sut.EndRoundCommand.CanExecute(null);
 
             //Assert
-            Assert.That(canExecuteStartRoundCommandBeforeConnectionChange, Is.Not.EqualTo(canExecuteStartRoundCommandAfterConnectionChange));
+            Assert.That(canExecuteEndRoundCommandBeforeConnectionChange, Is.Not.EqualTo(canExecuteEndRoundCommandAfterConnectionChange));
         }
 
         [Test]
@@ -106,6 +127,29 @@ namespace BoektQuiz.Tests
             //Assert
             _roundRepositoryMock.Verify(repo => repo.UpdateRoundAsync(_sut.Round), Times.Once);
             _navigationServiceMock.Verify(nav => nav.ReturnToRoot(), Times.Once);
+        }
+
+        [Test]
+        public void ReloadRoundCommand_ShouldReloadRoundAndReEvaluateEndRoundCommandCanExecute()
+        {
+            //Arrange
+            _crossConnectivityFake.ConnectionValue = true;
+
+            var roundBeforeReload = new Round() { Id = _sut.Round.Id, Name = _sut.Round.Name, Enabled = _sut.Round.Enabled, Questions = _sut.Round.Questions };
+            var canExecuteEndRoundCommandBeforeReload = _sut.EndRoundCommand.CanExecute(null);
+
+            /*To simulate Round state change from JuryApp */
+            _round.Enabled = false;
+            /*To simulate Round state change from JuryApp */
+
+            //Act
+            _sut.ReloadRoundCommand.Execute(null);
+            var canExecuteEndRoundCommandAfterReload = _sut.EndRoundCommand.CanExecute(null);
+
+            //Assert
+            Assert.That(roundBeforeReload, Is.Not.EqualTo(_sut.Round));
+            Assert.That(canExecuteEndRoundCommandBeforeReload, Is.Not.EqualTo(canExecuteEndRoundCommandAfterReload));
+            _backendServiceMock.Verify(backend => backend.GetRoundById(It.IsAny<Int32>(), It.IsAny<String>()), Times.AtLeastOnce); //Normally it should be triggered once but because of the _sender constructor in the SetUp, it's triggered twice.
         }
 
         private void FillInAnswers()
@@ -121,7 +165,7 @@ namespace BoektQuiz.Tests
         {
             var questions = GenerateQuestionsList();
 
-            return new Round() { Id = 1, Name = "Ronde 1", Questions = questions };
+            return new Round() { Id = 1, Name = "Ronde 1", Enabled = true, Questions = questions };
         }
 
         private Team GenerateTeam()

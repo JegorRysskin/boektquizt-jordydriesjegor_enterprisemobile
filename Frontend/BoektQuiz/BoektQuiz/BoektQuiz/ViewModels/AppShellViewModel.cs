@@ -17,6 +17,8 @@ namespace BoektQuiz.ViewModels
         public AppShellViewModel(IBackendService backendService)
         {
             _backendService = backendService;
+
+            LoadRounds();
         }
 
         public void LoadRounds()
