@@ -29,7 +29,7 @@ namespace JuryApp.ViewModels
 
             SelectedQuiz = _messengerCache.CachedSelectedQuiz;
             Messenger.Default.Register<Quiz>(this, (quiz) => { SelectedQuiz = quiz; });
-            FetchListOfQuizzes(true);
+            FetchListOfQuizzes();
         }
 
 
@@ -79,9 +79,9 @@ namespace JuryApp.ViewModels
             });
         }
 
-        private async void FetchListOfQuizzes(bool forceRefresh)
+        private async void FetchListOfQuizzes()
         {
-            var quizzes = await _quizService.GetAllQuizzes(forceRefresh);
+            var quizzes = await _quizService.GetAllQuizzes();
 
             AllQuizzes.Clear();
             foreach (var quiz in quizzes)

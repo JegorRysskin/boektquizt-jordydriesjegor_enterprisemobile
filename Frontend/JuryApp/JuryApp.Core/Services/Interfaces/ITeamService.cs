@@ -6,7 +6,7 @@ namespace JuryApp.Core.Services.Interfaces
 {
     public interface ITeamService
     {
-        Task<Teams> GetAllTeams(bool forceRefresh);
+        Task<Teams> GetAllTeams();
         Task<Team> GetTeamById(int id);
         Task<bool> DeleteTeam(int id);
         Task<bool> PatchTeamScore(int id, int score);

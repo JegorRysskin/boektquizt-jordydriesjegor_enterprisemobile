@@ -6,7 +6,7 @@ namespace JuryApp.Core.Services.Interfaces
 {
     public interface IRoundService
     {
-        Task<Rounds> GetAllRoundsByEnabledQuiz(bool forceRefresh);
+        Task<Rounds> GetAllRoundsByEnabledQuiz();
         Task<bool> EditRound(int id, Round editedRound);
     }
 }

@@ -14,9 +14,9 @@ namespace JuryApp.Core.Services
             _httpDataService = new HttpDataService();
         }
 
-        public async Task<Teams> GetAllTeams(bool forceRefresh)
+        public async Task<Teams> GetAllTeams()
         {
-            var result = await _httpDataService.GetAsync<Teams>("team", await LoginService.Login(), forceRefresh);
+            var result = await _httpDataService.GetAsync<Teams>("team", await LoginService.Login());
             return result;
         }
 
