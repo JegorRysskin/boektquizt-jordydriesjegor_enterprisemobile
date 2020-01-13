@@ -14,6 +14,7 @@ namespace BoektQuiz.Tests
     [TestFixture]
     public class AppShellViewModelTests
     {
+        private CrossConnectivityFake _crossConnectivityFake;
         private Mock<IBackendService> _backendServiceMock;
         private List<Round> _allRounds;
         private AppShell _shell;
@@ -21,20 +22,41 @@ namespace BoektQuiz.Tests
         [SetUp]
         public void SetUp()
         {
+            _crossConnectivityFake = new CrossConnectivityFake();
+
             _backendServiceMock = new Mock<IBackendService>();
             _allRounds = GenerateRoundsList();
             _backendServiceMock.Setup(backend => backend.GetAllRounds(It.IsAny<String>())).ReturnsAsync(_allRounds);
+
+            Connectivity.Instance = _crossConnectivityFake;
         }
 
         [Test]
-        public void Constructor_ShouldLoadAllRounds()
+        public void Constructor_ShouldLoadAllRounds_IfConnectionIsEstablished()
         {
+            //Arrange
+            _crossConnectivityFake.ConnectionValue = true;
+
             //Act
             var sut = new AppShellViewModel(_backendServiceMock.Object);
 
             //Assert
             Assert.That(sut.Rounds, Is.EqualTo(_allRounds));
             _backendServiceMock.Verify(backend => backend.GetAllRounds(It.IsAny<String>()), Times.Once);
+        }
+
+        [Test]
+        public void Constructor_ShouldLoadNothing_IfNoConnectionIsEstablished()
+        {
+            //Arrange
+            _crossConnectivityFake.ConnectionValue = false;
+
+            //Act
+            var sut = new AppShellViewModel(_backendServiceMock.Object);
+
+            //Assert
+            Assert.Null(sut.Rounds);
+            _backendServiceMock.Verify(backend => backend.GetAllRounds(It.IsAny<String>()), Times.Never);
         }
 
         private List<Round> GenerateRoundsList()

@@ -48,10 +48,11 @@ namespace BoektQuiz.Tests
         }
 
         [Test]
-        public void StartRoundCommand_IfConnectionIsEstablishedShouldntBeAbleToExecute()
+        public void StartRoundCommand_IfConnectionIsEstablishedAndRoundEnabled_ShouldntBeAbleToExecute()
         {
             //Arrange
             _crossConnectivityFake.ConnectionValue = true;
+            _sut.Round.Enabled = true;
 
             //Act
             var canExecuteStartRoundCommand = _sut.StartRoundCommand.CanExecute(null);
@@ -61,10 +62,25 @@ namespace BoektQuiz.Tests
         }
 
         [Test]
-        public void StartRoundCommand_IfNoConnectionIsEstablishedShouldBeAbleToExecute()
+        public void StartRoundCommand_IfNoConnectionIsEstablishedAndRoundDisabled_ShouldntBeAbleToExecute()
         {
             //Arrange
             _crossConnectivityFake.ConnectionValue = false;
+            _sut.Round.Enabled = false;
+
+            //Act
+            var canExecuteStartRoundCommand = _sut.StartRoundCommand.CanExecute(null);
+
+            //Assert
+            Assert.That(canExecuteStartRoundCommand, Is.EqualTo(false));
+        }
+
+        [Test]
+        public void StartRoundCommand_IfNoConnectionIsEstablishedAndRoundEnabled_ShouldBeAbleToExecute()
+        {
+            //Arrange
+            _crossConnectivityFake.ConnectionValue = false;
+            _sut.Round.Enabled = true;
 
             //Act
             var canExecuteStartRoundCommand = _sut.StartRoundCommand.CanExecute(null);
@@ -78,6 +94,7 @@ namespace BoektQuiz.Tests
         {
             //Arrange
             _crossConnectivityFake.ConnectionValue = false;
+            _sut.Round.Enabled = true;
 
             //Act
             var canExecuteStartRoundCommandBeforeConnectionChange = _sut.StartRoundCommand.CanExecute(null);
@@ -101,9 +118,32 @@ namespace BoektQuiz.Tests
             _navigationServiceMock.Verify(nav => nav.NavigateToAsync(RoutingConstants.QuestionRoute), Times.Once);
         }
 
+        [Test]
+        public void ReloadRoundCommand_ShouldReloadRoundAndReEvaluateStartRoundCommandCanExecute()
+        {
+            //Arrange
+            _crossConnectivityFake.ConnectionValue = false;
+
+            var roundBeforeReload = new Round() { Id = _sut.Round.Id, Name = _sut.Round.Name, Enabled = _sut.Round.Enabled, Questions = _sut.Round.Questions };
+            var canExecuteStartRoundCommandBeforeReload = _sut.StartRoundCommand.CanExecute(null);
+
+            /*To simulate Round state change from JuryApp */
+            _round.Enabled = true;
+            /*To simulate Round state change from JuryApp */
+
+            //Act
+            _sut.ReloadRoundCommand.Execute(null);
+            var canExecuteStartRoundCommandAfterReload = _sut.StartRoundCommand.CanExecute(null);
+
+            //Assert
+            Assert.That(roundBeforeReload, Is.Not.EqualTo(_sut.Round));
+            Assert.That(canExecuteStartRoundCommandBeforeReload, Is.Not.EqualTo(canExecuteStartRoundCommandAfterReload));
+            _backendServiceMock.Verify(backend => backend.GetRoundById(It.IsAny<Int32>(), It.IsAny<String>()), Times.AtLeastOnce); //Normally it should be triggered once but because of the _sut constructor in the SetUp, it's triggered twice.
+        }
+
         private Round GenerateRound()
         {
-            return new Round { Id = 1, Name = "Ronde 1", Questions = GenerateQuestionsList(1) };
+            return new Round { Id = 1, Name = "Ronde 1", Enabled = false, Questions = GenerateQuestionsList(1) };
         }
 
         private Team GenerateTeam()
