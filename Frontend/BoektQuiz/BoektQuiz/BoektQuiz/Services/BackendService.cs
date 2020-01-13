@@ -171,5 +171,28 @@ namespace BoektQuiz.Services
                 return response.StatusCode;
             }
         }
+
+        public async Task<HttpStatusCode> SendRoundStartedConfirmation(int teamId, int roundId, string token)
+        {
+            var teamModel = new TeamModel() { TeamId = teamId };
+
+            var json = JsonConvert.SerializeObject(teamModel);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                client.DefaultRequestHeaders.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                var method = new HttpMethod("PATCH");
+                var request = new HttpRequestMessage(method, baseUrl + "round/teams/" + roundId)
+                {
+                    Content = data
+                };
+
+                var response = await client.SendAsync(request).ConfigureAwait(false);
+
+                return response.StatusCode;
+            }
+        }
     }
 }

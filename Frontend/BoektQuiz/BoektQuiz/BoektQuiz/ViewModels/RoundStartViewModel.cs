@@ -5,6 +5,8 @@ using Plugin.Connectivity.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -34,6 +36,8 @@ namespace BoektQuiz.ViewModels
 
         public Command ReloadRoundCommand { get; set; }
 
+        public HttpStatusCode ConfirmationStatusCode { get; set; }
+
         public RoundStartViewModel(INavigationService navigationService, IBackendService backendService, int id)
         {
             _backendService = backendService;
@@ -52,6 +56,7 @@ namespace BoektQuiz.ViewModels
                 Team = _backendService.GetTeamByToken(_token).Result;
                 Team.Answers = GenerateEmptyAnswerList();
             }
+
             _navigationService = navigationService;
             Connectivity.Instance.ConnectivityChanged += HandleConnectivityChanged;
             ReloadRoundCommand = new Command(async () => await ExecuteReloadRoundCommand());
@@ -76,6 +81,10 @@ namespace BoektQuiz.ViewModels
             if (Connectivity.Instance.IsConnected)
             {
                 Round = _backendService.GetRoundById(Round.Id, _token).Result;
+                if (Round.Enabled && ConfirmationStatusCode != HttpStatusCode.OK)
+                {
+                    ConfirmationStatusCode = _backendService.SendRoundStartedConfirmation(Team.Id, Round.Id, _token).Result;
+                }
             }
 
             UpdateStatus();
@@ -94,6 +103,12 @@ namespace BoektQuiz.ViewModels
                 if (Connectivity.Instance.IsConnected)
                 {
                     Round = _backendService.GetRoundById(Round.Id, _token).Result;
+
+                    if (Round.Enabled && ConfirmationStatusCode != HttpStatusCode.OK)
+                    {
+                        ConfirmationStatusCode = _backendService.SendRoundStartedConfirmation(Team.Id, Round.Id, _token).Result;
+                    }
+
                     UpdateStatus();
                     StartRoundCommand.ChangeCanExecute();
                 }
