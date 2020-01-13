@@ -14,9 +14,9 @@ namespace JuryApp.Core.Services
             _httpDataService = new HttpDataService();
         }
 
-        public async Task<Rounds> GetAllRoundsByEnabledQuiz(bool forceRefresh)
+        public async Task<Rounds> GetAllRoundsByEnabledQuiz()
         {
-            var result = await _httpDataService.GetAsync<Rounds>("round", await LoginService.Login(), forceRefresh);
+            var result = await _httpDataService.GetAsync<Rounds>("round", await LoginService.Login());
 
             return result;
         }

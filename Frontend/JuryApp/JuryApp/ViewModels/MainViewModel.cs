@@ -23,7 +23,7 @@ namespace JuryApp.ViewModels
             _teamService = teamService;
             _roundService = roundService;
             _navigationService = navigationService;
-            GetRoundsFromEnabledQuiz(true);
+            GetRoundsFromEnabledQuiz();
 
             _navigationService.Navigated += NavigationService_Navigated;
         }
@@ -35,7 +35,7 @@ namespace JuryApp.ViewModels
 
         private void RefreshTeams(Round selectedRound)
         {
-            GetRoundsFromEnabledQuiz(true);
+            GetRoundsFromEnabledQuiz();
         }
 
         private void DisableAllRounds()
@@ -71,12 +71,12 @@ namespace JuryApp.ViewModels
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            GetRoundsFromEnabledQuiz(true);
+            GetRoundsFromEnabledQuiz();
         }
 
-        private async void GetRoundsFromEnabledQuiz(bool forceRefresh)
+        private async void GetRoundsFromEnabledQuiz()
         {
-            Rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
+            Rounds = await _roundService.GetAllRoundsByEnabledQuiz();
             RaisePropertyChanged(() => Rounds);
         }
 
@@ -84,7 +84,7 @@ namespace JuryApp.ViewModels
         {
             if (selectedRound == null) return;
 
-            var teams = await _teamService.GetAllTeams(true);
+            var teams = await _teamService.GetAllTeams();
 
             TeamsBySelectedRound.Clear();
 

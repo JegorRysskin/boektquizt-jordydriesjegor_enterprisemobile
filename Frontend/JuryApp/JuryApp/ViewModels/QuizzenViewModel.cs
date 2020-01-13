@@ -23,14 +23,14 @@ namespace JuryApp.ViewModels
         {
             _quizService = quizService;
             _navigationService = navigationService;
-            FetchListOfQuizzes(false);
+            FetchListOfQuizzes();
 
             _navigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            FetchListOfQuizzes(true);
+            FetchListOfQuizzes();
         }
 
         private void NavigateToCreateQuizPage()
@@ -47,9 +47,9 @@ namespace JuryApp.ViewModels
             _navigationService.Navigate(typeof(EditQuizViewModel).FullName);
         }
 
-        private async void FetchListOfQuizzes(bool forceRefresh)
+        private async void FetchListOfQuizzes()
         {
-            var quizzes = await _quizService.GetAllQuizzes(forceRefresh);
+            var quizzes = await _quizService.GetAllQuizzes();
 
             Quizzes.Clear();
             foreach (var quiz in quizzes)

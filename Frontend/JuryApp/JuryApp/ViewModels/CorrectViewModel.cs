@@ -42,7 +42,7 @@ namespace JuryApp.ViewModels
 
             _teamRoundDictionary = new Dictionary<int, int>();
 
-            FetchListOfEnabledTeams(false);
+            FetchListOfEnabledTeams();
             _navigationService.Navigated += NavigationService_Navigated;
         }
 
@@ -72,8 +72,6 @@ namespace JuryApp.ViewModels
             if (selectedTeam == null) return;
             SelectedTeam = selectedTeam;
 
-            RoundsSelectionMode = "None";
-            RaisePropertyChanged(() => RoundsSelectionMode);
             TeamAnswersPerRound.Clear();
 
             TeamAnswers.Clear();
@@ -81,9 +79,6 @@ namespace JuryApp.ViewModels
             {
                 TeamAnswers.Add(a);
             });
-
-            RoundsSelectionMode = "Single";
-            RaisePropertyChanged(() => RoundsSelectionMode);
 
         }
 
@@ -128,14 +123,14 @@ namespace JuryApp.ViewModels
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            FetchListOfEnabledTeams(true);
-            GetRoundsFromEnabledQuiz(true);
+            FetchListOfEnabledTeams();
+            GetRoundsFromEnabledQuiz();
             TeamAnswersPerRound.Clear();
         }
 
-        private async void FetchListOfEnabledTeams(bool forceRefresh)
+        private async void FetchListOfEnabledTeams()
         {
-            var teams = await _teamService.GetAllTeams(forceRefresh);
+            var teams = await _teamService.GetAllTeams();
 
             EnabledTeams.Clear();
             foreach (var team in teams)
@@ -143,12 +138,12 @@ namespace JuryApp.ViewModels
                 if (team.TeamEnabled)
                     EnabledTeams.Add(team);
             }
-            GetRoundsFromEnabledQuiz(true);
+            GetRoundsFromEnabledQuiz();
         }
 
-        private async void GetRoundsFromEnabledQuiz(bool forceRefresh)
+        private async void GetRoundsFromEnabledQuiz()
         {
-            var rounds = await _roundService.GetAllRoundsByEnabledQuiz(forceRefresh);
+            var rounds = await _roundService.GetAllRoundsByEnabledQuiz();
 
             QuizRounds.Clear();
             foreach (var round in rounds)

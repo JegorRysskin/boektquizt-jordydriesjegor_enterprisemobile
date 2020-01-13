@@ -17,19 +17,19 @@ namespace JuryApp.ViewModels
         {
             _navigationService = navigationService;
             _teamService = teamService;
-            FetchListOfTeams(true);
+            FetchListOfTeams();
 
             _navigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            FetchListOfTeams(true);
+            FetchListOfTeams();
         }
 
-        private async void FetchListOfTeams(bool forceRefresh)
+        private async void FetchListOfTeams()
         {
-            var teams = await _teamService.GetAllTeams(forceRefresh);
+            var teams = await _teamService.GetAllTeams();
 
             Teams.Clear();
             foreach (var team in teams.OrderByDescending(team => team.TeamScore))

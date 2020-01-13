@@ -22,29 +22,28 @@ namespace JuryApp.ViewModels
         {
             _teamService = teamService;
             _navigationService = navigationService;
-            FetchListOfTeams(false);
+            FetchListOfTeams();
 
             _navigationService.Navigated += NavigationService_Navigated;
         }
 
         private void NavigationService_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
         {
-            FetchListOfTeams(true);
+            FetchListOfTeams();
         }
 
         private void NavigateToEditTeamPage(int selectedIndex)
         {
-            if (selectedIndex != -1)
-            {
-                Messenger.Default.Send(Teams[selectedIndex]);
-                _navigationService.Navigate(typeof(EditTeamViewModel).FullName);
-            }
+            if (selectedIndex == -1) return;
+
+            Messenger.Default.Send(Teams[selectedIndex]);
+            _navigationService.Navigate(typeof(EditTeamViewModel).FullName);
 
         }
 
-        private async void FetchListOfTeams(bool forceRefresh)
+        private async void FetchListOfTeams()
         {
-            var teams = await _teamService.GetAllTeams(forceRefresh);
+            var teams = await _teamService.GetAllTeams();
 
             Teams.Clear();
             foreach (var team in teams)
