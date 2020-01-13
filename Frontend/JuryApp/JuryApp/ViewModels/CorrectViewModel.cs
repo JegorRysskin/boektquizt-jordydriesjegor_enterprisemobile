@@ -52,6 +52,9 @@ namespace JuryApp.ViewModels
         private async void PatchScoreToSelectedTeam(int score)
         {
             var result = await _teamService.PatchTeamScore(SelectedTeam.TeamId, score);
+
+            SelectedTeam = await _teamService.GetTeamById(SelectedTeam.TeamId);
+            RaisePropertyChanged(() => SelectedTeam);
         }
 
         private void GetAnswersSelectedTeam(Team selectedTeam)

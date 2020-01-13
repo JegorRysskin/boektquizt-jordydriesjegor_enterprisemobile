@@ -20,6 +20,13 @@ namespace JuryApp.Core.Services
             return result;
         }
 
+        public async Task<Team> GetTeamById(int id)
+        {
+            var result = await _httpDataService.GetAsync<Team>($"team/id/{id}");
+
+            return result;
+        }
+
         public async Task<bool> DeleteTeam(int id)
         {
             var result = await _httpDataService.DeleteAsync($"users/{id}", await LoginService.Login());

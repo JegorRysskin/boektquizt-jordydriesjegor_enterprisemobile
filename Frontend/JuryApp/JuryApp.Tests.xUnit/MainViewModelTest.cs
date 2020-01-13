@@ -17,6 +17,7 @@ namespace JuryApp.Tests.XUnit
         private Quizzes _quizzes;
         private Mock<IRoundService> _roundServiceMock;
         private Mock<INavigationServiceEx> _navigationServiceExMock;
+        private Mock<ITeamService> _teamServiceMock;
         private Round _selectedRound;
         private MainViewModel _sut;
 
@@ -26,20 +27,21 @@ namespace JuryApp.Tests.XUnit
             _rounds = _quizzes.Where(q => q.QuizEnabled).FirstOrDefault().QuizRounds;
             _selectedRound = _rounds[new Random().Next(_rounds.Count)];
 
+            _teamServiceMock = new Mock<ITeamService>();
             _roundServiceMock = new Mock<IRoundService>();
             _roundServiceMock.Setup(rS => rS.GetAllRoundsByEnabledQuiz(It.IsAny<bool>())).ReturnsAsync(_rounds);
             _roundServiceMock.Setup(rS => rS.EditRound(It.IsAny<int>(), It.IsAny<Round>())).ReturnsAsync(true);
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
             _navigationServiceExMock.Setup(nS => nS.Navigate(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<NavigationTransitionInfo>())).Returns(true);
 
-            _sut = new MainViewModel(_roundServiceMock.Object, _navigationServiceExMock.Object);
+            _sut = new MainViewModel(_teamServiceMock.Object,_roundServiceMock.Object, _navigationServiceExMock.Object);
         }
 
         [Fact]
         public void Constructor_ShouldLoadRoundsFromEnabledQuiz()
         {
             //Act
-            var sut = new MainViewModel(_roundServiceMock.Object, _navigationServiceExMock.Object);
+            var sut = new MainViewModel(_teamServiceMock.Object,_roundServiceMock.Object, _navigationServiceExMock.Object);
 
             //Assert
             Assert.Equal(_rounds, sut.Rounds);
