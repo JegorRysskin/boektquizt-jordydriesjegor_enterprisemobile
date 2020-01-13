@@ -42,19 +42,12 @@ namespace JuryApp.ViewModels
         {
             if (!Rounds.Any(r => r.RoundEnabled)) return;
 
-            TeamsBySelectedRound.Clear();
-
-            SelectionMode = "None";
-            RaisePropertyChanged(() => SelectionMode);
-
             Rounds.ToList().ForEach(async r =>
             {
                 r.RoundEnabled = false;
                 await _roundService.EditRound(r.RoundId, r);
             });
 
-            SelectionMode = "Single";
-            RaisePropertyChanged(() => SelectionMode);
         }
 
         private void EnableRound(Round selectedRound)

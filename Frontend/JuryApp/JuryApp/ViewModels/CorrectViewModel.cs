@@ -72,6 +72,8 @@ namespace JuryApp.ViewModels
             if (selectedTeam == null) return;
             SelectedTeam = selectedTeam;
 
+            RoundsSelectionMode = "None";
+            RaisePropertyChanged(() => RoundsSelectionMode);
             TeamAnswersPerRound.Clear();
 
             TeamAnswers.Clear();
@@ -79,6 +81,9 @@ namespace JuryApp.ViewModels
             {
                 TeamAnswers.Add(a);
             });
+
+            RoundsSelectionMode = "Single";
+            RaisePropertyChanged(() => RoundsSelectionMode);
 
         }
 
