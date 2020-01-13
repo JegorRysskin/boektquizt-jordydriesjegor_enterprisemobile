@@ -44,7 +44,7 @@
 
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Padding="75" Margin="10" Background="{Binding RoundEnabled, Converter={StaticResource BoolToColorConverter}}">
+                            <StackPanel Padding="50" Margin="10" Background="{Binding RoundEnabled, Converter={StaticResource BoolToColorConverter}}">
                                 <TextBlock Text="{Binding RoundName}" TextAlignment="Center" MinWidth="60"/>
                             </StackPanel>
                         </DataTemplate>
@@ -70,7 +70,7 @@
 
                     <GridView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Padding="60" Margin="10" Background="#89C543">
+                            <StackPanel Padding="40" Margin="10" Background="#89C543">
                                 <TextBlock Text="{Binding TeamId}" TextAlignment="Center"/>
                                 <TextBlock Text="{Binding TeamName}" MinWidth="60" HorizontalTextAlignment="Center"/>
                             </StackPanel>
