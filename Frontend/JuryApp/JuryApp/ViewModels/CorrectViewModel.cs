@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using JuryApp.Core.Models;
 using JuryApp.Core.Models.Collections;
 using JuryApp.Core.Services;
@@ -37,7 +38,6 @@ namespace JuryApp.ViewModels
 
             FetchListOfEnabledTeams(false);
             _navigationService.Navigated += NavigationService_Navigated;
-
         }
 
         public RelayCommand<Team> GetAnswersSelectedTeamCommand => new RelayCommand<Team>(GetAnswersSelectedTeam);

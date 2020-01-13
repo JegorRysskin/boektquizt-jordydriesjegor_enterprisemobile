@@ -151,6 +151,7 @@
     <Compile Include="Activation\DefaultActivationHandler.cs" />
     <Compile Include="Services\INavigationServiceEx.cs" />
     <Compile Include="Services\NavigationServiceEx.cs" />
+    <Compile Include="Services\ServiceRegister.cs" />
     <Compile Include="ViewModels\CorrectViewModel.cs" />
     <Compile Include="ViewModels\CreateQuizViewModel.cs" />
     <Compile Include="ViewModels\EditQuizViewModel.cs" />

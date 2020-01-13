@@ -6,6 +6,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using GalaSoft.MvvmLight.Views;
+using JuryApp.ViewModels;
+using JuryApp.Views;
 
 namespace JuryApp.Services
 {
@@ -19,6 +22,20 @@ namespace JuryApp.Services
 
         private Frame _frame;
         private object _lastParamUsed;
+
+        public NavigationServiceEx()
+        {
+            Register<ShellViewModel, ShellPage>();
+            Register<MainViewModel, MainPage>();
+            Register<QuizzenViewModel, QuizzenPage>();
+            Register<TeamsViewModel, TeamsPage>();
+            Register<EditQuizViewModel, EditQuizPage>();
+            Register<CreateQuizViewModel, CreateQuizPage>();
+            Register<EditTeamViewModel, EditTeamPage>();
+            Register<ScoresViewModel, ScoresPage>();
+            Register<RoundViewModel, RoundPage>();
+            Register<CorrectViewModel, CorrectPage>();
+        }
 
         public Frame Frame
         {
@@ -139,5 +156,12 @@ namespace JuryApp.Services
         private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e) => NavigationFailed?.Invoke(sender, e);
 
         private void Frame_Navigated(object sender, NavigationEventArgs e) => Navigated?.Invoke(sender, e);
+
+        public void Register<VM, V>()
+            where VM : class
+        {
+
+            Configure(typeof(VM).FullName, typeof(V));
+        }
     }
 }

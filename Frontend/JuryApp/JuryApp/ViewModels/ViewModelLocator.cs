@@ -4,7 +4,6 @@ using JuryApp.Core.Services;
 using JuryApp.Core.Services.Interfaces;
 using JuryApp.Helpers;
 using JuryApp.Services;
-using JuryApp.Views;
 
 namespace JuryApp.ViewModels
 {
@@ -17,25 +16,18 @@ namespace JuryApp.ViewModels
 
         private ViewModelLocator()
         {
-            SimpleIoc.Default.Register<IMessengerCache, MessengerCache>();
-            MessengerCache = SimpleIoc.Default.GetInstance<IMessengerCache>();
-
             SimpleIoc.Default.Register<INavigationServiceEx, NavigationServiceEx>();
 
-            SimpleIoc.Default.Register<IQuizService, QuizService>();
-            SimpleIoc.Default.Register<IRoundService, RoundService>();
-            SimpleIoc.Default.Register<ITeamService, TeamService>();
-
             SimpleIoc.Default.Register<ShellViewModel>();
-            Register<MainViewModel, MainPage>();
-            Register<QuizzenViewModel, QuizzenPage>();
-            Register<TeamsViewModel, TeamsPage>();
-            Register<EditQuizViewModel, EditQuizPage>();
-            Register<CreateQuizViewModel, CreateQuizPage>();
-            Register<EditTeamViewModel, EditTeamPage>();
-            Register<ScoresViewModel, ScoresPage>();
-            Register<RoundViewModel, RoundPage>();
-            Register<CorrectViewModel, CorrectPage>();
+            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<QuizzenViewModel>();
+            SimpleIoc.Default.Register<TeamsViewModel>();
+            SimpleIoc.Default.Register<EditQuizViewModel>();
+            SimpleIoc.Default.Register<CreateQuizViewModel>();
+            SimpleIoc.Default.Register<EditTeamViewModel>();
+            SimpleIoc.Default.Register<ScoresViewModel>();
+            SimpleIoc.Default.Register<RoundViewModel>();
+            SimpleIoc.Default.Register<CorrectViewModel>();
         }
 
         public CorrectViewModel CorrectViewModel => SimpleIoc.Default.GetInstance<CorrectViewModel>();
@@ -60,14 +52,5 @@ namespace JuryApp.ViewModels
 
         public INavigationServiceEx NavigationService => SimpleIoc.Default.GetInstance<INavigationServiceEx>();
 
-        public IMessengerCache MessengerCache;
-
-        public void Register<VM, V>()
-            where VM : class
-        {
-            SimpleIoc.Default.Register<VM>();
-
-            NavigationService.Configure(typeof(VM).FullName, typeof(V));
-        }
     }
 }
