@@ -74,7 +74,8 @@
             </GridView>
 
             <Button x:Name="SendAnswersButton" Style="{StaticResource AccentButtonStyle}" Content="Verzend score" Margin="10" RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignBottomWithPanel="True"
-                    Command="{x:Bind ViewModel.SendScoreCommand}" CommandParameter="{Binding ElementName=TeamAnswersListView, Converter={StaticResource ListViewSelectedItemsConverter}}"  />
+                    Command="{x:Bind ViewModel.SendScoreCommand}" CommandParameter="{Binding ElementName=TeamAnswersListView, Converter={StaticResource ListViewSelectedItemsConverter}}"
+                    IsEnabled="{x:Bind ViewModel.IsNotCorrected, Mode=TwoWay}"/>
 
             <ListView x:Name="TeamAnswersListView" ItemsSource="{x:Bind ViewModel.TeamAnswersPerRound}" Width="400" SelectionMode="Multiple"
                   RelativePanel.Below="QuizRoundsGridView"

@@ -24,8 +24,10 @@ namespace JuryApp.ViewModels
 
         public Teams EnabledTeams { get; set; } = new Teams();
         public Team SelectedTeam { get; set; } = new Team();
+        public Round SelectedRound { get; set; } = new Round();
         public Answers TeamAnswers { get; set; } = new Answers();
         public Rounds QuizRounds { get; set; } = new Rounds();
+        public bool IsNotCorrected { get; set; } = true;
 
         public Answers TeamAnswersPerRound { get; set; } = new Answers();
         public string RoundsSelectionMode { get; set; } = "Single";
@@ -57,6 +59,12 @@ namespace JuryApp.ViewModels
         {
             var result = await _teamService.PatchTeamScore(SelectedTeam.TeamId, score);
             SelectedTeam.TeamScore += score;
+
+            if (!result) return;
+
+            _teamRoundDictionary.Add(SelectedTeam.TeamId, SelectedRound.RoundId);
+            IsNotCorrected = false;
+            RaisePropertyChanged(() => IsNotCorrected);
         }
 
         private void GetAnswersSelectedTeam(Team selectedTeam)
@@ -83,6 +91,10 @@ namespace JuryApp.ViewModels
         {
             if (selectedRound == null) return;
 
+            SelectedRound = selectedRound;
+
+            CheckIfCorrected();
+
             var questions = QuizRounds.First(r => r == selectedRound).RoundQuestions;
 
             TeamAnswersPerRound.Clear();
@@ -95,6 +107,22 @@ namespace JuryApp.ViewModels
                         TeamAnswersPerRound.Add(answer);
                     }
                 }
+            }
+        }
+
+        private void CheckIfCorrected()
+        {
+            _teamRoundDictionary.TryGetValue(SelectedTeam.TeamId, out var roundIdInDictionary);
+
+            if (roundIdInDictionary != SelectedRound.RoundId)
+            {
+                IsNotCorrected = true;
+                RaisePropertyChanged(() => IsNotCorrected);
+            }
+            else
+            {
+                IsNotCorrected = false;
+                RaisePropertyChanged(() => IsNotCorrected);
             }
         }
 
