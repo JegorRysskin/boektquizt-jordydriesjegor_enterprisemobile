@@ -40,10 +40,10 @@ namespace JuryApp.Tests.XUnit
             _rounds = _quizzes.Where(q => q.QuizEnabled).FirstOrDefault().QuizRounds;
 
             _teamServiceMock = new Mock<ITeamService>();
-            _teamServiceMock.Setup(tS => tS.GetAllTeams(It.IsAny<bool>())).ReturnsAsync(_teams);
+            _teamServiceMock.Setup(tS => tS.GetAllTeams()).ReturnsAsync(_teams);
             _teamServiceMock.Setup(tS => tS.PatchTeamScore(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(true);
             _roundServiceMock = new Mock<IRoundService>();
-            _roundServiceMock.Setup(rS => rS.GetAllRoundsByEnabledQuiz(It.IsAny<bool>())).ReturnsAsync(_rounds);
+            _roundServiceMock.Setup(rS => rS.GetAllRoundsByEnabledQuiz()).ReturnsAsync(_rounds);
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
 
             _sut = new CorrectViewModel(_teamServiceMock.Object, _roundServiceMock.Object, _navigationServiceExMock.Object);
@@ -58,8 +58,8 @@ namespace JuryApp.Tests.XUnit
             //Assert
             Assert.Equal(_enabledTeams, sut.EnabledTeams);
             Assert.Equal(_rounds, sut.QuizRounds);
-            _teamServiceMock.Verify(tS => tS.GetAllTeams(It.IsAny<bool>()), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
-            _roundServiceMock.Verify(rS => rS.GetAllRoundsByEnabledQuiz(It.IsAny<bool>()), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
+            _teamServiceMock.Verify(tS => tS.GetAllTeams(), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
+            _roundServiceMock.Verify(rS => rS.GetAllRoundsByEnabledQuiz(), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
         }
 
         [Fact]

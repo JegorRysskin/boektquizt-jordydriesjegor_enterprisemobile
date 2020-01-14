@@ -40,7 +40,7 @@ namespace JuryApp.Tests.XUnit
             _selectedRound = _selectedQuiz.QuizRounds[_selectedRoundIndex];
 
             _quizServiceMock = new Mock<IQuizService>();
-            _quizServiceMock.Setup(qS => qS.GetAllQuizzes(It.IsAny<bool>())).ReturnsAsync(_quizzes);
+            _quizServiceMock.Setup(qS => qS.GetAllQuizzes()).ReturnsAsync(_quizzes);
             _quizServiceMock.Setup(qS => qS.DeleteQuiz(It.IsAny<int>())).ReturnsAsync(true);
             _quizServiceMock.Setup(qS => qS.EditQuiz(It.IsAny<int>(), It.IsAny<Quiz>())).ReturnsAsync(true);
             _roundServiceMock = new Mock<IRoundService>();

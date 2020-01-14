@@ -31,7 +31,7 @@ namespace JuryApp.Tests.XUnit
             _selectedQuiz = _quizzes[_selectedIndex];
 
             _quizServiceMock = new Mock<IQuizService>();
-            _quizServiceMock.Setup(qS => qS.GetAllQuizzes(It.IsAny<bool>())).ReturnsAsync(_quizzes);
+            _quizServiceMock.Setup(qS => qS.GetAllQuizzes()).ReturnsAsync(_quizzes);
             _quizServiceMock.Setup(qS => qS.DeleteQuiz(It.IsAny<int>())).ReturnsAsync(true);
             _quizServiceMock.Setup(qS => qS.EditQuiz(It.IsAny<int>(), It.IsAny<Quiz>())).ReturnsAsync(true);
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
@@ -54,7 +54,7 @@ namespace JuryApp.Tests.XUnit
             //Assert
             Assert.Equal(_selectedQuiz, sut.SelectedQuiz);
             Assert.Equal(_quizzes, sut.AllQuizzes);
-            _quizServiceMock.Verify(qS => qS.GetAllQuizzes(It.IsAny<bool>()), Times.Exactly(3)); /*Normally it should be once but the _sender constructor in this test's constructor calls the function one time, 
+            _quizServiceMock.Verify(qS => qS.GetAllQuizzes(), Times.Exactly(3)); /*Normally it should be once but the _sender constructor in this test's constructor calls the function one time, 
                                                                                                  the _sut constructor in this test's constructor calls it a second time and this test calls it a third time*/
         }
 

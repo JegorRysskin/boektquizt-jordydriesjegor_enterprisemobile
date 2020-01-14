@@ -26,7 +26,7 @@ namespace JuryApp.Tests.XUnit
             _quizzes = GenerateQuizzesList();
 
             _quizServiceMock = new Mock<IQuizService>();
-            _quizServiceMock.Setup(qS => qS.GetAllQuizzes(It.IsAny<bool>())).ReturnsAsync(_quizzes);
+            _quizServiceMock.Setup(qS => qS.GetAllQuizzes()).ReturnsAsync(_quizzes);
             _quizServiceMock.Setup(qS => qS.AddQuiz(It.IsAny<Quiz>())).ReturnsAsync(true);
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
             _navigationServiceExMock.Setup(nS => nS.Navigate(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<NavigationTransitionInfo>())).Returns(true);

@@ -31,7 +31,7 @@ namespace JuryApp.Tests.XUnit
             _teamServiceMock = new Mock<ITeamService>();
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
             _messengerCacheMock = new Mock<IMessengerCache>();
-            _teamServiceMock.Setup(tS => tS.GetAllTeams(It.IsAny<bool>())).ReturnsAsync(_teams);
+            _teamServiceMock.Setup(tS => tS.GetAllTeams()).ReturnsAsync(_teams);
             _teamServiceMock.Setup(tS => tS.DeleteTeam(It.IsAny<int>())).ReturnsAsync(true);
             _teamServiceMock.Setup(tS => tS.EditTeam(It.IsAny<int>(), It.IsAny<Team>())).ReturnsAsync(true);
             _navigationServiceExMock.Setup(nS => nS.Navigate(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<NavigationTransitionInfo>())).Returns(true);
@@ -51,7 +51,7 @@ namespace JuryApp.Tests.XUnit
 
             //Assert
             Assert.Equal(_selectedTeam, sut.SelectedTeam);
-            _teamServiceMock.Verify(tS => tS.GetAllTeams(It.IsAny<bool>()), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
+            _teamServiceMock.Verify(tS => tS.GetAllTeams(), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
         }
 
         [Fact]

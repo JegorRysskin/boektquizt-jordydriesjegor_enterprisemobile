@@ -31,7 +31,7 @@ namespace JuryApp.Tests.XUnit
 
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
             _teamServiceMock = new Mock<ITeamService>();
-            _teamServiceMock.Setup(tS => tS.GetAllTeams(It.IsAny<bool>())).ReturnsAsync(_teams);
+            _teamServiceMock.Setup(tS => tS.GetAllTeams()).ReturnsAsync(_teams);
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
         }
 
@@ -43,7 +43,7 @@ namespace JuryApp.Tests.XUnit
 
             //Assert
             Assert.Equal(_enabledTeams, sut.Teams);
-            _teamServiceMock.Verify(tS => tS.GetAllTeams(It.IsAny<bool>()), Times.Once);
+            _teamServiceMock.Verify(tS => tS.GetAllTeams(), Times.Once);
         }
 
         private Teams GenerateTeamList()

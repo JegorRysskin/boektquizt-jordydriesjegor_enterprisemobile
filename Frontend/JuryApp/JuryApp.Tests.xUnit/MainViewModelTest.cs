@@ -29,7 +29,7 @@ namespace JuryApp.Tests.XUnit
 
             _teamServiceMock = new Mock<ITeamService>();
             _roundServiceMock = new Mock<IRoundService>();
-            _roundServiceMock.Setup(rS => rS.GetAllRoundsByEnabledQuiz(It.IsAny<bool>())).ReturnsAsync(_rounds);
+            _roundServiceMock.Setup(rS => rS.GetAllRoundsByEnabledQuiz()).ReturnsAsync(_rounds);
             _roundServiceMock.Setup(rS => rS.EditRound(It.IsAny<int>(), It.IsAny<Round>())).ReturnsAsync(true);
             _navigationServiceExMock = new Mock<INavigationServiceEx>();
             _navigationServiceExMock.Setup(nS => nS.Navigate(It.IsAny<string>(), It.IsAny<object>(), It.IsAny<NavigationTransitionInfo>())).Returns(true);
@@ -45,7 +45,7 @@ namespace JuryApp.Tests.XUnit
 
             //Assert
             Assert.Equal(_rounds, sut.Rounds);
-            _roundServiceMock.Verify(rS => rS.GetAllRoundsByEnabledQuiz(It.IsAny<bool>()), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
+            _roundServiceMock.Verify(rS => rS.GetAllRoundsByEnabledQuiz(), Times.AtLeastOnce); //Normally it's once but since the ViewModel is created in the Constructor of this test it's twice
         }
 
         [Fact]
